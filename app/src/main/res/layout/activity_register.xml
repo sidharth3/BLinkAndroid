@@ -34,9 +34,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="151dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/app_name"
@@ -45,26 +47,32 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="336dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/register_subtitle"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="201dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="296dp"
-        android:layout_height="42dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="76dp"
         android:backgroundTint="@android:color/black"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -73,13 +81,18 @@
         android:textColor="@color/design_default_color_primary_dark"
         android:textColorHint="@android:color/black"
         android:textSize="10sp"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="407dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fieldDisplayname" />
 
     <EditText
         android:id="@+id/fieldDisplayname"
         android:layout_width="296dp"
-        android:layout_height="42dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
         android:backgroundTint="@android:color/black"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -88,13 +101,17 @@
         android:textColor="@color/design_default_color_primary_dark"
         android:textColorHint="@android:color/black"
         android:textSize="10sp"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="359dp" />
+        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fieldPassword" />
 
     <EditText
         android:id="@+id/fieldUsername"
         android:layout_width="296dp"
-        android:layout_height="42dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@android:color/black"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -103,13 +120,18 @@
         android:textColor="@color/design_default_color_primary_dark"
         android:textColorHint="@android:color/black"
         android:textSize="10sp"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="273dp" />
+        app:layout_constraintBottom_toTopOf="@+id/fieldPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <EditText
         android:id="@+id/fieldPassword"
         android:layout_width="296dp"
-        android:layout_height="42dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
         android:backgroundTint="@android:color/black"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -118,19 +140,26 @@
         android:textColor="@color/design_default_color_primary_dark"
         android:textColorHint="@android:color/black"
         android:textSize="10sp"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="315dp" />
+        app:layout_constraintBottom_toTopOf="@+id/fieldDisplayname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fieldUsername" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="25dp"
         android:fontFamily="@font/montserrat"
         android:text="Already have an account?"
         android:textColor="@android:color/black"
         android:textSize="12sp"
-        tools:layout_editor_absoluteX="88dp"
-        tools:layout_editor_absoluteY="525dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <Button
         android:id="@+id/button2"
@@ -152,8 +181,10 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:elevation="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
