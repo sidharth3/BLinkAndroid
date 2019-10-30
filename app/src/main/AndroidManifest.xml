@@ -37,6 +37,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".FaceScanActivity"></activity>
+        <activity android:name=".MoreInfo"></activity>
     </application>
 
 </manifest>
