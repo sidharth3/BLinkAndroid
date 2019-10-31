@@ -27,7 +27,7 @@ public class FaceScanActivity extends AppCompatActivity {
 
 
         cameraButton = (Button)findViewById(R.id.camera_button);
-        click_image_id = (ImageView)findViewById(R.id.click_image);
+        //click_image_id = (ImageView)findViewById(R.id.click_image);
 //        confirmButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
