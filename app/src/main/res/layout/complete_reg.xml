@@ -15,38 +15,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="214dp"
+        android:layout_height="382dp"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/tick"
+        app:layout_constraintBottom_toTopOf="@+id/letsgo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.089" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="298dp"
         android:layout_height="324dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="276dp"
+        android:layout_marginTop="348dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto_bold"
         android:text="YOU'RE ALL SET"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="22sp"
+        android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/letsgo"
-        android:layout_width="261dp"
-        android:layout_height="56dp"
+        android:layout_width="222dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/button_gradient_blue"
         android:fontFamily="@font/montserrat"
         android:text="Let's GO"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
