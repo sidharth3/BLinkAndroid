@@ -23,7 +23,7 @@ public class RegComplete extends AppCompatActivity {
     }
 
     public void goHome(){
-        Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
+        Intent intent = new Intent(getApplicationContext(), TabbedEvents.class);
         startActivity(intent);
     }
 }
