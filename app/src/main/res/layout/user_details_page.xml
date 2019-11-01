@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorWhite"
-    tools:context="User">
+    tools:context=".UserDetailsActivity">
 
     <ImageView
         android:id="@+id/profile_pic"
@@ -24,11 +24,12 @@
         android:cropToPadding="false" />
 
     <TextView
+        android:id="@+id/fieldUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_pic"
         android:layout_marginTop="-500dp"
-        android:text="name"
+        android:text=
         android:textColor="#000000"
         android:gravity="center"
         android:textStyle="bold"
@@ -36,6 +37,7 @@
         android:textSize="16pt"/>
 
     <TextView
+        android:id="@+id/designation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -45,12 +47,13 @@
         android:textColor="#000000"
         android:textSize="9pt"/>
     <TextView
+        android:id="@+id/company"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="330dp"
-        android:text="company"
+        android:text=""
         android:textColor="#000000"
         android:textSize="9pt"/>
 
