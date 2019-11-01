@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_pic"
         android:layout_marginTop="-500dp"
-        android:text=
+        android:text= "@string/username"
         android:textColor="#000000"
         android:gravity="center"
         android:textStyle="bold"
@@ -43,7 +43,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="300dp"
-        android:text="position"
+        android:text="@string/designation"
         android:textColor="#000000"
         android:textSize="9pt"/>
     <TextView
@@ -53,7 +53,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="330dp"
-        android:text=""
+        android:text="@string/company"
         android:textColor="#000000"
         android:textSize="9pt"/>
 

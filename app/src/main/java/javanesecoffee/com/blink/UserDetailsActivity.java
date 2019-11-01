@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 public class UserDetailsActivity extends AppCompatActivity {
     User currentUser = new User();
+    String username = "username";
+    String designation = "designation";
+    String company = "company";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
