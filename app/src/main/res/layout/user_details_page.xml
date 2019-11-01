@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorWhite"
+    tools:context="User">
+
+    <ImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="187dp"
+        android:layout_height="186dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="500dp"
+        android:adjustViewBounds="false"
+        android:background="@drawable/circular_img"
+        android:cropToPadding="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_pic"
+        android:layout_marginTop="-500dp"
+        android:text="name"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:textSize="16pt"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="300dp"
+        android:text="position"
+        android:textColor="#000000"
+        android:textSize="9pt"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="330dp"
+        android:text="company"
+        android:textColor="#000000"
+        android:textSize="9pt"/>
+
+
+
+
+</RelativeLayout>
