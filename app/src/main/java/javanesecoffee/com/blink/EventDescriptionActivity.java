@@ -17,11 +17,12 @@ public class EventDescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.event_description_activity);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+        navListener.onNavigationItemSelected(bottomNav.getMenu().findItem(R.id.navhome));
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFrag = null;
+            Fragment selectedFrag;
             switch (item.getItemId()){
                 case R.id.navhome:
                     selectedFrag = new Home();
@@ -32,6 +33,9 @@ public class EventDescriptionActivity extends AppCompatActivity {
                 case R.id.navevent:
                     selectedFrag = new EventsFrag();
                     break;
+                default:
+                    selectedFrag = new Home();
+
             }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer,selectedFrag).commit();
             return true;
