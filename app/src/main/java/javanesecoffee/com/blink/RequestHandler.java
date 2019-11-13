@@ -1,12 +1,5 @@
-package com.example.blink;
+package javanesecoffee.com.blink;
 
-//import java.io.BufferedReader;
-//import java.io.BufferedWriter;
-//import java.io.InputStreamReader;
-//import java.io.OutputStream;
-//import java.io.OutputStreamWriter;
-//import java.io.PrintWriter;
-//import java.io.UnsupportedEncodingException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -15,20 +8,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * Created by Belal on 9/5/2017.
- */
-
+// This is a helper class for register request only
 public class RequestHandler {
     private static String DEFAULT_CHARSET = "UTF-8";
     private String boundary = "";
     private static final String LINE_FEED = "\r\n";
     private HttpURLConnection httpConn;
     private OutputStream outputStream;
+    //    private PrintWriter writer;
     private PrintWriter writer;
 
     //Constructor for regular data POST
@@ -36,23 +25,25 @@ public class RequestHandler {
 
     //Constructor for multipart formdata POST
     public RequestHandler(String request_URL){
-        boundary = "===" + System.currentTimeMillis() + "===";
+//        boundary = "===" + System.currentTimeMillis() + "===";
+        boundary = "" + System.currentTimeMillis() + "";
+
         try{
             URL url = new URL(request_URL);
             httpConn = (HttpURLConnection) url.openConnection();
             httpConn.setUseCaches(false);
             httpConn.setDoOutput(true);    // indicates POST method
             httpConn.setDoInput(true);
+//            httpConn.setRequestMethod("POST");
             httpConn.setRequestProperty("Content-Type",
                     "multipart/form-data; boundary=" + boundary);
             outputStream = httpConn.getOutputStream();
+
             writer = new PrintWriter(new OutputStreamWriter(outputStream, DEFAULT_CHARSET),
                     true);
         }catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     //this method will send a post request to the specified url
@@ -89,7 +80,7 @@ public class RequestHandler {
             int responseCode = conn.getResponseCode();
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-
+                System.out.println("OKAY");
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 sb = new StringBuilder();
                 String response;
@@ -97,6 +88,8 @@ public class RequestHandler {
                 while ((response = br.readLine()) != null) {
                     sb.append(response);
                 }
+            }else {
+                throw new IOException("Server returned non-OK status: " + responseCode);
             }
 
         } catch (Exception e) {
@@ -135,9 +128,11 @@ public class RequestHandler {
      * @param value field value
      */
     public void addFormField(String name, String value) {
+//        System.out.println("add form field");
         writer.append("--" + boundary).append(LINE_FEED);
         writer.append("Content-Disposition: form-data; name=\"" + name + "\"")
                 .append(LINE_FEED);
+//        writer.println("asdf");
         writer.append("Content-Type: text/plain; charset=" + DEFAULT_CHARSET).append(
                 LINE_FEED);
         writer.append(LINE_FEED);
@@ -203,6 +198,7 @@ public class RequestHandler {
         writer.append(LINE_FEED).flush();
         writer.append("--" + boundary + "--").append(LINE_FEED);
         writer.close();
+        outputStream.close();
 
         // checks server's status code first
         int status = httpConn.getResponseCode();
@@ -216,6 +212,7 @@ public class RequestHandler {
             reader.close();
             httpConn.disconnect();
         } else {
+            System.out.println(httpConn.getErrorStream());
             throw new IOException("Server returned non-OK status: " + status);
         }
         return response;
