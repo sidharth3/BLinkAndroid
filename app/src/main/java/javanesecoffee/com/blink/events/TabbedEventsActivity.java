@@ -15,7 +15,6 @@ import android.view.MenuItem;
 
 import javanesecoffee.com.blink.R;
 
-
 public class TabbedEventsActivity extends AppCompatActivity {
 
     /**
@@ -48,7 +47,7 @@ public class TabbedEventsActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
+        
     }
 
     @Override
