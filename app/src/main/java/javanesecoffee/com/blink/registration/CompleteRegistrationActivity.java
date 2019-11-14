@@ -9,7 +9,7 @@ import android.widget.Button;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.events.TabbedEventsActivity;
 
-public class RegComplete extends AppCompatActivity {
+public class CompleteRegistrationActivity extends AppCompatActivity {
     Button letsgo;
 
 

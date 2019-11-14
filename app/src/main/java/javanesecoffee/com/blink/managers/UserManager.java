@@ -7,7 +7,7 @@ import java.util.*;
 import javanesecoffee.com.blink.RequestHandler;
 
 
-public class UserRequestManager {
+public class UserManager {
     //TODO update ROOT_URL
     private static final String ROOT_URL = "http://10.12.185.214";
     private static final String LOGIN_URL = ROOT_URL+"/login";
@@ -20,7 +20,7 @@ public class UserRequestManager {
      * @param username username for login
      * @param password password for login
      */
-    public static boolean login(String username, String password)
+    public static boolean Login(String username, String password)
     {
         RequestHandler requestHandler = new RequestHandler();
         //creating request parameters
@@ -52,7 +52,7 @@ public class UserRequestManager {
      */
 //    public static boolean register(String username, File faceimage){
 
-    public static boolean register(String username, String password, String first_name, String last_name, String email, String birth_year, File image_file){
+    public static boolean Register(String username, String password, String first_name, String last_name, String email, String birth_year, File image_file){
 
         RequestHandler register_req_handler = new RequestHandler(REGISTER_URL);
         String out_response = "";
@@ -86,7 +86,7 @@ public class UserRequestManager {
     }
 
 
-    public static boolean connect(String username, File image_file){
+    public static boolean Connect(String username, File image_file){
 
         RequestHandler register_req_handler = new RequestHandler(CONNECT_URL);
         String out_response = "";
