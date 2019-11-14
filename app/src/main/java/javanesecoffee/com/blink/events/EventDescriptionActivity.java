@@ -1,16 +1,16 @@
-package javanesecoffee.com.blink;
+package javanesecoffee.com.blink.events;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
+
+import javanesecoffee.com.blink.CameraFrag;
+import javanesecoffee.com.blink.Home;
+import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.events.EventsFrag;
 
 public class EventDescriptionActivity extends AppCompatActivity {
     //get the details of the event from the server and display them
