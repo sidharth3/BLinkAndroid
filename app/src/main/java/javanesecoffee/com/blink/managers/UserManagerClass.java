@@ -1,8 +1,10 @@
-package com.example.blink;
+package javanesecoffee.com.blink.managers;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+
+import javanesecoffee.com.blink.RequestHandler;
 
 import static android.content.ContentValues.TAG;
 

@@ -23,7 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".RegisterActivity">
+        <activity
+            android:name=".registration.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,14 +36,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".FaceScanActivity" />
-        <activity android:name=".MoreInfo" />
-        <activity android:name=".RegComplete" />
-        <activity android:name=".EventDescriptionActivity" />
-        <activity
-            android:name=".TabbedEvents"
-            android:label="@string/title_activity_tabbed_events"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name=".registration.FaceScanActivity"></activity>
+        <activity android:name=".MoreInfo"></activity>
+        <activity android:name=".registration.RegComplete"></activity>
+        <activity android:name=".events.EventDescriptionActivity"></activity>
+        <activity android:name=".events.TabbedEventsActivity"></activity>
     </application>
 
 </manifest>
