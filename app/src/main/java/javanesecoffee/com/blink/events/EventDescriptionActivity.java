@@ -28,15 +28,13 @@ public class EventDescriptionActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFrag;
             switch (item.getItemId()){
-                case R.id.navhome:
-                    selectedFrag = new Home();
-                    break;
                 case R.id.navcam:
                     selectedFrag = new CameraFrag();
                     break;
                 case R.id.navevent:
                     selectedFrag = new EventsFrag();
                     break;
+                case R.id.navhome:
                 default:
                     selectedFrag = new Home();
 

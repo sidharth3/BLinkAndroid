@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.events.EventDescriptionActivity;
 import javanesecoffee.com.blink.events.TabbedEventsActivity;
 
 public class RegComplete extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class RegComplete extends AppCompatActivity {
     }
 
     public void goHome(){
-        Intent intent = new Intent(getApplicationContext(), TabbedEventsActivity.class);
+        Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
         startActivity(intent);
     }
 }
