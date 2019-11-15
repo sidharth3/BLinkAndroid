@@ -5,14 +5,19 @@ import java.io.IOException;
 import java.util.*;
 
 import javanesecoffee.com.blink.RequestHandler;
+import javanesecoffee.com.blink.entities.User;
 
 
 public class UserManager {
     //TODO update ROOT_URL
-    private static final String ROOT_URL = "http://10.12.185.214";
+//    private static final String ROOT_URL = "http://10.12.185.214";
+    private static final String ROOT_URL = "http://192.168.1.88";
     private static final String LOGIN_URL = ROOT_URL+"/login";
     private static final String REGISTER_URL = ROOT_URL+"/register";
+    private static final String REGISTER_FACE_URL = ROOT_URL+"/registerFace";
     private static final String CONNECT_URL = ROOT_URL+"/connect";
+
+    private static User loggedInUser;
 
     /**
      * Send a login request to the URL
@@ -31,6 +36,10 @@ public class UserManager {
         //returning the response
         String respond = requestHandler.sendPostRequest("http://10.12.185.214/connect", params);
         System.out.println(respond);
+
+        //TODO: CREATE ACTUAL USER ON LOG IN
+        setLoggedInUser(new User("mooselliot", "email", "company"));
+
         if (respond.equals("success")){
             return true;
         }else{
@@ -38,6 +47,17 @@ public class UserManager {
         }
 
     }
+
+    public static User getLoggedInUser() {
+        //TODO: TESTING ONLY
+//        return loggedInUser;
+        return new User("mooselliot", "email", "company");
+    }
+
+    public static void setLoggedInUser(User loggedInUser) {
+        UserManager.loggedInUser = loggedInUser;
+    }
+
     /**
      * Send a register request to the URL
      *
@@ -51,6 +71,7 @@ public class UserManager {
      *
      */
 //    public static boolean register(String username, File faceimage){
+
 
     public static boolean Register(String username, String password, String first_name, String last_name, String email, String birth_year, File image_file){
 
@@ -75,6 +96,10 @@ public class UserManager {
                 out_response = line;
             }
             if(out_response.equals("success")){
+
+                //TODO: CREATE ACTUAL USER ON LOG IN
+                setLoggedInUser(new User("mooselliot", "email", "company"));
+
                 return true;
             }
             return false;
@@ -85,6 +110,35 @@ public class UserManager {
         return false;
     }
 
+    public static boolean RegisterFace(File image_file, String username){
+
+        RequestHandler register_req_handler = new RequestHandler(REGISTER_FACE_URL);
+        String out_response = "";
+        register_req_handler.addFormField("username", username);
+
+        try {
+            register_req_handler.addFilePart("image_file", image_file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            List<String> response = register_req_handler.finish();
+            for (String line : response) {
+                System.out.println("Upload Files Response:::" + line);
+                // get your server response here.
+                out_response = line;
+            }
+            if(out_response.equals("success")){
+                return true;
+            }
+            return false;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public static boolean Connect(String username, File image_file){
 
@@ -92,7 +146,7 @@ public class UserManager {
         String out_response = "";
         register_req_handler.addFormField("username", username);
         try {
-            register_req_handler.addFilePart("selfie_image", image_file);
+            register_req_handler.addFilePart("image_file", image_file);
         } catch (IOException e) {
             e.printStackTrace();
         }

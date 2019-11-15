@@ -2,6 +2,7 @@ package javanesecoffee.com.blink.registration;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -15,17 +16,20 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.api.register.RegisterFaceTask;
+import javanesecoffee.com.blink.entities.User;
+import javanesecoffee.com.blink.managers.UserManager;
 
 public class FaceScanActivity extends AppCompatActivity {
     private static final int pic_id = 123;
-    private String pictureFilePath;
     static final int REQUEST_PIC_CAPTURE = 1;
+
     Button cameraButton;
     ImageView click_image_id;
+    private File imageFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,85 +37,90 @@ public class FaceScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.face_scan_activity);
 
+        //reset image
+        if (imageFile != null) {
+            imageFile.delete();
+        }
 
         cameraButton = (Button)findViewById(R.id.camera_button);
-        //click_image_id = (ImageView)findViewById(R.id.click_image);
-//        confirmButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                MoveNext();
-//            }
-//        });
-
-
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
 
+
             @Override
-            public void onClick(View v)
-            {
-                    Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    camera_intent.putExtra(MediaStore.EXTRA_FINISH_ON_COMPLETION, true);
-                    if(camera_intent.resolveActivity(getPackageManager())!=null){
-                        startActivityForResult(camera_intent,REQUEST_PIC_CAPTURE);
-                        File pictureFile;
+            public void onClick(View v) {
+                Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                        try{
-                            pictureFile = getPictureFile();
-                        }
-                        catch(IOException ex){
-                            Log.d("ImageError", "Retake Photo");
-                            return;
-                        }
-                        if(pictureFile!=null){
-                            Uri photoUri = FileProvider.getUriForFile(FaceScanActivity.this, "com.javanesecoffee.blink", pictureFile);
-                            camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                            startActivityForResult(camera_intent, REQUEST_PIC_CAPTURE);
-                        }
+                try {
+                    //create file to store image in
+                    String pictureFileName = "RegisterFaceScan" + Calendar.getInstance().getTimeInMillis();
+                    File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                    imageFile = File.createTempFile(pictureFileName, ".jpg", storageDir);
+
+                    //if there is an activity to push camera from
+                    if (camera_intent.resolveActivity(getPackageManager()) != null) {
+                        //retrieve uri
+                        String provider = getPackageName();
+                        Uri photoUri = FileProvider.getUriForFile(FaceScanActivity.this, provider, imageFile);
+                        //put uri as target file for picture
+                        camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                        //push camera
+                        startActivityForResult(camera_intent, REQUEST_PIC_CAPTURE);
                     }
+                } catch (IOException e) {
+                    imageFile.delete();
 
-//                Intent camera_intent
-//                        = new Intent(MediaStore
-//                        .ACTION_IMAGE_CAPTURE);
-//                try
-//                {
-//                    if(camera_intent.resolveActivity(getPackageManager())!=null) {
-//                        startActivityForResult(camera_intent, pic_id);
-//                    }
-//                }
-//                catch (Exception e)
-//                {
-//                    System.out.println(e);
-//                }
+                    Log.d("ImageError", e.toString());
+                    Toast.makeText(getApplicationContext(), "Please try again as the image could not be saved", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
             }
         });
     }
+
     public void MoveNext(){
         Intent intent = new Intent(getApplicationContext(), MoreInfoActivity.class);
         startActivity(intent);
     }
+
     protected void onActivityResult(int requestCode,
                                     int resultCode,
                                     Intent data) {
-        MoveNext();
-//        if (requestCode == pic_id) {
-//            Bitmap photo = (Bitmap)data.getExtras()
-//                    .get("data");
-//            click_image_id.setImageBitmap(photo);
-//        }
-    }
-//    public void onActivityResult(int requestcode, int resultcode, Intent data){
-//        super.onActivityResult(requestcode, resultcode, data);
-//        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-//        imageview.setImageBitmap(bitmap);
-//    }
-    private File getPictureFile() throws IOException{
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        String pictureFile = "UserRegister_" + timeStamp;
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(pictureFile, ".jpg", storageDir);
-        pictureFilePath = image.getAbsolutePath();
-        return image;
+
+        if (requestCode == REQUEST_PIC_CAPTURE) {
+            //check has image
+            if (imageFile == null) {
+                Toast.makeText(getApplicationContext(), "The file has not been stored, hence the face could not be registered", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            //check has user
+            User user = UserManager.getLoggedInUser();
+            if(user == null) {
+                Toast.makeText(getApplicationContext(), "There is no user logged in at this moment", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            //check has username
+            String username = user.getUsername();
+            if(username == null) {
+                Toast.makeText(getApplicationContext(), "There is no username attached to this user", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            //register face
+            try {
+//                UserManager.RegisterFace(imageFile, username);
+                new RegisterFaceTask().execute(username, imageFile.getPath());
+
+                MoveNext();
+            } catch (Exception e) {
+                Log.d("RegisterFaceError", e.toString());
+                Toast.makeText(getApplicationContext(), "There was an error communicating to the server", Toast.LENGTH_LONG).show();
+            }
+        }
+
 
     }
 }
