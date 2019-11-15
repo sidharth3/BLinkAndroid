@@ -8,9 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import javanesecoffee.com.blink.CameraFrag;
-import javanesecoffee.com.blink.Home;
+import javanesecoffee.com.blink.HomeFrag;
 import javanesecoffee.com.blink.R;
-import javanesecoffee.com.blink.events.EventsFrag;
 
 public class EventDescriptionActivity extends AppCompatActivity {
     //get the details of the event from the server and display them
@@ -36,7 +35,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     break;
                 case R.id.navhome:
                 default:
-                    selectedFrag = new Home();
+                    selectedFrag = new HomeFrag();
 
             }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer,selectedFrag).commit();

@@ -15,7 +15,7 @@ import javanesecoffee.com.blink.R;
 
 public class EventsFrag extends Fragment {
     @Nullable
-   // private TabbedEvents.SectionsPagerAdapter mSectionsPagerAdapter;
+    private TabbedEventsActivity.SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 //        Toolbar toolbar = (Toolbar)getView().findViewById(R.id.toolbar);

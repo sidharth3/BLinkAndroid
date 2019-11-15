@@ -1,19 +1,13 @@
 package javanesecoffee.com.blink.registration;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import java.util.BitSet;
-
-import javanesecoffee.com.blink.MoreInfo;
 import javanesecoffee.com.blink.R;
 
 public class FaceScanActivity extends AppCompatActivity {
@@ -62,7 +56,7 @@ public class FaceScanActivity extends AppCompatActivity {
         });
     }
     public void MoveNext(){
-        Intent intent = new Intent(getApplicationContext(), MoreInfo.class);
+        Intent intent = new Intent(getApplicationContext(), MoreInfoActivity.class);
         startActivity(intent);
     }
     protected void onActivityResult(int requestCode,

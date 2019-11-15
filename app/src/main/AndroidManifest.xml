@@ -37,8 +37,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".registration.FaceScanActivity"></activity>
-        <activity android:name=".MoreInfo"></activity>
-        <activity android:name=".registration.RegComplete"></activity>
+        <activity android:name=".registration.MoreInfoActivity"></activity>
+        <activity android:name=".registration.CompleteRegistrationActivity"></activity>
         <activity android:name=".events.EventDescriptionActivity"></activity>
         <activity android:name=".events.TabbedEventsActivity"></activity>
     </application>
