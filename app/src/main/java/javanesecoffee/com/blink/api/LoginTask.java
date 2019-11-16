@@ -1,4 +1,4 @@
-package javanesecoffee.com.blink.api.login;
+package javanesecoffee.com.blink.api;
 
 import android.os.AsyncTask;
 

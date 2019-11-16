@@ -1,14 +1,24 @@
 package javanesecoffee.com.blink.managers;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import javanesecoffee.com.blink.RequestHandler;
+import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.api.AsyncResponseHandler;
+import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.RegisterFaceTask;
+import javanesecoffee.com.blink.constants.Endpoints;
+import javanesecoffee.com.blink.helpers.RequestHandler;
 import javanesecoffee.com.blink.entities.User;
 
 
-public class UserManager {
+public class UserManager implements AsyncResponseHandler {
     //TODO update ROOT_URL
 //    private static final String ROOT_URL = "http://10.12.185.214";
     private static final String ROOT_URL = "http://192.168.1.88";
@@ -16,6 +26,12 @@ public class UserManager {
     private static final String REGISTER_URL = ROOT_URL+"/register";
     private static final String REGISTER_FACE_URL = ROOT_URL+"/registerFace";
     private static final String CONNECT_URL = ROOT_URL+"/connect";
+
+    public static UserManager singleton = new UserManager();
+
+    public static UserManager getInstance() {
+        return singleton;
+    }
 
     private static User loggedInUser;
 
@@ -25,9 +41,10 @@ public class UserManager {
      * @param username username for login
      * @param password password for login
      */
+    //TODO: change format to fit RegisterFace request format
     public static boolean Login(String username, String password)
     {
-        RequestHandler requestHandler = new RequestHandler();
+        RequestHandler requestHandler = new RequestHandler(Endpoints.LOGIN);
         //creating request parameters
         HashMap<String, String> params = new HashMap<>();
         params.put("username", username);
@@ -72,99 +89,67 @@ public class UserManager {
      */
 //    public static boolean register(String username, File faceimage){
 
-
-    public static boolean Register(String username, String password, String first_name, String last_name, String email, String birth_year, File image_file){
-
-        RequestHandler register_req_handler = new RequestHandler(REGISTER_URL);
-        String out_response = "";
-        register_req_handler.addFormField("username", username);
-        register_req_handler.addFormField("password", password);
-        register_req_handler.addFormField("first_name", first_name);
-        register_req_handler.addFormField("last_name", last_name);
-        register_req_handler.addFormField("email", email);
-        register_req_handler.addFormField("birth_year", birth_year);
+    //TODO: change format to fit RegisterFace request format
+    public static boolean Register(String username, String password, String first_name, String last_name, String email, String birth_year, File image_file) throws BLinkApiException {
         try {
+            RequestHandler register_req_handler = new RequestHandler(REGISTER_URL);
+            register_req_handler.addFormField("username", username);
+            register_req_handler.addFormField("password", password);
+            register_req_handler.addFormField("first_name", first_name);
+            register_req_handler.addFormField("last_name", last_name);
+            register_req_handler.addFormField("email", email);
+            register_req_handler.addFormField("birth_year", birth_year);
+
             register_req_handler.addFilePart("image_file", image_file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            List<String> response = register_req_handler.finish();
-            for (String line : response) {
-                System.out.println("Upload Files Response:::" + line);
-                // get your server response here.
-                out_response = line;
-            }
-            if(out_response.equals("success")){
 
+            JSONObject response = register_req_handler.finish();
+            Boolean success = response.getBoolean("success");
+
+            if(success)
+            {
                 //TODO: CREATE ACTUAL USER ON LOG IN
                 setLoggedInUser(new User("mooselliot", "email", "company"));
-
                 return true;
             }
-            return false;
-
         } catch (IOException e) {
             e.printStackTrace();
+            throw new BLinkApiException("REGISTER_FAILED", "Request Failed");
         }
+        catch (JSONException e) {
+            e.printStackTrace();
+            throw new BLinkApiException("REGISTER_MALFORMED_DATA","The server's response was invalid");
+        }
+
         return false;
     }
 
-    public static boolean RegisterFace(File image_file, String username){
-
-        RequestHandler register_req_handler = new RequestHandler(REGISTER_FACE_URL);
-        String out_response = "";
-        register_req_handler.addFormField("username", username);
-
-        try {
-            register_req_handler.addFilePart("image_file", image_file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            List<String> response = register_req_handler.finish();
-            for (String line : response) {
-                System.out.println("Upload Files Response:::" + line);
-                // get your server response here.
-                out_response = line;
-            }
-            if(out_response.equals("success")){
-                return true;
-            }
-            return false;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public static void RegisterFace(File image_file, String username){
+        RegisterFaceTask task = new RegisterFaceTask(getInstance(), R.string.TASK_REGISTER_FACE); //pass singleton in as handler, and taskId to identify task
+        task.execute(username, image_file.getPath()); //pass in params
     }
 
-    public static boolean Connect(String username, File image_file){
+    @Override
+    public void onAsyncTaskComplete(JSONObject response, int responseCode) {
+        if(responseCode == R.string.TASK_REGISTER_FACE)
+        {
+            Log.d("TASK_REGISTER_FACE", response.toString());
+        }
+    }
 
-        RequestHandler register_req_handler = new RequestHandler(CONNECT_URL);
-        String out_response = "";
-        register_req_handler.addFormField("username", username);
+    //TODO: change format to fit RegisterFace request format
+    public static void Connect(String username, File image_file) throws BLinkApiException{
         try {
+            RequestHandler register_req_handler = new RequestHandler(CONNECT_URL);
+            register_req_handler.addFormField("username", username);
             register_req_handler.addFilePart("image_file", image_file);
+            register_req_handler.finish();
         } catch (IOException e) {
             e.printStackTrace();
+            throw new BLinkApiException("REGISTER_FACE_FAILED", "Request Failed");
         }
-        try {
-            List<String> response = register_req_handler.finish();
-            for (String line : response) {
-                System.out.println("Upload Files Response:::" + line);
-                // get your server response here.
-                out_response = line;
-            }
-            if(out_response.equals("success")){
-                return true;
-            }
-            return false;
-
-        } catch (IOException e) {
+        catch (JSONException e) {
             e.printStackTrace();
+            throw new BLinkApiException("REGISTER_FACE_MALFORMED_DATA","The server's response was invalid");
         }
-        return false;
     }
 }

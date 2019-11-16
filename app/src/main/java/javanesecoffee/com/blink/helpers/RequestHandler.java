@@ -1,4 +1,7 @@
-package javanesecoffee.com.blink;
+package javanesecoffee.com.blink.helpers;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -13,20 +16,21 @@ import javax.net.ssl.HttpsURLConnection;
 // This is a helper class for register request only
 public class RequestHandler {
     private static String DEFAULT_CHARSET = "UTF-8";
-    private String boundary = "";
     private static final String LINE_FEED = "\r\n";
+    private String boundary = "";
     private HttpURLConnection httpConn;
     private OutputStream outputStream;
-    //    private PrintWriter writer;
+
     private PrintWriter writer;
 
-    //Constructor for regular data POST
-    public RequestHandler(){}
+    private static final String DOMAIN = "http://192.168.1.88/";
+
 
     //Constructor for multipart formdata POST
-    public RequestHandler(String request_URL){
-//        boundary = "===" + System.currentTimeMillis() + "===";
+    public RequestHandler(String endpoint){
+
         boundary = "" + System.currentTimeMillis() + "";
+        String request_URL = DOMAIN + endpoint;
 
         try{
             URL url = new URL(request_URL);
@@ -34,7 +38,6 @@ public class RequestHandler {
             httpConn.setUseCaches(false);
             httpConn.setDoOutput(true);    // indicates POST method
             httpConn.setDoInput(true);
-//            httpConn.setRequestMethod("POST");
             httpConn.setRequestProperty("Content-Type",
                     "multipart/form-data; boundary=" + boundary);
             outputStream = httpConn.getOutputStream();
@@ -193,8 +196,8 @@ public class RequestHandler {
      * status OK, otherwise an exception is thrown.
      * @throws IOException
      */
-    public List<String> finish() throws IOException {
-        List<String> response = new ArrayList<String>();
+    public JSONObject finish() throws IOException, JSONException {
+        String responseString = "";
         writer.append(LINE_FEED).flush();
         writer.append("--" + boundary + "--").append(LINE_FEED);
         writer.close();
@@ -207,7 +210,7 @@ public class RequestHandler {
                     httpConn.getInputStream()));
             String line = null;
             while ((line = reader.readLine()) != null) {
-                response.add(line);
+                responseString += line;
             }
             reader.close();
             httpConn.disconnect();
@@ -215,7 +218,9 @@ public class RequestHandler {
             System.out.println(httpConn.getErrorStream());
             throw new IOException("Server returned non-OK status: " + status);
         }
-        return response;
+
+        //PARSE INTO JSON OBJECT
+        return new JSONObject(responseString);
     }
 
 

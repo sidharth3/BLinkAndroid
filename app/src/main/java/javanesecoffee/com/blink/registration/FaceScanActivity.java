@@ -2,7 +2,6 @@ package javanesecoffee.com.blink.registration;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -19,11 +18,11 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import javanesecoffee.com.blink.R;
-import javanesecoffee.com.blink.api.register.RegisterFaceTask;
+import javanesecoffee.com.blink.api.RegisterFaceTask;
 import javanesecoffee.com.blink.entities.User;
 import javanesecoffee.com.blink.managers.UserManager;
 
-public class FaceScanActivity extends AppCompatActivity {
+public class FaceScanActivity extends AppCompatActivity{
     private static final int pic_id = 123;
     static final int REQUEST_PIC_CAPTURE = 1;
 
@@ -111,8 +110,7 @@ public class FaceScanActivity extends AppCompatActivity {
 
             //register face
             try {
-//                UserManager.RegisterFace(imageFile, username);
-                new RegisterFaceTask().execute(username, imageFile.getPath());
+                UserManager.RegisterFace(imageFile, username);
 
                 MoveNext();
             } catch (Exception e) {

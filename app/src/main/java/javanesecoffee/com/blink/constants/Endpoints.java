@@ -1,0 +1,6 @@
+package javanesecoffee.com.blink.constants;
+
+public class Endpoints {
+    public static final String REGISTER_FACE = "registerFace";
+    public static final String LOGIN = "login";
+}
