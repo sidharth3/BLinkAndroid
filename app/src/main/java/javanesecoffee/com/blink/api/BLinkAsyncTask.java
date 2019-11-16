@@ -64,5 +64,8 @@ public abstract class BLinkAsyncTask extends AsyncTask<String, Void, JSONObject>
         }
     }
 
-    abstract  void onTaskComplete(JSONObject jsonObject);
+    protected void onTaskComplete(JSONObject jsonObject)
+    {
+
+    }
 }

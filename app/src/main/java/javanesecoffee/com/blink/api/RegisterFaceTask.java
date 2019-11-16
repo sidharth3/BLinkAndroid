@@ -17,9 +17,9 @@ public class RegisterFaceTask extends BLinkAsyncTask {
 
     private File image_file;
 
-    public RegisterFaceTask(AsyncResponseHandler requestHandler, int taskId)
+    public RegisterFaceTask(AsyncResponseHandler requestHandler)
     {
-        super(requestHandler, taskId);
+        super(requestHandler, R.string.TASK_REGISTER_FACE);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class RegisterFaceTask extends BLinkAsyncTask {
     }
 
     @Override
-    void onTaskComplete(JSONObject jsonObject) {
+    protected void onTaskComplete(JSONObject jsonObject) {
         //cleanup
         if(image_file != null)
         {
