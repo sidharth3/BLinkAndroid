@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javanesecoffee.com.blink.api.BLinkApiException;
+
 public class User{
 
     private String username;
@@ -32,16 +34,16 @@ public class User{
 
     /**
      *
-     * @param json_obj input json file contain user data
+     * @param data input response.data json object for user
      */
-    public User(JSONObject json_obj){
+    public User(JSONObject data) throws BLinkApiException {
         try {
-            this.username = json_obj.getString("username");
-            this.email = json_obj.getString("email");
-            this.company = json_obj.getString("company");
-
+            this.username = data.getString("username");
+            this.email = data.getString("email");
+            this.company = data.getString("company");
         } catch (JSONException e) {
             e.printStackTrace();
+            throw BLinkApiException.MALFORMED_DATA_EXCEPTION();
         }
 
     }

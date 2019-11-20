@@ -106,7 +106,7 @@ public class UserManager extends Manager{
                     if(success)
                     {
                         JSONObject data = ResponseParser.DataFromResponse(response);
-                        User user = ResponseParser.UserFromData(data);
+                        User user = new User(data);
                         setLoggedInUser(user);
                     }
                 } catch (BLinkApiException e) {

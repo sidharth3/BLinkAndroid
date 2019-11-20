@@ -22,7 +22,7 @@ public class ResponseParser {
 
         if(status != null)
         {
-            if(status == "SUCCESS")
+            if(status.equals("SUCCESS"))
             {
                 return true;
             }
@@ -34,22 +34,6 @@ public class ResponseParser {
         }
         else
         {
-            throw BLinkApiException.MALFORMED_DATA_EXCEPTION();
-        }
-    }
-
-    public static User UserFromData(JSONObject data) throws BLinkApiException
-    {
-        try {
-            String username = data.getString("username");
-            String email = data.getString("email");
-            String company = data.getString("company");
-
-            User user = new User(username, email, company);
-            return user;
-
-        } catch (JSONException e) {
-            e.printStackTrace();
             throw BLinkApiException.MALFORMED_DATA_EXCEPTION();
         }
     }
