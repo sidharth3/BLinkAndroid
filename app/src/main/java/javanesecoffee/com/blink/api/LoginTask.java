@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.Endpoints;
 import javanesecoffee.com.blink.helpers.RequestHandler;
 import javanesecoffee.com.blink.managers.UserManager;
@@ -17,11 +18,11 @@ import javanesecoffee.com.blink.managers.UserManager;
 public class LoginTask extends BLinkAsyncTask {
     public LoginTask(AsyncResponseHandler requestHandler)
     {
-        super(requestHandler, R.string.TASK_LOGIN);
+        super(requestHandler, ApiCodes.TASK_LOGIN);
     }
 
     @Override
-    JSONObject executeMainTask(String... params) throws IOException, JSONException {
+    JSONObject executeMainTask(String... params) throws IOException, JSONException, BLinkApiException{
         String username = params[0];
         String password = params[1];
         RequestHandler requestHandler = new RequestHandler(Endpoints.LOGIN);

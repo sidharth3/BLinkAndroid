@@ -7,17 +7,18 @@ import java.io.File;
 import java.io.IOException;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.Endpoints;
 import javanesecoffee.com.blink.helpers.RequestHandler;
 
 public class RegisterTask extends BLinkAsyncTask {
     public RegisterTask(AsyncResponseHandler requestHandler)
     {
-        super(requestHandler, R.string.TASK_REGISTER);
+        super(requestHandler, ApiCodes.TASK_REGISTER);
     }
 
     @Override
-    JSONObject executeMainTask(String... params) throws IOException, JSONException {
+    JSONObject executeMainTask(String... params) throws IOException, JSONException, BLinkApiException {
         String username = params[0];
         String password = params[1];
         String first_name = params[2];

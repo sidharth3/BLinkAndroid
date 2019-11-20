@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
+import javanesecoffee.com.blink.api.BLinkApiException;
+
 // This is a helper class for register request only
 public class RequestHandler {
     private static String DEFAULT_CHARSET = "UTF-8";
@@ -27,7 +29,7 @@ public class RequestHandler {
 
 
     //Constructor for multipart formdata POST
-    public RequestHandler(String endpoint){
+    public RequestHandler(String endpoint) throws BLinkApiException{
 
         boundary = "" + System.currentTimeMillis() + "";
         String request_URL = DOMAIN + endpoint;
@@ -46,6 +48,7 @@ public class RequestHandler {
                     true);
         }catch (Exception e) {
             e.printStackTrace();
+            throw new BLinkApiException("NO_CONNECTION", "Connection Failed", "Could not connect to server");
         }
     }
 

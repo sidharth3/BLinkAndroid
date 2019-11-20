@@ -9,18 +9,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.api.AsyncResponseHandler;
 import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.BLinkEventObserver;
 import javanesecoffee.com.blink.api.LoginTask;
 import javanesecoffee.com.blink.api.RegisterFaceTask;
 import javanesecoffee.com.blink.api.RegisterTask;
-import javanesecoffee.com.blink.constants.Endpoints;
+import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.helpers.RequestHandler;
 import javanesecoffee.com.blink.entities.User;
+import javanesecoffee.com.blink.helpers.ResponseParser;
 
 
-public class UserManager implements AsyncResponseHandler {
+public class UserManager extends Manager{
     //TODO update ROOT_URL
 //    private static final String ROOT_URL = "http://10.12.185.214";
     private static final String ROOT_URL = "http://192.168.1.88";
@@ -30,12 +31,13 @@ public class UserManager implements AsyncResponseHandler {
     private static final String CONNECT_URL = ROOT_URL+"/connect";
 
     public static UserManager singleton = new UserManager();
-
     public static UserManager getInstance() {
         return singleton;
     }
 
     private static User loggedInUser;
+
+
 
     /**
      * Send a login request to the URL
@@ -58,6 +60,7 @@ public class UserManager implements AsyncResponseHandler {
 
     public static void setLoggedInUser(User loggedInUser) {
         UserManager.loggedInUser = loggedInUser;
+        Log.d("UserManager", "Logged in as user: " + loggedInUser.getUsername());
     }
 
     /**
@@ -83,27 +86,33 @@ public class UserManager implements AsyncResponseHandler {
         task.execute(username, image_file.getPath()); //pass in params
     }
 
-    @Override
-    public void onAsyncTaskComplete(JSONObject response, int responseCode) {
-        switch (responseCode)
-        {
-            case R.string.TASK_REGISTER_FACE:
-                Log.d("TASK_REGISTER_FACE", response.toString());
+    @Override //UserManager on async task complete, call super to notify observers
+    public void onAsyncTaskComplete(JSONObject response, String taskId) {
+        super.onAsyncTaskComplete(response, taskId); //notify observers
 
-            case R.string.TASK_LOGIN:
-            case R.string.TASK_REGISTER:
-                Boolean success = null;
+        String status = null;
+
+        switch (taskId)
+        {
+
+            case ApiCodes.TASK_REGISTER_FACE: //handle by user interface
+                break;
+
+            case ApiCodes.TASK_LOGIN:
+            case ApiCodes.TASK_REGISTER:
+
                 try {
-                    success = response.getBoolean("success");
-                } catch (JSONException e) {
+                    boolean success = ResponseParser.ResponseIsSuccess(response);
+                    if(success)
+                    {
+                        JSONObject data = ResponseParser.DataFromResponse(response);
+                        User user = ResponseParser.UserFromData(data);
+                        setLoggedInUser(user);
+                    }
+                } catch (BLinkApiException e) {
                     e.printStackTrace();
                 }
-
-                if(success)
-                {
-                    //TODO: CREATE ACTUAL USER ON LOG IN + use response to move to next activity
-                    setLoggedInUser(new User("mooselliot", "email", "company"));
-                }
+                break;
             default:
                 Log.d("UserManager", "Unhandled Async Task Completion");
         }
@@ -122,7 +131,7 @@ public class UserManager implements AsyncResponseHandler {
         }
         catch (JSONException e) {
             e.printStackTrace();
-            throw new BLinkApiException("REGISTER_FACE_MALFORMED_DATA","The server's response was invalid");
+            throw BLinkApiException.MALFORMED_DATA_EXCEPTION();
         }
     }
 }

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,16 +14,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.BLinkEventObserver;
 import javanesecoffee.com.blink.api.RegisterFaceTask;
+import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.entities.User;
+import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.managers.UserManager;
 
-public class FaceScanActivity extends AppCompatActivity{
+public class FaceScanActivity extends AppCompatActivity implements BLinkEventObserver {
     private static final int pic_id = 123;
     static final int REQUEST_PIC_CAPTURE = 1;
 
@@ -35,6 +42,8 @@ public class FaceScanActivity extends AppCompatActivity{
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.face_scan_activity);
+
+        UserManager.getInstance().registerObserver(this);
 
         //reset image
         if (imageFile != null) {
@@ -78,7 +87,13 @@ public class FaceScanActivity extends AppCompatActivity{
         });
     }
 
-    public void MoveNext(){
+    @Override
+    protected void onDestroy() {
+        UserManager.getInstance().deregisterObserver(this);
+        super.onDestroy();
+    }
+
+    public void NextActivity(){
         Intent intent = new Intent(getApplicationContext(), MoreInfoActivity.class);
         startActivity(intent);
     }
@@ -112,13 +127,28 @@ public class FaceScanActivity extends AppCompatActivity{
             try {
                 UserManager.RegisterFace(imageFile, username);
 
-                MoveNext();
+                //TODO: LOADING INDICATOR TO SIGNIFY AWAITING REQUEST
             } catch (Exception e) {
                 Log.d("RegisterFaceError", e.toString());
                 Toast.makeText(getApplicationContext(), "There was an error communicating to the server", Toast.LENGTH_LONG).show();
             }
         }
+    }
 
+    @Override
+    public void onBLinkEventTriggered(JSONObject response, String taskId) throws BLinkApiException{
+        if(taskId == ApiCodes.TASK_REGISTER_FACE)
+        {
+            boolean success = ResponseParser.ResponseIsSuccess(response);
+            if(success)
+            {
+                NextActivity();
+            }
+        }
+    }
 
+    @Override
+    public void onBLinkEventException(BLinkApiException exception, String taskId) {
+        new AlertDialog.Builder(FaceScanActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
     }
 }

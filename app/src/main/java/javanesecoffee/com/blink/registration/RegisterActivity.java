@@ -1,15 +1,23 @@
 package javanesecoffee.com.blink.registration;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.BLinkEventObserver;
+import javanesecoffee.com.blink.constants.ApiCodes;
+import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.registration.FaceScanActivity;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements BLinkEventObserver {
 
     Button button;
 
@@ -29,8 +37,29 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void NextActivity()
     {
-
         Intent intent = new Intent(getApplicationContext(), FaceScanActivity.class);
-        startActivity(intent);
+        startActivity(intent);        
+    }
+
+    @Override //the exceptions thrown will be caught in the caller, AsyncResponseHandler. It will call onBlinkEventException
+    public void onBLinkEventTriggered(JSONObject response, String taskId) throws BLinkApiException{
+        if(taskId == ApiCodes.TASK_REGISTER)
+        {
+            boolean success = ResponseParser.ResponseIsSuccess(response);
+
+            if(success)
+            {
+                NextActivity();
+            }
+            else
+            {
+                throw ResponseParser.ExceptionFromResponse(response);
+            }
+        }
+    }
+
+    @Override
+    public void onBLinkEventException(BLinkApiException exception, String taskId) {
+        new AlertDialog.Builder(RegisterActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
     }
 }

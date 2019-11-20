@@ -21,9 +21,9 @@ public abstract class BLinkAsyncTask extends AsyncTask<String, Void, JSONObject>
 
     public AsyncResponseHandler responseHandler;
     private BLinkApiException exception;
-    private int taskId;
+    private String taskId;
 
-    BLinkAsyncTask(AsyncResponseHandler responseHandler, int taskId)
+    BLinkAsyncTask(AsyncResponseHandler responseHandler, String taskId)
     {
         super();
         this.responseHandler = responseHandler;
@@ -49,9 +49,14 @@ public abstract class BLinkAsyncTask extends AsyncTask<String, Void, JSONObject>
             setException(new BLinkApiException("REGISTER_FACE_MALFORMED_DATA","The server's response was invalid"));
             return null;
         }
+        catch (BLinkApiException e) {
+            e.printStackTrace();
+            setException(e);
+            return null;
+        }
     }
 
-    abstract JSONObject executeMainTask(String... params) throws IOException, JSONException;
+    abstract JSONObject executeMainTask(String... params) throws IOException, JSONException, BLinkApiException;
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
@@ -60,7 +65,14 @@ public abstract class BLinkAsyncTask extends AsyncTask<String, Void, JSONObject>
         //complete callback
         if(responseHandler != null)
         {
-            responseHandler.onAsyncTaskComplete(jsonObject, this.taskId);
+            if(this.exception == null)
+            {
+                responseHandler.onAsyncTaskComplete(jsonObject, this.taskId);
+            }
+            else
+            {
+                responseHandler.onAsyncTaskFailedWithException(this.exception, this.taskId);
+            }
         }
     }
 
