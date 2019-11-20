@@ -1,6 +1,10 @@
 package javanesecoffee.com.blink.registration;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,7 +21,9 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Calendar;
 
 import javanesecoffee.com.blink.R;
@@ -125,7 +131,7 @@ public class FaceScanActivity extends AppCompatActivity implements BLinkEventObs
 
             //register face
             try {
-                UserManager.RegisterFace(imageFile, username);
+                UserManager.RegisterFace(rotatedImageFile(imageFile), username);
 
                 //TODO: LOADING INDICATOR TO SIGNIFY AWAITING REQUEST
             } catch (Exception e) {
@@ -133,6 +139,59 @@ public class FaceScanActivity extends AppCompatActivity implements BLinkEventObs
                 Toast.makeText(getApplicationContext(), "There was an error communicating to the server", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    File rotatedImageFile(File file)
+    {
+        try {
+            String filePath = file.getPath();
+            ExifInterface ei = new ExifInterface(filePath);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_UNDEFINED);
+
+            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+
+            Bitmap rotatedBitmap = null;
+            switch(orientation) {
+
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotatedBitmap = rotateImage(bitmap, 90);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotatedBitmap = rotateImage(bitmap, 180);
+                    break;
+
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotatedBitmap = rotateImage(bitmap, 270);
+                    break;
+
+                case ExifInterface.ORIENTATION_NORMAL:
+                default:
+                    rotatedBitmap = bitmap;
+            }
+
+
+            OutputStream os;
+            os = new FileOutputStream(file);
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
+
+            return imageFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            return file;
+        }
+    }
+
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
     }
 
     @Override
