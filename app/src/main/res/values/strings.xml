@@ -4,9 +4,9 @@
     <string name="register_subtitle">get connected</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="username">mooselliot</string>
-    <string name="designation">scrub</string>
-    <string name="company">coffee pte ltd</string>
+    <string name="username">Helen Kaur</string>
+    <string name="designation">Software Engineer</string>
+    <string name="company">Google</string>
 
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
