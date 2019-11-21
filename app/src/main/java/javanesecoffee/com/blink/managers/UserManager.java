@@ -113,6 +113,19 @@ public class UserManager extends Manager{
                     e.printStackTrace();
                 }
                 break;
+
+            case ApiCodes.TASK_MORE_INFO:
+                try {
+                    boolean success = ResponseParser.ResponseIsSuccess(response);
+                    if(success)
+                    {
+                        //TODO send More info POST to server
+                        Log.d("UserManager", "MORE_INFO_TASK performed succesfully");
+                    }
+                } catch (BLinkApiException e) {
+                    e.printStackTrace();
+                }
+                break;
             default:
                 Log.d("UserManager", "Unhandled Async Task Completion");
         }

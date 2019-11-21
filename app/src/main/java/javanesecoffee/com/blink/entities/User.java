@@ -17,12 +17,18 @@ public class User{
     private String username;
     private String email;
     private String company;
+    private String Facebook;
+    private String Twitter;
+    private String description;
 
     public User()
     {
         this.username = "";
         this.email = "";
         this.company = "";
+        this.Facebook = "";
+        this.Twitter = "";
+        this.description = "";
     }
 
     public User(String username, String email, String company)
@@ -41,6 +47,9 @@ public class User{
             this.username = data.getString("username");
             this.email = data.getString("email");
             this.company = data.getString("company");
+            this.Facebook = data.getString("Facebook");
+            this.Twitter = data.getString("Twitter");
+            this.description = data.getString("description");
         } catch (JSONException e) {
             e.printStackTrace();
             throw BLinkApiException.MALFORMED_DATA_EXCEPTION();
@@ -70,5 +79,17 @@ public class User{
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getFacebook() {
+        return Facebook;
+    }
+
+    public String getTwitter() {
+        return Twitter;
     }
 }
