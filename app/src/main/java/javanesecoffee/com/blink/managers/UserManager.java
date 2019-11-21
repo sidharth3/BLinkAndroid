@@ -68,17 +68,14 @@ public class UserManager extends Manager{
      *
      * @param username username for login
      * @param password password for login
-     * @param first_name first_name of user
-     * @param last_name last_name of user
+     * @param display_name email of user
      * @param email email of user
-     * @param birth_year birth_year of user
      *
      */
-//    public static boolean register(String username, File faceimage){
 
-    public static void Register(String username, String password, String first_name, String last_name, String email, String birth_year) throws BLinkApiException {
+    public static void Register(String username, String password, String display_name, String email) throws BLinkApiException {
         RegisterTask task = new RegisterTask(getInstance()); //pass singleton in as handler
-        task.execute(username, password, first_name, last_name, email, birth_year); //pass in params
+        task.execute(username, password, display_name ,email); //pass in params
     }
 
     public static void RegisterFace(File image_file, String username){

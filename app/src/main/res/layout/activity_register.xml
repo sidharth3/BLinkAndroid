@@ -11,7 +11,7 @@
         android:id="@+id/ovalView"
         android:layout_width="796dp"
         android:layout_height="393dp"
-        android:background="@drawable/gradient"
+        android:backgrouREGISTER_BUTTONnd="@drawable/gradient"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/fieldEmail"
         android:layout_width="296dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
