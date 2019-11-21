@@ -77,16 +77,16 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
     }
 
     public boolean validifyInputs(String username, String password, String display_name, String email){
-        if ((display_name == null) || !valid_display_name_pattern.matcher(display_name).matches()){
-            Toast.makeText(RegisterActivity.this, "Please enter a valid display name", Toast.LENGTH_LONG).show();
-            return false;
-        }
         if ((username == null) || !valid_username_pattern.matcher(username).matches()){
             Toast.makeText(RegisterActivity.this, "Please enter a valid username", Toast.LENGTH_LONG).show();
             return false;
         }
         if ((password == null) || !valid_username_pattern.matcher(password).matches()){
             Toast.makeText(RegisterActivity.this, "Please enter a valid password", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if ((display_name == null) || !valid_display_name_pattern.matcher(display_name).matches()){
+            Toast.makeText(RegisterActivity.this, "Please enter a valid display name", Toast.LENGTH_LONG).show();
             return false;
         }
         if ((email == null) || !valid_email_pattern.matcher(email).matches()){
