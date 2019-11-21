@@ -25,4 +25,9 @@ public class BLinkApiException extends Exception {
     {
         return new BLinkApiException("MALFORMED_DATA","Invalid Data", "The received data does not conform to the required format");
     }
+
+    public static BLinkApiException REQUEST_FAILED_EXCEPTION()
+    {
+        return new BLinkApiException("REQUEST_FAILED","Request Failed", "Failed to connect to server.");
+    }
 }

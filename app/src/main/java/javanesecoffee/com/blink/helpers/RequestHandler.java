@@ -1,5 +1,8 @@
 package javanesecoffee.com.blink.helpers;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +17,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.constants.Config;
 
 // This is a helper class for register request only
 public class RequestHandler {
@@ -24,9 +28,7 @@ public class RequestHandler {
     private OutputStream outputStream;
 
     private PrintWriter writer;
-
-    private static final String DOMAIN = "http://192.168.1.88/";
-
+    private static final String DOMAIN = Config.DOMAIN;
 
     //Constructor for multipart formdata POST
     public RequestHandler(String endpoint) throws BLinkApiException{
@@ -226,5 +228,18 @@ public class RequestHandler {
         return new JSONObject(responseString);
     }
 
-
+    public static Bitmap GetImage(String endpoint) throws BLinkApiException {
+        try {
+            String src = DOMAIN + endpoint;
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            return BitmapFactory.decodeStream(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw BLinkApiException.REQUEST_FAILED_EXCEPTION();
+        }
+    }
 }
