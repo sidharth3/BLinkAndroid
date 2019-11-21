@@ -21,6 +21,8 @@ public class EventDescriptionActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         navListener.onNavigationItemSelected(bottomNav.getMenu().findItem(R.id.navhome));
+
+
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
