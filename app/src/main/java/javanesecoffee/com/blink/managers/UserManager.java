@@ -36,7 +36,6 @@ public class UserManager extends Manager{
     private static User loggedInUser;
 
 
-
     /**
      * Send a login request to the URL
      *

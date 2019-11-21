@@ -10,6 +10,8 @@ import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.Endpoints;
 import javanesecoffee.com.blink.helpers.RequestHandler;
 
+
+//TODO: update the postParams into the request
 public class LoginTask extends BLinkAsyncTask {
     public LoginTask(AsyncResponseHandler requestHandler)
     {
