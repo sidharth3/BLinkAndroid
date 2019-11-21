@@ -7,11 +7,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 
-import javanesecoffee.com.blink.api.AsyncResponseHandler;
 import javanesecoffee.com.blink.api.BLinkApiException;
-import javanesecoffee.com.blink.api.BLinkEventObserver;
 import javanesecoffee.com.blink.api.LoginTask;
 import javanesecoffee.com.blink.api.RegisterFaceTask;
 import javanesecoffee.com.blink.api.RegisterTask;
@@ -68,14 +65,14 @@ public class UserManager extends Manager{
      *
      * @param username username for login
      * @param password password for login
-     * @param display_name email of user
+     * @param displayname email of user
      * @param email email of user
      *
      */
 
-    public static void Register(String username, String password, String display_name, String email) throws BLinkApiException {
+    public static void Register(String username, String password, String displayname, String email) throws BLinkApiException {
         RegisterTask task = new RegisterTask(getInstance()); //pass singleton in as handler
-        task.execute(username, password, display_name ,email); //pass in params
+        task.execute(username, password, displayname ,email); //pass in params
     }
 
     public static void RegisterFace(File image_file, String username){
@@ -131,10 +128,10 @@ public class UserManager extends Manager{
     //TODO: change format to fit RegisterFace request format
     public static void Connect(String username, File image_file) throws BLinkApiException{
         try {
-            RequestHandler register_req_handler = new RequestHandler(CONNECT_URL);
+            RequestHandler register_req_handler = RequestHandler.FormRequestHandler(CONNECT_URL);
             register_req_handler.addFormField("username", username);
             register_req_handler.addFilePart("image_file", image_file);
-            register_req_handler.finish();
+            register_req_handler.sendFormDataRequest();
         } catch (IOException e) {
             e.printStackTrace();
             throw new BLinkApiException("REGISTER_FACE_FAILED", "Request Failed");

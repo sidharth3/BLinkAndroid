@@ -23,87 +23,102 @@ import javanesecoffee.com.blink.constants.Config;
 public class RequestHandler {
     private static String DEFAULT_CHARSET = "UTF-8";
     private static final String LINE_FEED = "\r\n";
+
+    private String requestUrl;
+    private String requestType;
+
+    //FOR FORM DATA REQUESTS
     private String boundary = "";
     private HttpURLConnection httpConn;
     private OutputStream outputStream;
 
     private PrintWriter writer;
+
+
+    //FOR POST REQUESTS
+    private HashMap<String, String> postDataParams = new HashMap<>();
+
+
     private static final String DOMAIN = Config.DOMAIN;
 
-    //Constructor for multipart formdata POST
-    public RequestHandler(String endpoint) throws BLinkApiException{
+    public static RequestHandler FormRequestHandler(String endpoint)  throws BLinkApiException{
+        RequestHandler handler = new RequestHandler(endpoint, "FORMDATA");
 
-        boundary = "" + System.currentTimeMillis() + "";
-        String request_URL = DOMAIN + endpoint;
+        handler.boundary = "" + System.currentTimeMillis() + "";
 
         try{
-            URL url = new URL(request_URL);
-            httpConn = (HttpURLConnection) url.openConnection();
-            httpConn.setUseCaches(false);
-            httpConn.setDoOutput(true);    // indicates POST method
-            httpConn.setDoInput(true);
-            httpConn.setRequestProperty("Content-Type",
-                    "multipart/form-data; boundary=" + boundary);
-            outputStream = httpConn.getOutputStream();
+            URL url = new URL(handler.requestUrl);
+            handler.httpConn = (HttpURLConnection) url.openConnection();
+            handler.httpConn.setUseCaches(false);
+            handler.httpConn.setDoOutput(true);    // indicates POST method
+            handler.httpConn.setDoInput(true);
+            handler.httpConn.setRequestProperty("Content-Type",
+                    "multipart/form-data; boundary=" + handler.boundary);
+            handler.outputStream = handler.httpConn.getOutputStream();
 
-            writer = new PrintWriter(new OutputStreamWriter(outputStream, DEFAULT_CHARSET),
+            handler.writer = new PrintWriter(new OutputStreamWriter(handler.outputStream, DEFAULT_CHARSET),
                     true);
         }catch (Exception e) {
             e.printStackTrace();
             throw new BLinkApiException("NO_CONNECTION", "Connection Failed", "Could not connect to server");
         }
+
+        return handler;
+    }
+
+    public static RequestHandler PostRequestHandler(String endpoint)
+    {
+        return new RequestHandler(endpoint,"POST");
+    }
+
+    public RequestHandler(String endpoint, String requestType){
+        this.requestUrl = DOMAIN + endpoint;
+        this.requestType = requestType;
     }
 
     //this method will send a post request to the specified url
     //in this app we are using only post request
     //in the hashmap we have the data to be sent to the server in keyvalue pairs
-    /**
-     * Adds a form field to the request
-     *
-     * @param requestURL url
-     * @param postDataParams HashMap<param, value>
-     */
-    public String sendPostRequest(String requestURL, HashMap<String, String> postDataParams) {
-        URL url;
+    public JSONObject sendPostRequest() throws IOException, JSONException, BLinkApiException{
 
-        StringBuilder sb = new StringBuilder();
-        try {
-            url = new URL(requestURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+        if(this.requestType != "POST")
+        {
+            throw new BLinkApiException("NOT_POST_REQUEST", "Not Post Request", "This request is not POST");
+        }
 
-            OutputStream os = conn.getOutputStream();
+        URL url = new URL(requestUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(15000);
+        conn.setConnectTimeout(15000);
+        conn.setRequestMethod("POST");
+        conn.setDoInput(true);
+        conn.setDoOutput(true);
 
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(os, DEFAULT_CHARSET));
-            writer.write(getPostDataString(postDataParams));
+        OutputStream os = conn.getOutputStream();
 
-            writer.flush();
-            writer.close();
-            os.close();
-            int responseCode = conn.getResponseCode();
+        BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(os, DEFAULT_CHARSET));
+        writer.write(getPostDataString(postDataParams));
 
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                System.out.println("OKAY");
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                sb = new StringBuilder();
-                String response;
+        writer.flush();
+        writer.close();
+        os.close();
+        int responseCode = conn.getResponseCode();
 
-                while ((response = br.readLine()) != null) {
-                    sb.append(response);
-                }
-            }else {
-                throw new IOException("Server returned non-OK status: " + responseCode);
+        if (responseCode == HttpsURLConnection.HTTP_OK) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String response;
+
+            while ((response = br.readLine()) != null) {
+                sb.append(response);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            return new JSONObject(sb.toString());
         }
-        return sb.toString();
+        else {
+            throw new IOException("Server returned non-OK status: " + responseCode);
+        }
     }
 
     /**
@@ -129,23 +144,45 @@ public class RequestHandler {
         return result.toString();
     }
 
+
     /**
      * Adds a form field to the request
      *
      * @param name  field name
      * @param value field value
      */
-    public void addFormField(String name, String value) {
-//        System.out.println("add form field");
+    public void addFormField(String name, String value) throws BLinkApiException {
+
+        if(this.requestType != "FORMDATA")
+        {
+            throw new BLinkApiException("NOT_FORMDATA_REQUEST", "Not FormData Request", "This request is not FORMDATA");
+        }
+
         writer.append("--" + boundary).append(LINE_FEED);
         writer.append("Content-Disposition: form-data; name=\"" + name + "\"")
                 .append(LINE_FEED);
-//        writer.println("asdf");
         writer.append("Content-Type: text/plain; charset=" + DEFAULT_CHARSET).append(
                 LINE_FEED);
         writer.append(LINE_FEED);
         writer.append(value).append(LINE_FEED);
         writer.flush();
+    }
+
+    /**
+     * Adds a form field to the request
+     *
+     * @param name  field name
+     * @param value field value
+     */
+
+    public void addPostField(String name, String value) throws BLinkApiException {
+
+        if(this.requestType != "POST")
+        {
+            throw new BLinkApiException("NOT_POST_REQUEST", "Not Post Request", "This request is not POST");
+        }
+
+        this.postDataParams.put(name, value);
     }
 
     /**
@@ -156,7 +193,13 @@ public class RequestHandler {
      * @throws IOException
      */
     public void addFilePart(String fieldName, File uploadFile)
-            throws IOException {
+            throws IOException, BLinkApiException {
+
+        if(this.requestType != "FORMDATA")
+        {
+            throw new BLinkApiException("NOT_FORMDATA_REQUEST", "Not FormData Request", "This request is not FORMDATA");
+        }
+
         String fileName = uploadFile.getName();
         writer.append("--" + boundary).append(LINE_FEED);
         writer.append(
@@ -201,7 +244,13 @@ public class RequestHandler {
      * status OK, otherwise an exception is thrown.
      * @throws IOException
      */
-    public JSONObject finish() throws IOException, JSONException {
+    public JSONObject sendFormDataRequest() throws IOException, JSONException, BLinkApiException {
+
+        if(this.requestType != "FORMDATA")
+        {
+            throw new BLinkApiException("NOT_FORMDATA_REQUEST", "Not FormData Request", "This request is not FORMDATA");
+        }
+
         String responseString = "";
         writer.append(LINE_FEED).flush();
         writer.append("--" + boundary + "--").append(LINE_FEED);

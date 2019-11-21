@@ -210,11 +210,11 @@ public class FaceScanActivity extends AppCompatActivity implements BLinkEventObs
 
     @Override
     public void onBLinkEventException(BLinkApiException exception, String taskId) {
-        if(Config.buildMode == BuildModes.PRODUCTION) {
-            new AlertDialog.Builder(FaceScanActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
-        }
-        else {
+        new AlertDialog.Builder(FaceScanActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
+
+        if(Config.buildMode == BuildModes.OFFLINE) {
             NextActivity();
         }
+
     }
 }

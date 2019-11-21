@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.nio.file.FileAlreadyExistsException;
 import java.util.regex.Pattern;
@@ -29,7 +32,7 @@ import javanesecoffee.com.blink.registration.FaceScanActivity;
 public class RegisterActivity extends AppCompatActivity implements BLinkEventObserver {
 
     Button register_button;
-    String display_name;
+    String displayname;
     String username;
     String password;
     String email;
@@ -48,6 +51,19 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
         setContentView(R.layout.activity_register);
         register_button = findViewById(R.id.REGISTER_BUTTON);
 
+        EditText usernameField = findViewById(R.id.fieldUsername);
+        EditText passwordField = findViewById(R.id.fieldPassword);
+        EditText displaynameField = findViewById(R.id.fieldDisplayname);
+        EditText emailField = findViewById(R.id.fieldEmail);
+
+        if(Config.buildMode == BuildModes.TEST_REGISTRATION)
+        {
+            usernameField.setText("mooselliot");
+            passwordField.setText("12345");
+            displaynameField.setText("elliot koh");
+            emailField.setText("kyzelliot@gmail.com");
+        }
+
         UserManager.getInstance().registerObserver(this);
 
         register_button.setOnClickListener(new View.OnClickListener() {
@@ -58,14 +74,21 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
                     startActivity(intent);
                 }
                 else {
-                    display_name = findViewById(R.id.fieldDisplayname).toString();
-                    username = findViewById(R.id.fieldUsername).toString();
-                    email = findViewById(R.id.fieldEmail).toString();
-                    password = findViewById(R.id.fieldPassword).toString();
 
-                    if(validifyInputs(username, password, display_name, email)){
+                    EditText usernameField = findViewById(R.id.fieldUsername);
+                    EditText passwordField = findViewById(R.id.fieldPassword);
+                    EditText displaynameField = findViewById(R.id.fieldDisplayname);
+                    EditText emailField = findViewById(R.id.fieldEmail);
+
+
+                    username = usernameField.getText().toString();
+                    password = passwordField.getText().toString();
+                    displayname = displaynameField.getText().toString();
+                    email = emailField.getText().toString();
+
+                    if(validifyInputs(username, password, displayname, email)){
                         try {
-                            UserManager.Register(username, password, display_name, email);
+                            UserManager.Register(username, password, displayname, email);
                         } catch (BLinkApiException e) {
                             Log.d("RegisterError", e.toString());
                             Toast.makeText(getApplicationContext(), "There was an error communicating to the server", Toast.LENGTH_LONG).show();
@@ -121,10 +144,8 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
 
     @Override
     public void onBLinkEventException(BLinkApiException exception, String taskId) {
-        if(Config.buildMode == BuildModes.PRODUCTION) {
-            new AlertDialog.Builder(RegisterActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
-        }
-        else {
+        new AlertDialog.Builder(RegisterActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
+        if(Config.buildMode == BuildModes.OFFLINE) {
             NextActivity();
         }
     }

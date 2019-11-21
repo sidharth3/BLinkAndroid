@@ -16,20 +16,18 @@ public class MoreInfoTask extends BLinkAsyncTask {
 
     @Override
     JSONObject executeMainTask(String... params) throws IOException, JSONException, BLinkApiException {
-        String descripion = params[0];
+        String description = params[0];
         String position = params[1];
         String education = params[2];
         String interest = params[3];
 
 
-        RequestHandler requestHandler = new RequestHandler(Endpoints.MORE_INFO);
-        requestHandler.addFormField("descripion", descripion);
-        requestHandler.addFormField("position", position);
-        requestHandler.addFormField("education", education);
-        requestHandler.addFormField("interest", interest);
-
-
-        return requestHandler.finish();
+        RequestHandler requestHandler = RequestHandler.PostRequestHandler(Endpoints.MORE_INFO);
+        requestHandler.addPostField("description", description);
+        requestHandler.addPostField("position", position);
+        requestHandler.addPostField("education", education);
+        requestHandler.addPostField("interest", interest);
+        return requestHandler.sendPostRequest();
     }
 
 }
