@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 
 import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.constants.Config;
 
 // This is a helper class for register request only
 public class RequestHandler {
@@ -24,9 +25,7 @@ public class RequestHandler {
     private OutputStream outputStream;
 
     private PrintWriter writer;
-
-    private static final String DOMAIN = "http://192.168.1.88/";
-
+    private static final String DOMAIN = Config.DOMAIN;
 
     //Constructor for multipart formdata POST
     public RequestHandler(String endpoint) throws BLinkApiException{

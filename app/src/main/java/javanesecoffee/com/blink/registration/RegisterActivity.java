@@ -14,6 +14,9 @@ import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.api.BLinkApiException;
 import javanesecoffee.com.blink.api.BLinkEventObserver;
 import javanesecoffee.com.blink.constants.ApiCodes;
+import javanesecoffee.com.blink.constants.BuildModes;
+import javanesecoffee.com.blink.constants.Config;
+import javanesecoffee.com.blink.events.EventDescriptionActivity;
 import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.registration.FaceScanActivity;
 
@@ -30,7 +33,14 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NextActivity();
+                if (Config.buildMode == BuildModes.BYPASS_ONBOARDING) {
+                    Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    //TODO: Call UserManager Register
+                    NextActivity();
+                }
             }
         });
     }
@@ -60,6 +70,11 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
 
     @Override
     public void onBLinkEventException(BLinkApiException exception, String taskId) {
-        new AlertDialog.Builder(RegisterActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
+        if(Config.buildMode == BuildModes.PRODUCTION) {
+            new AlertDialog.Builder(RegisterActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
+        }
+        else {
+            NextActivity();
+        }
     }
 }
