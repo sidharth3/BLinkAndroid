@@ -100,13 +100,13 @@
         android:textColor="@color/design_default_color_primary_dark"
         android:textColorHint="@android:color/black"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/fieldEmail"
-        app:layout_constraintEnd_toEndOf="@+id/fieldEmail"
-        app:layout_constraintStart_toStartOf="@+id/fieldEmail"
+        app:layout_constraintBottom_toTopOf="@+id/positionField"
+        app:layout_constraintEnd_toEndOf="@+id/positionField"
+        app:layout_constraintStart_toStartOf="@+id/positionField"
         app:layout_constraintTop_toBottomOf="@+id/fieldPassword" />
 
     <EditText
-        android:id="@+id/fieldEmail"
+        android:id="@+id/positionField"
         android:layout_width="275dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"

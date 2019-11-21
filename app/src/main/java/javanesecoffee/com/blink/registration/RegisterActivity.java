@@ -8,13 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.nio.file.FileAlreadyExistsException;
 import java.util.regex.Pattern;
 
 import javanesecoffee.com.blink.R;
@@ -23,11 +20,9 @@ import javanesecoffee.com.blink.api.BLinkEventObserver;
 import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.BuildModes;
 import javanesecoffee.com.blink.constants.Config;
-import javanesecoffee.com.blink.entities.User;
 import javanesecoffee.com.blink.events.EventDescriptionActivity;
 import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.managers.UserManager;
-import javanesecoffee.com.blink.registration.FaceScanActivity;
 
 public class RegisterActivity extends AppCompatActivity implements BLinkEventObserver {
 
@@ -54,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
         EditText usernameField = findViewById(R.id.fieldUsername);
         EditText passwordField = findViewById(R.id.fieldPassword);
         EditText displaynameField = findViewById(R.id.fieldDisplayname);
-        EditText emailField = findViewById(R.id.fieldEmail);
+        EditText emailField = findViewById(R.id.positionField);
 
         if(Config.buildMode == BuildModes.TEST_REGISTRATION)
         {
@@ -78,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
                     EditText usernameField = findViewById(R.id.fieldUsername);
                     EditText passwordField = findViewById(R.id.fieldPassword);
                     EditText displaynameField = findViewById(R.id.fieldDisplayname);
-                    EditText emailField = findViewById(R.id.fieldEmail);
+                    EditText emailField = findViewById(R.id.positionField);
 
 
                     username = usernameField.getText().toString();

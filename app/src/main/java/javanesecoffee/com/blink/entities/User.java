@@ -21,29 +21,15 @@ import javanesecoffee.com.blink.constants.Endpoints;
 public class User implements ImageLoadObserver {
 
     private String username;
+    private String displayname;
+    private String bio;
     private String email;
+    private String position;
     private String company;
-    private String Facebook;
-    private String Twitter;
-    private String description;
+    private String linkedin;
+    private String facebook;
+    private String instagram;
     private Bitmap profilepicture;
-
-    public User()
-    {
-        this.username = "";
-        this.email = "";
-        this.company = "";
-        this.Facebook = "";
-        this.Twitter = "";
-        this.description = "";
-    }
-
-    public User(String username, String email, String company)
-    {
-        this.username = username;
-        this.email = email;
-        this.company = company;
-    }
 
     /**
      *
@@ -52,11 +38,14 @@ public class User implements ImageLoadObserver {
     public User(JSONObject data) throws BLinkApiException {
         try {
             this.username = data.getString("username");
+            this.displayname = data.getString("displayname");
+            this.bio = data.getString("bio");
             this.email = data.getString("email");
+            this.position = data.getString("position");
             this.company = data.getString("company");
-            this.Facebook = data.getString("Facebook");
-            this.Twitter = data.getString("Twitter");
-            this.description = data.getString("description");
+            this.linkedin = data.getString("linkedin");
+            this.facebook = data.getString("facebook");
+            this.instagram = data.getString("instagram");
         } catch (JSONException e) {
             e.printStackTrace();
             throw BLinkApiException.MALFORMED_DATA_EXCEPTION();
@@ -75,30 +64,14 @@ public class User implements ImageLoadObserver {
     public String getEmail() {
         return email;
     }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getFacebook() {
-        return Facebook;
-    }
-
-    public String getTwitter() {
-        return Twitter;
-    }
+    public String getDisplayname() { return displayname; }
+    public String getCompany() { return company; }
+    public String getBio() { return bio; }
+    public Bitmap getProfilepicture() { return profilepicture; }
+    public String getPosition() { return position; }
+    public String getLinkedin() { return linkedin; }
+    public String getFacebook() { return facebook; }
+    public String getInstagram() { return instagram; }
 
     public void RequestLoadImage() {
         if(this.username != "")

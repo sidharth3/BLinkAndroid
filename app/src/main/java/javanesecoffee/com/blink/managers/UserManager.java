@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javanesecoffee.com.blink.api.BLinkApiException;
 import javanesecoffee.com.blink.api.LoginTask;
+import javanesecoffee.com.blink.api.MoreInfoTask;
 import javanesecoffee.com.blink.api.RegisterFaceTask;
 import javanesecoffee.com.blink.api.RegisterTask;
 import javanesecoffee.com.blink.constants.ApiCodes;
@@ -51,8 +52,7 @@ public class UserManager extends Manager{
 
     public static User getLoggedInUser() {
         //TODO: TESTING ONLY
-//        return loggedInUser;
-        return new User("mooselliot", "email", "company");
+        return loggedInUser;
     }
 
     public static void setLoggedInUser(User loggedInUser) {
@@ -79,6 +79,12 @@ public class UserManager extends Manager{
         RegisterFaceTask task = new RegisterFaceTask(getInstance()); //pass singleton in as handler
         task.execute(username, image_file.getPath()); //pass in params
     }
+
+    public static void RegisterMoreInfo(String bio, String position, String company, String linkedin, String facebook, String instagram){
+        MoreInfoTask task = new MoreInfoTask(getInstance()); //pass singleton in as handler
+        task.execute(bio, position, company, linkedin, facebook, instagram); //pass in params
+    }
+
 
     @Override //UserManager on async task complete, call super to notify observers
     public void onAsyncTaskComplete(JSONObject response, String taskId) {
