@@ -15,6 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.entities.Event;
+import javanesecoffee.com.blink.managers.EventManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,8 +28,7 @@ public class EventListFragment extends Fragment {
     private ListView eventListView;
     private EventsListAdapter eventListAdapter;
 
-    //TODO: this should be of type Event
-    private ArrayList<String> events = new ArrayList<>();
+    private ArrayList<Event> events = new ArrayList<>();
 
     public EventListFragment(){
         super();
@@ -61,30 +62,6 @@ public class EventListFragment extends Fragment {
 
     public void UpdateEventList()
     {
-        //TODO: this list should be loaded from eventsmanager
-        switch (this.type)
-        {
-            case EXPLORE:
-                ArrayList<String> exploreEvents = new ArrayList<>();
-                exploreEvents.add("Explore event 1");
-                exploreEvents.add("Explore event 2");
-                exploreEvents.add("Explore event 3");
-                events = exploreEvents;
-                break;
-            case UPCOMING:
-                ArrayList<String> upcomingEvents = new ArrayList<>();
-                upcomingEvents.add("Upcoming event 1");
-                upcomingEvents.add("Upcoming event 2");
-                upcomingEvents.add("Upcoming event 3");
-                events = upcomingEvents;
-                break;
-            case PAST_EVENTS:
-                ArrayList<String> pastEvents = new ArrayList<>();
-                pastEvents.add("Past event 1");
-                pastEvents.add("Past event 2");
-                pastEvents.add("Past event 3");
-                events = pastEvents;
-                break;
-        }
+        EventManager.getInstance().getEvents(this.type);
     }
 }

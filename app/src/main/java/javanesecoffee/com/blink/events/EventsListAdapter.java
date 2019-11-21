@@ -11,14 +11,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.entities.Event;
 
 //TODO: this should be of type Event
-public class EventsListAdapter extends ArrayAdapter<String> {
+public class EventsListAdapter extends ArrayAdapter<Event> {
 
     private int resourceLayout;
     private Context mContext;
 
-    public EventsListAdapter(Context context, int resource, List<String> items) {
+    public EventsListAdapter(Context context, int resource, List<Event> items) {
         super(context, resource, items);
         this.resourceLayout = resource;
         this.mContext = context;
@@ -35,12 +36,12 @@ public class EventsListAdapter extends ArrayAdapter<String> {
             v = vi.inflate(resourceLayout, null);
         }
 
-        String event = getItem(position);
+        Event event = getItem(position);
 
         //TODO: this should link up with the respective UI elementss in the fragment_event
         if (event != null) {
             TextView eventNameTextView = v.findViewById(R.id.eventNameTextView);
-            eventNameTextView.setText(event);
+            eventNameTextView.setText(event.getName());
         }
 
         return v;
