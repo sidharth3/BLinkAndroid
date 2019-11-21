@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import javanesecoffee.com.blink.BlinkActivity;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.api.BLinkApiException;
 import javanesecoffee.com.blink.api.BLinkEventObserver;
@@ -22,7 +24,7 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 import static javanesecoffee.com.blink.R.layout.more_info;
 
-public class MoreInfoActivity extends AppCompatActivity implements BLinkEventObserver {
+public class MoreInfoActivity extends BlinkActivity implements BLinkEventObserver {
     Button next;
     Button skip;
     @Override
@@ -65,7 +67,14 @@ public class MoreInfoActivity extends AppCompatActivity implements BLinkEventObs
                 String facebook = facebookField.getText().toString();
                 String instagram = instagramField.getText().toString();
 
-                UserManager.getInstance().RegisterMoreInfo(bio, position, company, linkedin, facebook, instagram);
+
+                try {
+                    ShowProgressDialog("Updating info...");
+                    UserManager.RegisterMoreInfo(bio, position, company, linkedin, facebook, instagram);
+                } catch (BLinkApiException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MoreInfoActivity.this, e.message, Toast.LENGTH_LONG);
+                }
             }
         });
 
@@ -78,7 +87,6 @@ public class MoreInfoActivity extends AppCompatActivity implements BLinkEventObs
         });
 
         UserManager.getInstance().registerObserver(this);
-
     }
 
 
@@ -90,6 +98,7 @@ public class MoreInfoActivity extends AppCompatActivity implements BLinkEventObs
     @Override
     public void onBLinkEventTriggered(JSONObject response, String taskId) throws BLinkApiException {
         if(taskId == ApiCodes.TASK_MORE_INFO){
+            HideProgressDialog();
             boolean success = ResponseParser.ResponseIsSuccess(response);
 
             if(success){
@@ -103,9 +112,12 @@ public class MoreInfoActivity extends AppCompatActivity implements BLinkEventObs
 
     @Override
     public void onBLinkEventException(BLinkApiException exception, String taskId){
-        new AlertDialog.Builder(MoreInfoActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
-        if(Config.buildMode == BuildModes.OFFLINE) {
-            NextActivity();
+        if(taskId == ApiCodes.TASK_MORE_INFO){
+            HideProgressDialog();
+            new AlertDialog.Builder(MoreInfoActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
+            if(Config.buildMode == BuildModes.OFFLINE) {
+                NextActivity();
+            }
         }
     }
 

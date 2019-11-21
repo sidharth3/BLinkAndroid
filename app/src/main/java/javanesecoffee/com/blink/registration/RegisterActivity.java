@@ -1,5 +1,6 @@
 package javanesecoffee.com.blink.registration;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 
 import java.util.regex.Pattern;
 
+import javanesecoffee.com.blink.BlinkActivity;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.api.BLinkApiException;
 import javanesecoffee.com.blink.api.BLinkEventObserver;
@@ -24,7 +26,7 @@ import javanesecoffee.com.blink.events.EventDescriptionActivity;
 import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.managers.UserManager;
 
-public class RegisterActivity extends AppCompatActivity implements BLinkEventObserver {
+public class RegisterActivity extends BlinkActivity implements BLinkEventObserver {
 
     Button register_button;
     String displayname;
@@ -40,11 +42,16 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
                                                     "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                                                     "A-Z]{2,7}$");
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         register_button = findViewById(R.id.REGISTER_BUTTON);
+
+
+
 
         EditText usernameField = findViewById(R.id.fieldUsername);
         EditText passwordField = findViewById(R.id.fieldPassword);
@@ -82,17 +89,14 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
                     email = emailField.getText().toString();
 
                     if(validifyInputs(username, password, displayname, email)){
-                        try {
-                            UserManager.Register(username, password, displayname, email);
-                        } catch (BLinkApiException e) {
-                            Log.d("RegisterError", e.toString());
-                            Toast.makeText(getApplicationContext(), "There was an error communicating to the server", Toast.LENGTH_LONG).show();
-                        }
+                        ShowProgressDialog();
+                        UserManager.Register(username, password, displayname, email);
                     }
                 }
             }
         });
     }
+
 
     public boolean validifyInputs(String username, String password, String display_name, String email){
         if ((username == null) || !valid_username_pattern.matcher(username).matches()){
@@ -124,6 +128,7 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
     public void onBLinkEventTriggered(JSONObject response, String taskId) throws BLinkApiException{
         if(taskId == ApiCodes.TASK_REGISTER)
         {
+            HideProgressDialog();
             boolean success = ResponseParser.ResponseIsSuccess(response);
 
             if(success)
@@ -139,9 +144,12 @@ public class RegisterActivity extends AppCompatActivity implements BLinkEventObs
 
     @Override
     public void onBLinkEventException(BLinkApiException exception, String taskId) {
-        new AlertDialog.Builder(RegisterActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
-        if(Config.buildMode == BuildModes.OFFLINE) {
-            NextActivity();
+        if(taskId == ApiCodes.TASK_REGISTER) {
+            HideProgressDialog();
+            new AlertDialog.Builder(RegisterActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
+            if(Config.buildMode == BuildModes.OFFLINE) {
+                NextActivity();
+            }
         }
     }
 

@@ -70,7 +70,7 @@ public class UserManager extends Manager{
      *
      */
 
-    public static void Register(String username, String password, String displayname, String email) throws BLinkApiException {
+    public static void Register(String username, String password, String displayname, String email){
         RegisterTask task = new RegisterTask(getInstance()); //pass singleton in as handler
         task.execute(username, password, displayname ,email); //pass in params
     }
@@ -80,9 +80,17 @@ public class UserManager extends Manager{
         task.execute(username, image_file.getPath()); //pass in params
     }
 
-    public static void RegisterMoreInfo(String bio, String position, String company, String linkedin, String facebook, String instagram){
-        MoreInfoTask task = new MoreInfoTask(getInstance()); //pass singleton in as handler
-        task.execute(bio, position, company, linkedin, facebook, instagram); //pass in params
+    public static void RegisterMoreInfo(String bio, String position, String company, String linkedin, String facebook, String instagram) throws BLinkApiException{
+        User user = getLoggedInUser();
+
+        if(user != null && user.getUsername() != "") {
+            MoreInfoTask task = new MoreInfoTask(getInstance()); //pass singleton in as handler
+            task.execute(user.getUsername(), bio, position, company, linkedin, facebook, instagram); //pass in params
+        }
+        else
+        {
+            throw new BLinkApiException("MORE_INFO_ERROR", "More Info Error", "Invalid user. Please try again.");
+        }
     }
 
 

@@ -7,7 +7,7 @@ import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.entities.User;
 
 public class UserDetailsActivity extends AppCompatActivity {
-    User currentUser = new User();
+    User currentUser;
     String username = "username";
     String designation = "designation";
     String company = "company";

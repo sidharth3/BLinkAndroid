@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
+import javanesecoffee.com.blink.BlinkActivity;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.api.BLinkApiException;
 import javanesecoffee.com.blink.api.BLinkEventObserver;
@@ -37,7 +38,7 @@ import javanesecoffee.com.blink.entities.User;
 import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.managers.UserManager;
 
-public class FaceScanActivity extends AppCompatActivity implements BLinkEventObserver {
+public class FaceScanActivity extends BlinkActivity implements BLinkEventObserver {
     private static final int pic_id = 123;
     static final int REQUEST_PIC_CAPTURE = 1;
 
@@ -132,14 +133,8 @@ public class FaceScanActivity extends AppCompatActivity implements BLinkEventObs
             }
 
             //register face
-            try {
-                UserManager.RegisterFace(rotatedImageFile(imageFile), username);
-
-                //TODO: LOADING INDICATOR TO SIGNIFY AWAITING REQUEST
-            } catch (Exception e) {
-                Log.d("RegisterFaceError", e.toString());
-                Toast.makeText(getApplicationContext(), "There was an error communicating to the server", Toast.LENGTH_LONG).show();
-            }
+            ShowProgressDialog("Recognizing you...");
+            UserManager.RegisterFace(rotatedImageFile(imageFile), username);
         }
     }
 
@@ -200,6 +195,7 @@ public class FaceScanActivity extends AppCompatActivity implements BLinkEventObs
     public void onBLinkEventTriggered(JSONObject response, String taskId) throws BLinkApiException{
         if(taskId == ApiCodes.TASK_REGISTER_FACE)
         {
+            HideProgressDialog();
             boolean success = ResponseParser.ResponseIsSuccess(response);
             if(success)
             {
@@ -210,10 +206,13 @@ public class FaceScanActivity extends AppCompatActivity implements BLinkEventObs
 
     @Override
     public void onBLinkEventException(BLinkApiException exception, String taskId) {
-        new AlertDialog.Builder(FaceScanActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
+        if(taskId == ApiCodes.TASK_REGISTER_FACE) {
+            HideProgressDialog();
+            new AlertDialog.Builder(FaceScanActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
 
-        if(Config.buildMode == BuildModes.OFFLINE) {
-            NextActivity();
+            if(Config.buildMode == BuildModes.OFFLINE) {
+                NextActivity();
+            }
         }
 
     }
