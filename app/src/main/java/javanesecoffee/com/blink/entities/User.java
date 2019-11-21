@@ -1,5 +1,8 @@
 package javanesecoffee.com.blink.entities;
 
+import android.graphics.Bitmap;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,8 +14,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.ImageLoadObserver;
+import javanesecoffee.com.blink.api.LoadImageTask;
+import javanesecoffee.com.blink.constants.Endpoints;
 
-public class User{
+public class User implements ImageLoadObserver {
 
     private String username;
     private String email;
@@ -20,6 +26,7 @@ public class User{
     private String Facebook;
     private String Twitter;
     private String description;
+    private Bitmap profilepicture;
 
     public User()
     {
@@ -91,5 +98,27 @@ public class User{
 
     public String getTwitter() {
         return Twitter;
+    }
+
+    public void RequestLoadImage() {
+        if(this.username != "")
+        {
+            LoadImageTask task = new LoadImageTask(this);
+            task.execute(Endpoints.GET_PROFILE_IMAGE, this.username);
+        }
+        else
+        {
+            Log.e("User_Error", "User has no valid username");
+        }
+    }
+
+    @Override
+    public void onImageLoad(Bitmap bitmap) {
+        this.profilepicture = bitmap;
+    }
+
+    @Override
+    public void onImageLoadFailed(BLinkApiException exception) {
+        Log.e("User_Error", exception.message);
     }
 }

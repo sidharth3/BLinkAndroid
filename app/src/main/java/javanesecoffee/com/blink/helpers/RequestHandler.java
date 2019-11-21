@@ -1,5 +1,8 @@
 package javanesecoffee.com.blink.helpers;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -225,5 +228,18 @@ public class RequestHandler {
         return new JSONObject(responseString);
     }
 
-
+    public static Bitmap GetImage(String endpoint) throws BLinkApiException {
+        try {
+            String src = DOMAIN + endpoint;
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            return BitmapFactory.decodeStream(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw BLinkApiException.REQUEST_FAILED_EXCEPTION();
+        }
+    }
 }
