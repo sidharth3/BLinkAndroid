@@ -27,6 +27,11 @@ public class EventManager extends Manager {
     ArrayList<Event> upcomingEvents = new ArrayList<>();
     ArrayList<Event> exploreEvents = new ArrayList<>();
 
+    EventManager() {
+        super();
+        upcomingEvents.add(new Event("Industry Night 2019", "SUTD", "We are having industry night whoop!", "8 Somapah Road", "08/10/19", "9:00pm","FREE", "SOME_EVENT_ID"));
+        upcomingEvents.add(new Event("Hackathon 2019", "SUTD", "We are having industry night whoop!", "8 Somapah Road", "08/10/19", "9:00pm","FREE", "SOME_EVENT_ID"));
+    }
 
 
     public void getParticipantList(String event_id){

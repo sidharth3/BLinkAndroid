@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javanesecoffee.com.blink.R;
@@ -57,11 +58,16 @@ public class EventListFragment extends Fragment {
         eventListAdapter = new EventsListAdapter(getContext(), R.layout.fragment_event, events);
         eventListView.setAdapter(eventListAdapter);
 
-
     }
 
+    public void SetEvents(ArrayList<Event> events) {
+        this.events = events;
+        if(eventListAdapter != null) {
+            eventListAdapter.notifyDataSetChanged();
+        }
+    }
     public void UpdateEventList()
     {
-        EventManager.getInstance().getEvents(this.type);
+        SetEvents(EventManager.getInstance().getEvents(this.type));
     }
 }

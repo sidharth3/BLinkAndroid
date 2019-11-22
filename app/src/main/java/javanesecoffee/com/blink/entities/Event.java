@@ -1,5 +1,6 @@
 package javanesecoffee.com.blink.entities;
 
+import android.graphics.Bitmap;
 import android.widget.EditText;
 
 import org.json.JSONException;
@@ -19,8 +20,22 @@ public class Event {
     private String time;
     private String price;
     private String event_id;
+    private Bitmap eventImage;
 
-    public Event (JSONObject data) throws BLinkApiException{
+    //TODO: for testing only
+    public Event(String name, String organiser, String description, String address, String date, String time, String price, String event_id) {
+        this.name = name;
+        this.organiser = organiser;
+        this.description = description;
+        this.address = address;
+        this.date = date;
+        this.time = time;
+        this.price = price;
+        this.event_id = event_id;
+    }
+
+
+    public Event(JSONObject data) throws BLinkApiException{
         try {
             this.name = data.getString("name");
             this.organiser = data.getString("organiser");
@@ -52,4 +67,16 @@ public class Event {
     public String getPrice() { return price; }
 
     public String getTime() { return time; }
+
+    public void LoadImage() {
+
+    }
+
+    public void setEventImage(Bitmap eventImage) {
+        this.eventImage = eventImage;
+    }
+
+    public Bitmap getEventImage() {
+        return eventImage;
+    }
 }
