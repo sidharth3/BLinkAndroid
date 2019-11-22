@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import javanesecoffee.com.blink.R;
-import javanesecoffee.com.blink.events.EventDescriptionActivity;
+import javanesecoffee.com.blink.events.MainActivity;
 
 public class CompleteRegistrationActivity extends AppCompatActivity {
     Button letsgo;
@@ -26,7 +26,7 @@ public class CompleteRegistrationActivity extends AppCompatActivity {
     }
 
     public void goHome(){
-        Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }

@@ -45,7 +45,7 @@
         <activity android:name=".registration.FaceScanActivity"></activity>
         <activity android:name=".registration.MoreInfoActivity"></activity>
         <activity android:name=".registration.CompleteRegistrationActivity"></activity>
-        <activity android:name=".events.EventDescriptionActivity"></activity>
+        <activity android:name=".events.MainActivity"></activity>
         <activity android:name=".social.UserDetailsActivity"></activity>
 
         <provider

@@ -20,7 +20,7 @@ import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.BuildModes;
 import javanesecoffee.com.blink.constants.Config;
 import javanesecoffee.com.blink.constants.IntentExtras;
-import javanesecoffee.com.blink.events.EventDescriptionActivity;
+import javanesecoffee.com.blink.events.MainActivity;
 import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.managers.ConnectionsManager;
 import javanesecoffee.com.blink.managers.UserManager;
@@ -53,7 +53,7 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
         login_button = findViewById(R.id.goLoginButton);
 
 
-        EditText usernameField = findViewById(R.id.loginUsername);
+        EditText usernameField = findViewById(R.id.fieldUsername);
         EditText passwordField = findViewById(R.id.fieldPassword);
         EditText displaynameField = findViewById(R.id.fieldDisplayname);
         EditText emailField = findViewById(R.id.positionField);
@@ -72,7 +72,7 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
             @Override
             public void onClick(View v) {
                 if (Config.buildMode == BuildModes.BYPASS_ONBOARDING) {
-                    Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }
                 else if (Config.buildMode == BuildModes.TEST_SOCIAL_DETAIL) {
@@ -84,7 +84,7 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
                 }
                 else {
 
-                    EditText usernameField = findViewById(R.id.loginUsername);
+                    EditText usernameField = findViewById(R.id.fieldUsername);
                     EditText passwordField = findViewById(R.id.fieldPassword);
                     EditText displaynameField = findViewById(R.id.fieldDisplayname);
                     EditText emailField = findViewById(R.id.positionField);

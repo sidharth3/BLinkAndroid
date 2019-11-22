@@ -3,7 +3,6 @@ package javanesecoffee.com.blink.registration;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +18,7 @@ import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.BuildModes;
 import javanesecoffee.com.blink.constants.Config;
 import javanesecoffee.com.blink.constants.IntentExtras;
-import javanesecoffee.com.blink.events.EventDescriptionActivity;
+import javanesecoffee.com.blink.events.MainActivity;
 import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.managers.ConnectionsManager;
 import javanesecoffee.com.blink.managers.UserManager;
@@ -56,7 +55,7 @@ public class LoginActivity extends BlinkActivity implements BLinkEventObserver {
             @Override
             public void onClick(View v) {
                 if (Config.buildMode == BuildModes.BYPASS_ONBOARDING) {
-                    Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }
                 else if (Config.buildMode == BuildModes.TEST_SOCIAL_DETAIL) {
@@ -106,7 +105,7 @@ public class LoginActivity extends BlinkActivity implements BLinkEventObserver {
 
     public void NextActivity()
     {
-        Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }
