@@ -13,12 +13,16 @@ public abstract class Manager implements AsyncResponseHandler {
 
     public void registerObserver(BLinkEventObserver observer)
     {
-        eventObservers.add(observer);
+        if(!eventObservers.contains(observer)) {
+            eventObservers.add(observer);
+        }
     }
 
     public void deregisterObserver(BLinkEventObserver observer)
     {
-        eventObservers.remove(observer);
+        if(eventObservers.contains(observer)) {
+            eventObservers.remove(observer);
+        }
     }
 
     @Override

@@ -1,11 +1,8 @@
 package javanesecoffee.com.blink.registration;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,8 +19,10 @@ import javanesecoffee.com.blink.api.BLinkEventObserver;
 import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.BuildModes;
 import javanesecoffee.com.blink.constants.Config;
+import javanesecoffee.com.blink.constants.IntentExtras;
 import javanesecoffee.com.blink.events.EventDescriptionActivity;
 import javanesecoffee.com.blink.helpers.ResponseParser;
+import javanesecoffee.com.blink.managers.ConnectionsManager;
 import javanesecoffee.com.blink.managers.UserManager;
 import javanesecoffee.com.blink.social.UserDetailsActivity;
 
@@ -77,7 +76,10 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
                     startActivity(intent);
                 }
                 else if (Config.buildMode == BuildModes.TEST_SOCIAL_DETAIL) {
+                    ConnectionsManager.getInstance();
                     Intent intent = new Intent(getApplicationContext(), UserDetailsActivity.class);
+                    intent.putExtra(IntentExtras.USER.USER_TYPE_KEY, IntentExtras.USER.USER_TYPE_CONNECTION);
+                    intent.putExtra(IntentExtras.USER.USER_NAME_KEY, "mooselliot");
                     startActivity(intent);
                 }
                 else {
@@ -86,7 +88,6 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
                     EditText passwordField = findViewById(R.id.fieldPassword);
                     EditText displaynameField = findViewById(R.id.fieldDisplayname);
                     EditText emailField = findViewById(R.id.positionField);
-
 
                     username = usernameField.getText().toString();
                     password = passwordField.getText().toString();

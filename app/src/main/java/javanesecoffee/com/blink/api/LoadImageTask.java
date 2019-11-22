@@ -26,8 +26,8 @@ public class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected Bitmap doInBackground(String... params) {
-        String id = params[0];
-        String endpoint = params[1];
+        String endpoint = params[0];
+        String id = params[1];
         String url_extension = endpoint + id;
 
         Bitmap image = null;
