@@ -20,10 +20,10 @@
             android:layout_marginTop="4dp"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat"
-            android:text="TextView"
+            android:text="@string/events"
             android:textColor="#474BAC"
             android:textSize="32sp"
-            tools:text="Events" />
+            />
 
     </LinearLayout>
 

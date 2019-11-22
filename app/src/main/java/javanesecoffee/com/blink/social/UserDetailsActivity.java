@@ -14,6 +14,7 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 public class UserDetailsActivity extends AppCompatActivity {
     User currentUser;
+    UserManager currentUserManager;
     String username = "username";
     String designation = "designation";
     String company = "company";
@@ -29,7 +30,7 @@ public class UserDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_details_page);
-
+        currentUserManager = currentUserManager.getInstance();
         editProfilePic = findViewById(R.id.profile_pic);
         editUsername = findViewById(R.id.fieldUsername);
         editBio = findViewById(R.id.bio);
@@ -38,10 +39,10 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         currentUser = currentUserManager.getLoggedInUser();
         editUsername.setText(currentUser.getUsername());
-        editBio.setText(currentUser.getDescription());
+        editBio.setText(currentUser.getBio());
         //editDesignation.setText(currentUser.);
         editCompany.setText(currentUser.getCompany());
-        editProfilePic.setImageBitmap();
+        editProfilePic.setImageBitmap(currentUser.getProfilepicture());
 
 
     }

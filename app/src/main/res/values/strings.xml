@@ -10,6 +10,8 @@
     <string name="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Semper feugiat nibh sed pulvinar proin. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec. Id faucibus nisl tincidunt eget nullam. Tristique et egestas quis ipsum suspendisse ultrices. Porttitor rhoncus dolor purus non enim praesent elementum facilisis leo. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. Eget nunc scelerisque viverra mauris in aliquam. Velit laoreet id donec </string>
     <string name="description">Description:</string>
     <string name="pastEvents">Past Events:</string>
+    <string name="social">Social</string>
+    <string name="events">Events</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
