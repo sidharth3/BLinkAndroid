@@ -20,6 +20,7 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 public class UserDetailsActivity extends AppCompatActivity implements ImageLoadObserver {
     User currentUser;
+
     TextView editUsername;
     TextView editBio;
     TextView editDesignation;
