@@ -29,10 +29,12 @@ public class EventDescriptionActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFrag;
+
             switch (item.getItemId()){
-                case R.id.navhome:
                 default:
+                case R.id.navhome:
                     selectedFrag = new HomeFrag();
+                    break;
                 case R.id.navcam:
                     selectedFrag = new CameraFrag();
                     break;
@@ -41,7 +43,8 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     break;
 
             }
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer,selectedFrag).commit();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer,selectedFrag).commit();
             return true;
         }
     };
