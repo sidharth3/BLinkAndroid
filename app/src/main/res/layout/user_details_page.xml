@@ -64,16 +64,44 @@
         android:textColor="#FFFFFF"
         android:textSize="8pt" />
 
-    <Button
-        android:layout_width="40dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="155dp"
-        android:background="@drawable/button_gradient_green"
-        android:fontFamily="@font/montserrat"
-        android:text="java"
-        android:textColor="@android:color/white"
-        android:textSize="8sp"
-        />
+
+    <TextView
+        android:id="@+id/bio"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="230dp"
+        android:text="@string/bio"
+        android:textColor="#FFFFFF"
+        android:textSize="7pt" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="200dp"
+        android:text="@string/description"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="8pt" />
+
+    <TextView
+        android:id="@+id/pastEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="525dp"
+        android:text="@string/pastEvents"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="8pt" />
+
+    <include layout="@layout/user_interest_list" />
+
+
 
 </RelativeLayout>
