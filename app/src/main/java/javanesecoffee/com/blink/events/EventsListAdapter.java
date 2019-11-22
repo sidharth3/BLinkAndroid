@@ -39,10 +39,9 @@ public class EventsListAdapter extends ArrayAdapter<Event> {
         Event event = getItem(position);
 
         //TODO: this should link up with the respective UI elementss in the fragment_event
-        if (event != null) {
-            TextView eventNameTextView = v.findViewById(R.id.eventNameTextView);
-            eventNameTextView.setText(event.getName());
-        }
+//        if (event != null) {
+//            ((EventFragment) v).LoadEvent(event);
+//        }
 
         return v;
     }
