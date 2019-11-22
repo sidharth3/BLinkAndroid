@@ -20,11 +20,7 @@
             android:layout_marginTop="4dp"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat"
-<<<<<<< HEAD
             android:text="@string/events"
-=======
-            android:text="Events"
->>>>>>> master
             android:textColor="#474BAC"
             android:textSize="32sp"
             />

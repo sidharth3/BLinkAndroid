@@ -20,14 +20,7 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 public class UserDetailsActivity extends AppCompatActivity implements ImageLoadObserver {
     User currentUser;
-<<<<<<< HEAD
-    UserManager currentUserManager;
-    String username = "username";
-    String designation = "designation";
-    String company = "company";
-    public final String TAG = "Logcat";
-=======
->>>>>>> master
+
     TextView editUsername;
     TextView editBio;
     TextView editDesignation;
@@ -39,23 +32,14 @@ public class UserDetailsActivity extends AppCompatActivity implements ImageLoadO
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_details_page);
-        currentUserManager = currentUserManager.getInstance();
+
         editProfilePic = findViewById(R.id.profile_pic);
         editUsername = findViewById(R.id.fieldUsername);
         editBio = findViewById(R.id.bio);
         editDesignation = findViewById(R.id.designation);
         editCompany = findViewById(R.id.company);
 
-<<<<<<< HEAD
-        currentUser = currentUserManager.getLoggedInUser();
-        editUsername.setText(currentUser.getUsername());
-        editBio.setText(currentUser.getBio());
-        //editDesignation.setText(currentUser.);
-        editCompany.setText(currentUser.getCompany());
-        editProfilePic.setImageBitmap(currentUser.getProfilepicture());
-=======
         currentUser = UserManager.getLoggedInUser();
->>>>>>> master
 
         Intent intent = getIntent();
         String type = intent.getStringExtra(IntentExtras.USER.USER_TYPE_KEY);
