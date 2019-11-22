@@ -28,5 +28,6 @@ public class CompleteRegistrationActivity extends AppCompatActivity {
     public void goHome(){
         Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
         startActivity(intent);
+        finish();
     }
 }

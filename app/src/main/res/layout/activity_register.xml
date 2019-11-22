@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/REGISTER_BUTTON"
+        android:id="@+id/confirmRegisterButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="318dp"
         android:layout_height="60dp"
@@ -120,7 +120,7 @@
         android:textColor="@color/design_default_color_primary_dark"
         android:textColorHint="@android:color/black"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/REGISTER_BUTTON"
+        app:layout_constraintBottom_toTopOf="@+id/goRegisterButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fieldDisplayname" />
@@ -142,7 +142,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/goLoginButton"
         android:layout_width="99dp"
         android:layout_height="20dp"
         android:layout_marginStart="4dp"

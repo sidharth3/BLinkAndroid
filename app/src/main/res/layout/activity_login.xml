@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".registration.RegisterActivity">
+    tools:context=".registration.LoginActivity">
 
     <View
         android:id="@+id/ovalView"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/REGISTER_BUTTON"
+        android:id="@+id/confirmLoginButon"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="318dp"
         android:layout_height="60dp"
@@ -27,7 +27,7 @@
         android:background="@drawable/button_gradient_blue"
         android:elevation="2dp"
         android:fontFamily="@font/montserrat"
-        android:text="Register"
+        android:text="Login"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
@@ -52,78 +52,42 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/fieldUsername"
+        android:id="@+id/loginUsername"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="45dp"
-        android:backgroundTint="@android:color/black"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="#3B0B65"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:hint="USERNAME"
         android:inputType="textPersonName"
         android:textColor="@color/design_default_color_primary_dark"
         android:textColorHint="@android:color/black"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/fieldPassword"
-        app:layout_constraintEnd_toEndOf="@+id/fieldPassword"
-        app:layout_constraintStart_toStartOf="@+id/fieldPassword"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/loginPassword"
+        app:layout_constraintEnd_toEndOf="@+id/loginPassword"
+        app:layout_constraintStart_toStartOf="@+id/loginPassword"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.49" />
 
     <EditText
-        android:id="@+id/fieldPassword"
-        android:layout_width="0dp"
+        android:id="@+id/loginPassword"
+        android:layout_width="275dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="2dp"
-        android:backgroundTint="@android:color/black"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#3B0B65"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:hint="PASSWORD"
         android:inputType="textPassword"
         android:textColor="@color/design_default_color_primary_dark"
         android:textColorHint="@android:color/black"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/fieldDisplayname"
-        app:layout_constraintEnd_toEndOf="@+id/fieldDisplayname"
-        app:layout_constraintStart_toStartOf="@+id/fieldDisplayname"
-        app:layout_constraintTop_toBottomOf="@+id/fieldUsername" />
-
-    <EditText
-        android:id="@+id/fieldDisplayname"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="6dp"
-        android:backgroundTint="@android:color/black"
-        android:ems="10"
-        android:fontFamily="@font/montserrat"
-        android:hint="DISPLAYNAME"
-        android:inputType="textPersonName"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textColorHint="@android:color/black"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/positionField"
-        app:layout_constraintEnd_toEndOf="@+id/positionField"
-        app:layout_constraintStart_toStartOf="@+id/positionField"
-        app:layout_constraintTop_toBottomOf="@+id/fieldPassword" />
-
-    <EditText
-        android:id="@+id/positionField"
-        android:layout_width="275dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="45dp"
-        android:backgroundTint="@android:color/black"
-        android:ems="10"
-        android:fontFamily="@font/montserrat"
-        android:hint="EMAIL"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textColorHint="@android:color/black"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/REGISTER_BUTTON"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fieldDisplayname" />
+        app:layout_constraintTop_toBottomOf="@+id/loginUsername" />
 
     <TextView
         android:id="@+id/textView2"
@@ -131,9 +95,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="45dp"
         android:fontFamily="@font/montserrat"
-        android:text="Already have an account?"
+        android:text="Don't have an account?"
         android:textColor="@android:color/black"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -142,13 +106,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/goRegisterButton"
         android:layout_width="99dp"
         android:layout_height="20dp"
         android:layout_marginStart="4dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/montserrat"
-        android:text="Login Here"
+        android:text="Register Here"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@android:color/black"

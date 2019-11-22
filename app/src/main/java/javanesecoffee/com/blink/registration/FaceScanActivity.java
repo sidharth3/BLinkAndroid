@@ -106,6 +106,7 @@ public class FaceScanActivity extends BlinkActivity implements BLinkEventObserve
     public void NextActivity(){
         Intent intent = new Intent(getApplicationContext(), MoreInfoActivity.class);
         startActivity(intent);
+        finish();
     }
 
     protected void onActivityResult(int requestCode,

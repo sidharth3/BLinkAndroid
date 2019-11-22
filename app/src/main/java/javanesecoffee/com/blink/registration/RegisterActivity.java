@@ -29,6 +29,7 @@ import javanesecoffee.com.blink.social.UserDetailsActivity;
 public class RegisterActivity extends BlinkActivity implements BLinkEventObserver {
 
     Button register_button;
+    Button login_button;
     String displayname;
     String username;
     String password;
@@ -48,12 +49,11 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        register_button = findViewById(R.id.REGISTER_BUTTON);
+        register_button = findViewById(R.id.confirmRegisterButton);
+        login_button = findViewById(R.id.goLoginButton);
 
 
-
-
-        EditText usernameField = findViewById(R.id.fieldUsername);
+        EditText usernameField = findViewById(R.id.loginUsername);
         EditText passwordField = findViewById(R.id.fieldPassword);
         EditText displaynameField = findViewById(R.id.fieldDisplayname);
         EditText emailField = findViewById(R.id.positionField);
@@ -84,7 +84,7 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
                 }
                 else {
 
-                    EditText usernameField = findViewById(R.id.fieldUsername);
+                    EditText usernameField = findViewById(R.id.loginUsername);
                     EditText passwordField = findViewById(R.id.fieldPassword);
                     EditText displaynameField = findViewById(R.id.fieldDisplayname);
                     EditText emailField = findViewById(R.id.positionField);
@@ -99,6 +99,13 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
                         UserManager.Register(username, password, displayname, email);
                     }
                 }
+            }
+        });
+
+        login_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                MoveToRegisterActivity();
             }
         });
     }
@@ -127,7 +134,14 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
     public void NextActivity()
     {
         Intent intent = new Intent(getApplicationContext(), FaceScanActivity.class);
-        startActivity(intent);        
+        startActivity(intent);
+        finish();
+    }
+
+    public void MoveToRegisterActivity(){
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override //the exceptions thrown will be caught in the caller, AsyncResponseHandler. It will call onBlinkEventException
