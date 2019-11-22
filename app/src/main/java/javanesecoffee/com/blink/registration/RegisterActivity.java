@@ -25,6 +25,7 @@ import javanesecoffee.com.blink.constants.Config;
 import javanesecoffee.com.blink.events.EventDescriptionActivity;
 import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.managers.UserManager;
+import javanesecoffee.com.blink.social.UserDetailsActivity;
 
 public class RegisterActivity extends BlinkActivity implements BLinkEventObserver {
 
@@ -73,6 +74,10 @@ public class RegisterActivity extends BlinkActivity implements BLinkEventObserve
             public void onClick(View v) {
                 if (Config.buildMode == BuildModes.BYPASS_ONBOARDING) {
                     Intent intent = new Intent(getApplicationContext(), EventDescriptionActivity.class);
+                    startActivity(intent);
+                }
+                else if (Config.buildMode == BuildModes.TEST_SOCIAL_DETAIL) {
+                    Intent intent = new Intent(getApplicationContext(), UserDetailsActivity.class);
                     startActivity(intent);
                 }
                 else {

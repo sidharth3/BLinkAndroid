@@ -1,5 +1,7 @@
 package javanesecoffee.com.blink.social;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 //import android.os.UserManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +16,6 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 public class UserDetailsActivity extends AppCompatActivity {
     User currentUser;
-    String username = "username";
-    String designation = "designation";
-    String company = "company";
     public final String TAG = "Logcat";
     TextView editUsername;
     TextView editBio;
@@ -36,13 +35,24 @@ public class UserDetailsActivity extends AppCompatActivity {
         editDesignation = findViewById(R.id.designation);
         editCompany = findViewById(R.id.company);
 
-        currentUser = currentUserManager.getLoggedInUser();
-        editUsername.setText(currentUser.getUsername());
-        editBio.setText(currentUser.getDescription());
-        //editDesignation.setText(currentUser.);
-        editCompany.setText(currentUser.getCompany());
-        editProfilePic.setImageBitmap();
+        currentUser = UserManager.getLoggedInUser();
 
+        Intent intent = getIntent();
 
+        String username = intent.getStringExtra("username");
+        //TODO: currentUser = UserManager.getUserWithUsername(username);
+
+        if(currentUser != null) {
+            editUsername.setText(currentUser.getUsername());
+            editBio.setText(currentUser.getBio());
+            editDesignation.setText(currentUser.getPosition());
+            editCompany.setText(currentUser.getCompany());
+            Bitmap image = currentUser.getProfilepicture();
+            if(image != null) {
+                editProfilePic.setImageBitmap(image);
+            }
+        }
     }
+
+
 }
