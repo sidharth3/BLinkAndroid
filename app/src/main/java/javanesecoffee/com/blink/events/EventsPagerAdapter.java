@@ -11,12 +11,10 @@ import javanesecoffee.com.blink.social.SocialFragment;
 public class EventsPagerAdapter extends FragmentPagerAdapter {
 
     private String[] titles;
-
     public EventsPagerAdapter(FragmentManager fm, String[] titles ) {
         super(fm);
         this.titles = titles;
     }
-
     @Override
     public Fragment getItem(int position) {
         switch (position)
