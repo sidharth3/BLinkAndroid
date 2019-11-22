@@ -66,14 +66,9 @@ public class UserDetailsActivity extends AppCompatActivity implements ImageLoadO
             editBio.setText(currentUser.getBio());
             editDesignation.setText(currentUser.getPosition());
             editCompany.setText(currentUser.getCompany());
-            Bitmap image = currentUser.getProfilepicture();
+            Bitmap image = currentUser.getProfilepictureAndLoadIfNeeded(this);
             if(image != null) {
                 editProfilePic.setImageBitmap(image);
-
-            }
-            else {
-                //if this user has no image yet, request load and then subscribe so that when it loads it will update
-                currentUser.LoadImage(this);
             }
         }
         else {

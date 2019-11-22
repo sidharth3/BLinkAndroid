@@ -81,14 +81,22 @@ public class User implements ImageLoadObserver {
     public String getDisplayname() { return displayname; }
     public String getCompany() { return company; }
     public String getBio() { return bio; }
-    public Bitmap getProfilepicture() { return profilepicture; }
+    public Bitmap getProfilepictureAndLoadIfNeeded(ImageLoadObserver onFinishedObserver) {
+        if (this.profilepicture == null) {
+            LoadImage(onFinishedObserver);
+            return null;
+        }
+        else {
+            return profilepicture;
+        }
+    }
     public String getPosition() { return position; }
     public String getLinkedin() { return linkedin; }
     public String getFacebook() { return facebook; }
     public String getInstagram() { return instagram; }
 
-    public void LoadImage(ImageLoadObserver o) {
-        registerObserver(o); //only notify once, so will remove once loaded
+    private void LoadImage(ImageLoadObserver onFinishedObserver) {
+        registerObserver(onFinishedObserver); //only notify once, so will remove once loaded
 
         if(this.username != "")
         {

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import javanesecoffee.com.blink.CameraFrag;
 import javanesecoffee.com.blink.HomeFrag;
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.social.SocialFragment;
 
 public class EventDescriptionActivity extends AppCompatActivity {
     //get the details of the event from the server and display them
@@ -29,15 +30,15 @@ public class EventDescriptionActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFrag;
             switch (item.getItemId()){
+                case R.id.navhome:
+                default:
+                    selectedFrag = new HomeFrag();
                 case R.id.navcam:
                     selectedFrag = new CameraFrag();
                     break;
                 case R.id.navevent:
-                    selectedFrag = new EventsFrag();
+                    selectedFrag = new SocialFragment();
                     break;
-                case R.id.navhome:
-                default:
-                    selectedFrag = new HomeFrag();
 
             }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer,selectedFrag).commit();
