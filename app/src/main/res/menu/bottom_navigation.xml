@@ -12,7 +12,7 @@
     <item
         android:id="@+id/navevent"
         android:icon="@drawable/ic_event_black_24dp"
-        android:title="Events"/>
+        android:title="Social"/>
 
 
 

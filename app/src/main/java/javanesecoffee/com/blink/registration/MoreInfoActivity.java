@@ -73,7 +73,7 @@ public class MoreInfoActivity extends BlinkActivity implements BLinkEventObserve
                     UserManager.RegisterMoreInfo(bio, position, company, linkedin, facebook, instagram);
                 } catch (BLinkApiException e) {
                     e.printStackTrace();
-                    Toast.makeText(MoreInfoActivity.this, e.message, Toast.LENGTH_LONG);
+                    Toast.makeText(MoreInfoActivity.this, e.message, Toast.LENGTH_LONG).show();
                 }
             }
         });
