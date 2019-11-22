@@ -27,11 +27,6 @@ public class EventFrameLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public EventFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-
     public void setEvent(Event event) {
         this.event = event;
     }

@@ -39,11 +39,6 @@ public class EventsListAdapter extends ArrayAdapter<Event> {
         eventFrameLayout.setEvent(event);
         eventFrameLayout.UpdateData();
 
-        //TODO: this should link up with the respective UI elementss in the fragment_event
-//        if (event != null) {
-//            ((EventFragment) v).LoadEvent(event);
-//        }
-
         return v;
     }
 
