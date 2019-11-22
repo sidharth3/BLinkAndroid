@@ -41,12 +41,12 @@ public abstract class BLinkAsyncTask extends AsyncTask<String, Void, JSONObject>
             return executeMainTask(params);
         } catch (IOException e) {
             e.printStackTrace();
-            setException(new BLinkApiException("REGISTER_FACE_FAILED", "Request Failed"));
+            setException(BLinkApiException.REQUEST_FAILED_EXCEPTION());
             return null;
         }
         catch (JSONException e) {
             e.printStackTrace();
-            setException(new BLinkApiException("REGISTER_FACE_MALFORMED_DATA","The server's response was invalid"));
+            setException(BLinkApiException.MALFORMED_DATA_EXCEPTION());
             return null;
         }
         catch (BLinkApiException e) {

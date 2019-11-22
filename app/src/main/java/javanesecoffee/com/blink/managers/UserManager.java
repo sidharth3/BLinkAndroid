@@ -7,12 +7,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 
-import javanesecoffee.com.blink.api.AsyncResponseHandler;
 import javanesecoffee.com.blink.api.BLinkApiException;
-import javanesecoffee.com.blink.api.BLinkEventObserver;
 import javanesecoffee.com.blink.api.LoginTask;
+import javanesecoffee.com.blink.api.MoreInfoTask;
 import javanesecoffee.com.blink.api.RegisterFaceTask;
 import javanesecoffee.com.blink.api.RegisterTask;
 import javanesecoffee.com.blink.constants.ApiCodes;
@@ -38,7 +36,6 @@ public class UserManager extends Manager{
     private static User loggedInUser;
 
 
-
     /**
      * Send a login request to the URL
      *
@@ -54,8 +51,7 @@ public class UserManager extends Manager{
 
     public static User getLoggedInUser() {
         //TODO: TESTING ONLY
-//        return loggedInUser;
-        return new User("mooselliot", "email", "company");
+        return loggedInUser;
     }
 
     public static void setLoggedInUser(User loggedInUser) {
@@ -68,23 +64,34 @@ public class UserManager extends Manager{
      *
      * @param username username for login
      * @param password password for login
-     * @param first_name first_name of user
-     * @param last_name last_name of user
+     * @param displayname email of user
      * @param email email of user
-     * @param birth_year birth_year of user
      *
      */
-//    public static boolean register(String username, File faceimage){
 
-    public static void Register(String username, String password, String first_name, String last_name, String email, String birth_year) throws BLinkApiException {
+    public static void Register(String username, String password, String displayname, String email){
         RegisterTask task = new RegisterTask(getInstance()); //pass singleton in as handler
-        task.execute(username, password, first_name, last_name, email, birth_year); //pass in params
+        task.execute(username, password, displayname ,email); //pass in params
     }
 
     public static void RegisterFace(File image_file, String username){
         RegisterFaceTask task = new RegisterFaceTask(getInstance()); //pass singleton in as handler
         task.execute(username, image_file.getPath()); //pass in params
     }
+
+    public static void RegisterMoreInfo(String bio, String position, String company, String linkedin, String facebook, String instagram) throws BLinkApiException{
+        User user = getLoggedInUser();
+
+        if(user != null && user.getUsername() != "") {
+            MoreInfoTask task = new MoreInfoTask(getInstance()); //pass singleton in as handler
+            task.execute(user.getUsername(), bio, position, company, linkedin, facebook, instagram); //pass in params
+        }
+        else
+        {
+            throw new BLinkApiException("MORE_INFO_ERROR", "More Info Error", "Invalid user. Please try again.");
+        }
+    }
+
 
     @Override //UserManager on async task complete, call super to notify observers
     public void onAsyncTaskComplete(JSONObject response, String taskId) {
@@ -134,10 +141,10 @@ public class UserManager extends Manager{
     //TODO: change format to fit RegisterFace request format
     public static void Connect(String username, File image_file) throws BLinkApiException{
         try {
-            RequestHandler register_req_handler = new RequestHandler(CONNECT_URL);
+            RequestHandler register_req_handler = RequestHandler.FormRequestHandler(CONNECT_URL);
             register_req_handler.addFormField("username", username);
             register_req_handler.addFilePart("image_file", image_file);
-            register_req_handler.finish();
+            register_req_handler.sendFormDataRequest();
         } catch (IOException e) {
             e.printStackTrace();
             throw new BLinkApiException("REGISTER_FACE_FAILED", "Request Failed");

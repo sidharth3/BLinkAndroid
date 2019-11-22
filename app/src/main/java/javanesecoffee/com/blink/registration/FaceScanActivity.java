@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 
+import javanesecoffee.com.blink.BlinkActivity;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.api.BLinkApiException;
 import javanesecoffee.com.blink.api.BLinkEventObserver;
@@ -34,10 +35,11 @@ import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.BuildModes;
 import javanesecoffee.com.blink.constants.Config;
 import javanesecoffee.com.blink.entities.User;
+import javanesecoffee.com.blink.helpers.ImageHelper;
 import javanesecoffee.com.blink.helpers.ResponseParser;
 import javanesecoffee.com.blink.managers.UserManager;
 
-public class FaceScanActivity extends AppCompatActivity implements BLinkEventObserver {
+public class FaceScanActivity extends BlinkActivity implements BLinkEventObserver {
     private static final int pic_id = 123;
     static final int REQUEST_PIC_CAPTURE = 1;
 
@@ -132,74 +134,16 @@ public class FaceScanActivity extends AppCompatActivity implements BLinkEventObs
             }
 
             //register face
-            try {
-                UserManager.RegisterFace(rotatedImageFile(imageFile), username);
-
-                //TODO: LOADING INDICATOR TO SIGNIFY AWAITING REQUEST
-            } catch (Exception e) {
-                Log.d("RegisterFaceError", e.toString());
-                Toast.makeText(getApplicationContext(), "There was an error communicating to the server", Toast.LENGTH_LONG).show();
-            }
+            ShowProgressDialog("Recognizing you...");
+            UserManager.RegisterFace(ImageHelper.RotateFileIfNeeded(imageFile), username);
         }
-    }
-
-    File rotatedImageFile(File file)
-    {
-        try {
-            String filePath = file.getPath();
-            ExifInterface ei = new ExifInterface(filePath);
-            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_UNDEFINED);
-
-            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-
-            Bitmap rotatedBitmap = null;
-            switch(orientation) {
-
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    rotatedBitmap = rotateImage(bitmap, 90);
-                    break;
-
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    rotatedBitmap = rotateImage(bitmap, 180);
-                    break;
-
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    rotatedBitmap = rotateImage(bitmap, 270);
-                    break;
-
-                case ExifInterface.ORIENTATION_NORMAL:
-                default:
-                    rotatedBitmap = bitmap;
-            }
-
-
-            OutputStream os;
-            os = new FileOutputStream(file);
-            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
-            os.flush();
-            os.close();
-
-            return imageFile;
-        } catch (IOException e) {
-            e.printStackTrace();
-
-            return file;
-        }
-    }
-
-
-    public static Bitmap rotateImage(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
-                matrix, true);
     }
 
     @Override
     public void onBLinkEventTriggered(JSONObject response, String taskId) throws BLinkApiException{
         if(taskId == ApiCodes.TASK_REGISTER_FACE)
         {
+            HideProgressDialog();
             boolean success = ResponseParser.ResponseIsSuccess(response);
             if(success)
             {
@@ -210,11 +154,14 @@ public class FaceScanActivity extends AppCompatActivity implements BLinkEventObs
 
     @Override
     public void onBLinkEventException(BLinkApiException exception, String taskId) {
-        if(Config.buildMode == BuildModes.PRODUCTION) {
+        if(taskId == ApiCodes.TASK_REGISTER_FACE) {
+            HideProgressDialog();
             new AlertDialog.Builder(FaceScanActivity.this).setTitle(exception.statusText).setMessage(exception.message).setPositiveButton("Ok", null).show();
+
+            if(Config.buildMode == BuildModes.OFFLINE) {
+                NextActivity();
+            }
         }
-        else {
-            NextActivity();
-        }
+
     }
 }
