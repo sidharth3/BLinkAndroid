@@ -3,6 +3,24 @@
     <string name="register_title">BLink</string>
     <string name="register_subtitle">get connected</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="username">Helen Kaur</string>
+    <string name="designation">Software Engineer</string>
+    <string name="company">Google</string>
+    <string name="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Semper feugiat nibh sed pulvinar proin. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec. Id faucibus nisl tincidunt eget nullam. Tristique et egestas quis ipsum suspendisse ultrices. Porttitor rhoncus dolor purus non enim praesent elementum facilisis leo. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. Eget nunc scelerisque viverra mauris in aliquam. Velit laoreet id donec </string>
+    <string name="description">Description:</string>
+    <string name="pastEvents">Past Events:</string>
+    <string name="social">Social</string>
+    <string name="events">Events</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_tabbed_events">TabbedEvents</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Strings related to login -->
 
 </resources>

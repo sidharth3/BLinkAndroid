@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FaceScanActivity">
+    tools:context=".registration.FaceScanActivity">
 
     <View
         android:id="@+id/rect"
@@ -13,135 +13,170 @@
         android:background="@drawable/gradient_rect"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="360dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
-        android:fontFamily="@font/roboto_bold"
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+
+        android:fontFamily="@font/montserrat_bold"
         android:text="TELL US MORE"
         android:textColor="@android:color/white"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="298dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="7dp"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:fontFamily="@font/montserrat"
-        android:hint="BIO"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="@android:color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/interests"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
     <Button
         android:id="@+id/next"
-        android:layout_width="261dp"
+        android:layout_width="260dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/button_gradient_blue"
         android:fontFamily="@font/montserrat"
         android:text="Next"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/skip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/currentPos"
+        android:id="@+id/bioField"
+        android:layout_width="296dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="22dp"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="Bio"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/positionField"
+        app:layout_constraintStart_toStartOf="@+id/positionField"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <EditText
+        android:id="@+id/positionField"
+        android:layout_width="298dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="Current Position"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/companyField"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/companyField"
+        app:layout_constraintTop_toBottomOf="@+id/bioField" />
+
+    <EditText
+        android:id="@+id/companyField"
+        android:layout_width="296dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:hint="Company"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/linkedinField"
+        app:layout_constraintStart_toStartOf="@+id/linkedinField"
+        app:layout_constraintTop_toBottomOf="@+id/positionField" />
+
+    <EditText
+        android:id="@+id/linkedinField"
         android:layout_width="296dp"
         android:layout_height="44dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="CURRENT POSITION"
+        android:hint="LinkedIn (Optional)"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorWhite"
         android:textColorHint="@android:color/white"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/education" />
+        app:layout_constraintTop_toBottomOf="@+id/companyField" />
 
     <EditText
-        android:id="@+id/education"
+        android:id="@+id/facebookField"
         android:layout_width="296dp"
-        android:layout_height="52dp"
+        android:layout_height="44dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="EDUCATION"
+        android:hint="Facebook (Optional)"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorWhite"
         android:textColorHint="@android:color/white"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/interests" />
+        app:layout_constraintTop_toBottomOf="@+id/linkedinField" />
 
     <EditText
-        android:id="@+id/interests"
+        android:id="@+id/instagramField"
         android:layout_width="296dp"
-        android:layout_height="0dp"
+        android:layout_height="44dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="523dp"
         android:backgroundTint="@android:color/white"
         android:ems="10"
         android:fontFamily="@font/montserrat"
-        android:hint="INTERESTS"
+        android:hint="Instagram (Optional)"
         android:inputType="textEmailAddress"
         android:textColor="@color/colorWhite"
         android:textColorHint="@android:color/white"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/facebookField" />
+
 
     <Button
         android:id="@+id/skip"
         android:layout_width="84dp"
         android:layout_height="25dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/montserrat"
         android:text="Skip for now"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="@+id/rect"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/next" />
+        app:layout_constraintStart_toStartOf="parent" />
     <!-- add ImageView to display the captured image-->
 
 </android.support.constraint.ConstraintLayout>
