@@ -32,7 +32,15 @@ public class EventFragment extends Fragment {
     public void LoadEvent(Event event) {
         this.event = event;
         TextView eventNameTextView = getView().findViewById(R.id.eventNameTextView);
+        TextView eventDateTextView = getView().findViewById(R.id.eventDateTextView);
+        TextView eventOrganiserTextView = getView().findViewById(R.id.eventOrganiserTextView);
+        TextView eventTimeTextView = getView().findViewById(R.id.eventTimeTextView);
+
         eventNameTextView.setText(event.getName());
+        eventDateTextView.setText(event.getDate());
+        eventTimeTextView.setText(event.getTime());
+        eventOrganiserTextView.setText(event.getOrganiser());
+
     }
 
 }
