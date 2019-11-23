@@ -93,6 +93,7 @@ public class MoreInfoActivity extends BlinkActivity implements BLinkEventObserve
     public void NextActivity(){
         Intent intent = new Intent(getApplicationContext(), CompleteRegistrationActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

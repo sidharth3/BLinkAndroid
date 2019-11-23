@@ -34,7 +34,7 @@ public class UserDetailsActivity extends AppCompatActivity implements ImageLoadO
         setContentView(R.layout.user_details_page);
 
         editProfilePic = findViewById(R.id.profile_pic);
-        editUsername = findViewById(R.id.fieldUsername);
+        editUsername = findViewById(R.id.loginUsername);
         editBio = findViewById(R.id.bio);
         editDesignation = findViewById(R.id.designation);
         editCompany = findViewById(R.id.company);

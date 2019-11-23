@@ -12,13 +12,13 @@ import javanesecoffee.com.blink.HomeFrag;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.social.SocialFragment;
 
-public class EventDescriptionActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     //get the details of the event from the server and display them
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.event_description_activity);
+        setContentView(R.layout.main_activity);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         navListener.onNavigationItemSelected(bottomNav.getMenu().findItem(R.id.navhome));
