@@ -36,9 +36,11 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
     private ArrayList<String> bCardLinkedin = new ArrayList<>();
     private ArrayList<String> bCardFacebook = new ArrayList<>();
     private ArrayList<String> bCardInstagram = new ArrayList<>();
+    private ArrayList<String> bCardCompany = new ArrayList<>();
     private Context bCardContext;
     User currentUser = UserManager.getLoggedInUser();
-    public SocialNameCard_RecyclerViewAdapter(ArrayList<Bitmap> bCardImage, ArrayList<String> bCardUsername, ArrayList<String> bCardDesignation, ArrayList<String> bCardContactDetails, ArrayList<String> bCardEmail, ArrayList<String> bCardLinkedin, ArrayList<String> bCardFacebook, ArrayList<String> bCardInstagram, Context bCardContext) {
+
+    public SocialNameCard_RecyclerViewAdapter(ArrayList<Bitmap> bCardImage, ArrayList<String> bCardUsername, ArrayList<String> bCardDesignation, ArrayList<String> bCardEmail, ArrayList<String> bCardLinkedin, ArrayList<String> bCardFacebook, ArrayList<String> bCardInstagram, ArrayList<String> bCardCompany, Context bCardContext) {
         this.bCardImage = bCardImage;
         this.bCardUsername = bCardUsername;
         this.bCardDesignation = bCardDesignation;
@@ -47,6 +49,7 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
         this.bCardFacebook = bCardFacebook;
         this.bCardInstagram = bCardInstagram;
         this.bCardContext = bCardContext;
+        this.bCardCompany = bCardCompany;
     }
 
     @NonNull
@@ -68,6 +71,7 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
         holder.cardLinkedin.setText(bCardLinkedin.get(i));
         holder.cardFacebook.setText(bCardFacebook.get(i));
         holder.cardInstagram.setText(bCardInstagram.get(i));
+        holder.cardCompany.setText(bCardCompany.get(i));
 
         holder.cardViewProfile.setOnClickListener(new View.OnClickListener() {
 
@@ -77,6 +81,7 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
                 Toast.makeText(bCardContext, "loading user profile",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(bCardContext, UserDetailsActivity.class);
                 intent.putExtra(IntentExtras.USER.USER_TYPE_KEY,IntentExtras.USER.USER_TYPE_CONNECTION);
+                //intent.putExtra(IntentExtras.USER.USER_NAME_KEY,holder.cardUsername);
                 bCardContext.startActivity(intent);
         }
         });
@@ -105,14 +110,17 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
         TextView cardLinkedin;
         TextView cardFacebook;
         TextView cardInstagram;
+        TextView cardCompany;
         RelativeLayout parentLayout;
         Button cardViewProfile;
         Button cardViewConnections;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             parentLayout = itemView.findViewById(R.id.fragment_social_card);
             cardImage = itemView.findViewById(R.id.card_profile_pic);
+            cardCompany = itemView.findViewById(R.id.card_company);
             cardDesignation = itemView.findViewById(R.id.card_designation);
             cardUsername = itemView.findViewById(R.id.card_username);
             cardContactDetails = itemView.findViewById(R.id.card_contact_details);

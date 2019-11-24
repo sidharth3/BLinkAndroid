@@ -50,6 +50,12 @@
 
     </android.support.design.widget.TabLayout>
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/socialViewPager"
+        android:layout_below="@id/socialTab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
     <!-- TODO: Update blank fragment layout -->
 

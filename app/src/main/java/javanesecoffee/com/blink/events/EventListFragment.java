@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -68,6 +70,6 @@ public class EventListFragment extends Fragment {
     }
     public void UpdateEventList()
     {
-        SetEvents(EventManager.getInstance().getEvents(this.type));
+        //SetEvents(EventManager.getInstance().getEvents(this.type));
     }
 }

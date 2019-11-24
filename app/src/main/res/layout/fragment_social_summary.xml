@@ -11,6 +11,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:src="@drawable/selfie"
@@ -26,31 +27,35 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:layout_marginTop="-30dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="60dp"
         android:gravity="center"
         android:text="@string/username"
         android:textColor="#474BAC"
         android:textSize="5pt"
-        ></TextView>
+        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/fieldSocialViewProfile"
+        android:layout_width="66dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="0dp"
-        android:layout_marginStart="40dp"
+        android:background="@color/colorGrey"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="@string/viewProfile"
+        android:textAllCaps="false"
         android:textColor="#47AAAA"
         android:textSize="5pt"
         android:textStyle="bold">
-    </TextView>
+    </Button>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
         android:gravity="center"
         android:text="Recent Connections"
         android:textColor="#474BAC"
@@ -76,11 +81,12 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
         android:gravity="center"
         android:text="Recommended Connections"
         android:textColor="#474BAC"
         android:textSize="8pt"
-        ></TextView>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,7 +98,8 @@
         android:id="@+id/socialSmallCardRecycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:textAlignment="center">
 
     </android.support.v7.widget.RecyclerView>
         <!--
