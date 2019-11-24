@@ -60,6 +60,8 @@ public class UserDetailsActivity extends AppCompatActivity implements ImageLoadO
         UpdateData();
     }
 
+
+
     public void UpdateData() {
         if(currentUser != null) {
             Log.d("USER_DETAILS_ACTIVITY", currentUser.getUsername());

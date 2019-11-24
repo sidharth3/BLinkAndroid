@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.constants.IntentExtras;
 import javanesecoffee.com.blink.entities.User;
 import javanesecoffee.com.blink.managers.ConnectionsManager;
 import javanesecoffee.com.blink.managers.UserManager;
@@ -74,6 +75,9 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on view profile");
                 Toast.makeText(bCardContext, "loading user profile",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(bCardContext, UserDetailsActivity.class);
+                intent.putExtra(IntentExtras.USER.USER_TYPE_KEY,IntentExtras.USER.USER_TYPE_CONNECTION);
+                bCardContext.startActivity(intent);
         }
         });
 

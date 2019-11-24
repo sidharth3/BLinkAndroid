@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/socialTab"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/social_profile_pic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:src="@drawable/selfie"
+        app:civ_border_color="#FFFFFF"
+        app:civ_border_width="3dp"
+        app:layout_constraintEnd_toStartOf="@+id/fieldUsername"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fieldSocialUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="-30dp"
+        android:layout_marginStart="40dp"
+        android:gravity="center"
+        android:text="@string/username"
+        android:textColor="#474BAC"
+        android:textSize="5pt"
+        ></TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginStart="40dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/viewProfile"
+        android:textColor="#47AAAA"
+        android:textSize="5pt"
+        android:textStyle="bold">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Recent Connections"
+        android:textColor="#474BAC"
+        android:textSize="8pt"
+        ></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/button_gradient_blue">
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/socialNameCardRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Recommended Connections"
+        android:textColor="#474BAC"
+        android:textSize="8pt"
+        ></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/button_gradient_blue">
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/socialSmallCardRecycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </android.support.v7.widget.RecyclerView>
+        <!--
+                <include
+                    layout="@layout/fragment_social_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                    -->
+
+</LinearLayout>

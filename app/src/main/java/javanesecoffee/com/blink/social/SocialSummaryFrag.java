@@ -1,9 +1,8 @@
 package javanesecoffee.com.blink.social;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,10 +17,7 @@ import javanesecoffee.com.blink.entities.User;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class SocialFragment extends Fragment {
-    ArrayList<User> UserConnections = new ArrayList<>();
-    User currentUser;
-
+public class SocialSummaryFrag extends Fragment {
     private ArrayList<Bitmap> bCardImage = new ArrayList<>();
     private ArrayList<String> bCardUsername = new ArrayList<>();
     private ArrayList<String> bCardDesignation = new ArrayList<>();
@@ -30,16 +26,35 @@ public class SocialFragment extends Fragment {
     private ArrayList<String> bCardFacebook = new ArrayList<>();
     private ArrayList<String> bCardInstagram = new ArrayList<>();
 
+    ArrayList<User> UserConnections = new ArrayList<>();
+    User currentUser;
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.fragment_social, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_social_summary, container, false);
     }
 
-    public void initCards(){
-        Log.d(TAG, "initCards: preparing recent contacts");
-
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
+    public void initUserProfileLoading(){
+        Log.d(TAG, "initUserProfileLoading: Commenced");
+        
+    }
+
+    public void initSummaryLoading(){
+        Log.d(TAG, "initSummaryLoading: Commenced");
+    }
+
+    public void initRecommendationLoading(){
+        Log.d(TAG, "initRecommendationLoading: Commenced");
+    }
+
+    private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: Commenced");
+
+    }
 }
