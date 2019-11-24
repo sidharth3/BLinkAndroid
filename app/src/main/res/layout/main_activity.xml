@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorWhite"
-    tools:context=".events.EventDescriptionActivity">
+    tools:context=".events.MainActivity">
     <FrameLayout
         android:id="@+id/fragContainer"
         android:layout_width="match_parent"
@@ -21,7 +21,6 @@
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         app:itemBackground="@color/colorWhite"
-
         app:itemTextColor="@color/colorPrimaryDark"
         app:menu="@menu/bottom_navigation" />
 

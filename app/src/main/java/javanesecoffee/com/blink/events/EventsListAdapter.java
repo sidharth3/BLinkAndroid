@@ -1,16 +1,13 @@
 package javanesecoffee.com.blink.events;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import java.util.List;
 
-import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.entities.Event;
 
 //TODO: this should be of type Event
@@ -38,11 +35,9 @@ public class EventsListAdapter extends ArrayAdapter<Event> {
 
         Event event = getItem(position);
 
-        //TODO: this should link up with the respective UI elementss in the fragment_event
-        if (event != null) {
-            TextView eventNameTextView = v.findViewById(R.id.eventNameTextView);
-            eventNameTextView.setText(event.getName());
-        }
+        EventFrameLayout eventFrameLayout = (EventFrameLayout) v;
+        eventFrameLayout.setEvent(event);
+        eventFrameLayout.UpdateData();
 
         return v;
     }

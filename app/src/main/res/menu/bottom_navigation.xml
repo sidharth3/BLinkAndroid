@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navhome"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home"/>
+        android:icon="@drawable/calendar"
+        android:title="Home" />
     <item
         android:id="@+id/navcam"
         android:icon="@drawable/ic_photo_camera_black_24dp"
         android:title="Camera"/>
     <item
         android:id="@+id/navevent"
-        android:icon="@drawable/ic_event_black_24dp"
-        android:title="Social"/>
+        android:icon="@drawable/social"
+        android:title="Social" />
 
 
 

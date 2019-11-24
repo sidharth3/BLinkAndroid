@@ -12,13 +12,13 @@ import javanesecoffee.com.blink.HomeFrag;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.social.SocialFragment;
 
-public class EventDescriptionActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     //get the details of the event from the server and display them
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.event_description_activity);
+        setContentView(R.layout.main_activity);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         navListener.onNavigationItemSelected(bottomNav.getMenu().findItem(R.id.navhome));
@@ -29,10 +29,12 @@ public class EventDescriptionActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFrag;
+
             switch (item.getItemId()){
-                case R.id.navhome:
                 default:
+                case R.id.navhome:
                     selectedFrag = new HomeFrag();
+                    break;
                 case R.id.navcam:
                     selectedFrag = new CameraFrag();
                     break;
@@ -41,7 +43,8 @@ public class EventDescriptionActivity extends AppCompatActivity {
                     break;
 
             }
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer,selectedFrag).commit();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer,selectedFrag).commit();
             return true;
         }
     };
