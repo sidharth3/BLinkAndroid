@@ -10,9 +10,11 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.ImageLoadObserver;
 import javanesecoffee.com.blink.entities.Event;
 
-public class EventFrameLayout extends FrameLayout {
+public class EventFrameLayout extends FrameLayout implements ImageLoadObserver {
 
     private Event event;
 
@@ -37,11 +39,21 @@ public class EventFrameLayout extends FrameLayout {
             TextView eventName = this.findViewById(R.id.eventNameTextView);
             eventName.setText(this.event.getName());
 
-            Bitmap image = this.event.getEventImage();
+            Bitmap image = this.event.getEventImageAndLoadIfNeeded(this);
 
             if(image != null) {
 
             }
         }
+    }
+
+    @Override
+    public void onImageLoad(Bitmap bitmap) {
+        this.UpdateData();
+    }
+
+    @Override
+    public void onImageLoadFailed(BLinkApiException exception) {
+
     }
 }
