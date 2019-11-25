@@ -55,7 +55,7 @@ public class EventManager extends Manager {
     /**
      * Method to be called from activity
      * @param username
-     * @param type
+     * @param type type of eventList i.e explore, past, ...
      */
     public void getEventsList(String username, EventListTypes type ){
         //TODO: Load Event Task
@@ -118,8 +118,11 @@ public class EventManager extends Manager {
         return user_list;
     }
 
-    public ArrayList<Event> getEvents(JSONObject json_object) {
-        ArrayList<Event> event_list = new ArrayList<>();
+    /**
+     * This method update the respective exploreEvents, upcomingEvents and pastEvents
+     * @param json_object
+     */
+    public void getEvents(JSONObject json_object) {
         try {
             JSONObject data = json_object.getJSONObject("data");
 
@@ -146,9 +149,6 @@ public class EventManager extends Manager {
         } catch (BLinkApiException e) {
             e.printStackTrace();
         }
-
-
-        return new ArrayList<>();
     }
 
     public ArrayList<Event> eventsForType(EventListTypes type) {

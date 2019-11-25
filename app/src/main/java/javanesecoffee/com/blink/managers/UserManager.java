@@ -2,13 +2,16 @@ package javanesecoffee.com.blink.managers;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.ConnectUserTask;
 import javanesecoffee.com.blink.api.LoginTask;
 import javanesecoffee.com.blink.api.MoreInfoTask;
 import javanesecoffee.com.blink.api.RegisterFaceTask;
@@ -34,7 +37,16 @@ public class UserManager extends Manager{
     }
 
     private static User loggedInUser;
+    private static ArrayList<String> user_recognised = new ArrayList<>();
 
+    public static void setUser_recognised(ArrayList<String> user_recognised) {
+        UserManager.user_recognised = user_recognised;
+    }
+
+    public static User getLoggedInUser() {
+        //TODO: TESTING ONLY
+        return loggedInUser;
+    }
 
     /**
      * Send a login request to the URL
@@ -47,11 +59,6 @@ public class UserManager extends Manager{
         LoginTask task = new LoginTask(getInstance()); //pass singleton in as handler
         task.execute(username, password); //pass in params
 
-    }
-
-    public static User getLoggedInUser() {
-        //TODO: TESTING ONLY
-        return loggedInUser;
     }
 
     public static void setLoggedInUser(User loggedInUser) {
@@ -90,6 +97,11 @@ public class UserManager extends Manager{
         {
             throw new BLinkApiException("MORE_INFO_ERROR", "More Info Error", "Invalid user. Please try again.");
         }
+    }
+
+    public static void ConnectUsers(String username, File image_file){
+        ConnectUserTask task = new ConnectUserTask(getInstance());
+        task.execute(username, image_file.getPath());
     }
 
 
@@ -133,25 +145,56 @@ public class UserManager extends Manager{
                     e.printStackTrace();
                 }
                 break;
+            case ApiCodes.TASK_CONNECT_USERS:
+                try {
+                    boolean success = ResponseParser.ResponseIsSuccess(response);
+                    if(success)
+                    {
+
+                        JSONObject data = ResponseParser.DataFromResponse(response);
+                        JSONArray users_regconised = data.getJSONArray("data");
+                        setUser_recognised(ConnectUser(users_regconised)); //this update the latest
+                        //TODO SEND A SECOND REQUEST HERE TO UPDATE THE RECENT USER
+
+                    }
+                } catch (BLinkApiException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                break;
             default:
                 Log.d("UserManager", "Unhandled Async Task Completion");
         }
     }
 
-    //TODO: change format to fit RegisterFace request format
-    public static void Connect(String username, File image_file) throws BLinkApiException{
-        try {
-            RequestHandler register_req_handler = RequestHandler.FormRequestHandler(CONNECT_URL);
-            register_req_handler.addFormField("username", username);
-            register_req_handler.addFilePart("image_file", image_file);
-            register_req_handler.sendFormDataRequest();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new BLinkApiException("REGISTER_FACE_FAILED", "Request Failed");
+    public ArrayList<String> ConnectUser(JSONArray json_array){
+        ArrayList<String> connected_user = new ArrayList<>();
+        for(int i = 0; i < json_array.length(); i++){
+            try {
+                connected_user.add(json_array.getString(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        catch (JSONException e) {
-            e.printStackTrace();
-            throw BLinkApiException.MALFORMED_DATA_EXCEPTION();
-        }
+        return connected_user;
     }
+
+//    public static void Connect(String username, File image_file) throws BLinkApiException{
+//        try {
+//            RequestHandler register_req_handler = RequestHandler.FormRequestHandler(CONNECT_URL);
+//            register_req_handler.addFormField("username", username);
+//            register_req_handler.addFilePart("image_file", image_file);
+//            register_req_handler.sendFormDataRequest();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            throw new BLinkApiException("REGISTER_FACE_FAILED", "Request Failed");
+//        }
+//        catch (JSONException e) {
+//            e.printStackTrace();
+//            throw BLinkApiException.MALFORMED_DATA_EXCEPTION();
+//        }
+//    }
 }
