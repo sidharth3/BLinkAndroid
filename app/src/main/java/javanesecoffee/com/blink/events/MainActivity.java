@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import javanesecoffee.com.blink.CameraFrag;
-import javanesecoffee.com.blink.HomeFrag;
+import javanesecoffee.com.blink.CameraFragment;
+import javanesecoffee.com.blink.HomeFragment;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.entities.User;
 import javanesecoffee.com.blink.managers.ConnectionsManager;
@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 default:
                 case R.id.navhome:
-                    selectedFrag = new HomeFrag();
+                    selectedFrag = new HomeFragment();
                     break;
                 case R.id.navcam:
-                    selectedFrag = new CameraFrag();
+                    selectedFrag = new CameraFragment();
                     break;
                 case R.id.navevent:
                     selectedFrag = new SocialFragment();

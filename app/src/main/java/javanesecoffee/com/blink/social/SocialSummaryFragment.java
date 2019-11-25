@@ -30,7 +30,7 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class SocialSummaryFrag extends Fragment implements ImageLoadObserver {
+public class SocialSummaryFragment extends Fragment implements ImageLoadObserver {
 
     CircleImageView editProfilePic;
     TextView editUsername;

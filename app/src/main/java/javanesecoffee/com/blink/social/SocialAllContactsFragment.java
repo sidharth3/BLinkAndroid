@@ -26,7 +26,7 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class SocialAllContactsFrag extends Fragment {
+public class SocialAllContactsFragment extends Fragment {
 
 
     RecyclerView recyclerView_NameCard;

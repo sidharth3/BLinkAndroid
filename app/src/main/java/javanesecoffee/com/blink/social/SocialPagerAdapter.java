@@ -17,13 +17,13 @@ public class SocialPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i){
             case 0:
-                SocialSummaryFrag socialSummaryFrag = new SocialSummaryFrag();
-                return socialSummaryFrag;
+                SocialSummaryFragment socialSummaryFragment = new SocialSummaryFragment();
+                return socialSummaryFragment;
             case 1:
-                SocialAllContactsFrag allContactsFrag = new SocialAllContactsFrag();
+                SocialAllContactsFragment allContactsFrag = new SocialAllContactsFragment();
                 return allContactsFrag;
             default:
-                return new SocialSummaryFrag();
+                return new SocialSummaryFragment();
         }
 
     }

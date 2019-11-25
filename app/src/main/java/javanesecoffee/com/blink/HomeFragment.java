@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import javanesecoffee.com.blink.events.EventsPagerAdapter;
 
-public class HomeFrag extends Fragment {
+public class HomeFragment extends Fragment {
 
 
     ViewPager viewPager;

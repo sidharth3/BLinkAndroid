@@ -22,7 +22,7 @@ import java.util.Calendar;
 
 import javanesecoffee.com.blink.registration.FaceScanActivity;
 
-public class CameraFrag extends Fragment {
+public class CameraFragment extends Fragment {
     private File selfie;
     static final int REQUEST_PIC_CAPTURE = 1;
     @Nullable
