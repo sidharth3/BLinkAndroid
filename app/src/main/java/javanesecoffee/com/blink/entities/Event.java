@@ -42,14 +42,13 @@ public class Event implements ImageLoadObserver {
 
     public Event(JSONObject data) throws BLinkApiException{
         try {
-            this.name = data.getString("name");
-            this.organiser = data.getString("organiser");
+            this.event_id = data.getString("event_id");
+            this.name = data.getString("event_name");
+            this.date = data.getString("date");
+            this.organiser = data.getString("org_username");
             this.description = data.getString("description");
             this.address = data.getString("address");
-            this.date = data.getString("date");
             this.time = data.getString("time");
-            this.price = data.getString("price");
-            this.event_id = data.getString("event_id");
             this.price = data.getString("price");
         } catch (JSONException e) {
             e.printStackTrace();

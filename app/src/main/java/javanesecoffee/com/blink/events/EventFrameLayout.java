@@ -21,14 +21,20 @@ public class EventFrameLayout extends FrameLayout implements ImageLoadObserver {
 
     public EventFrameLayout(@NonNull Context context) {
         super(context);
+        this.setClipChildren(false);
+        this.setClipToPadding(false);
     }
 
     public EventFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.setClipChildren(false);
+        this.setClipToPadding(false);
     }
 
     public EventFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.setClipChildren(false);
+        this.setClipToPadding(false);
     }
 
     public void setEvent(Event event) {
@@ -38,13 +44,15 @@ public class EventFrameLayout extends FrameLayout implements ImageLoadObserver {
     public void UpdateData() {
         if(this.event != null) {
             TextView eventName = this.findViewById(R.id.eventNameTextView);
-            eventName.setText(this.event.getName());
             TextView eventDateTextView = this.findViewById(R.id.eventDateTextView);
             TextView eventOrganiserTextView = this.findViewById(R.id.eventOrganiserTextView);
             TextView eventTimeTextView = this.findViewById(R.id.eventTimeTextView);
+
+            eventName.setText(event.getName());
             eventDateTextView.setText(event.getDate());
             eventTimeTextView.setText(event.getTime());
             eventOrganiserTextView.setText(event.getOrganiser());
+
             Bitmap image = this.event.getEventImageAndLoadIfNeeded(this);
             if(image != null) {
                 ImageView imageView = this.findViewById(R.id.EventImage);

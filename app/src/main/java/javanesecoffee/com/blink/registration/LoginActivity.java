@@ -111,6 +111,7 @@ public class LoginActivity extends BlinkActivity implements BLinkEventObserver {
     }
 
     public void MoveToRegisterActivity(){
+        HideProgressDialog();
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
         finish();

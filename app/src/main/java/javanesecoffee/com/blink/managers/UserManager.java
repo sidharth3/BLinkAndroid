@@ -106,7 +106,7 @@ public class UserManager extends Manager{
 
     @Override //UserManager on async task complete, call super to notify observers
     public void onAsyncTaskComplete(JSONObject response, String taskId) {
-        super.onAsyncTaskComplete(response, taskId); //notify observers
+
 
         String status = null;
 
@@ -167,6 +167,8 @@ public class UserManager extends Manager{
             default:
                 Log.d("UserManager", "Unhandled Async Task Completion");
         }
+
+        super.onAsyncTaskComplete(response, taskId); //notify observers
     }
 
     public ArrayList<String> ConnectUser(JSONArray json_array){

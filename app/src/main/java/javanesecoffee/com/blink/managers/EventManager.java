@@ -36,11 +36,11 @@ public class EventManager extends Manager {
 
     EventManager() {
         super();
-        upcomingEvents.add(new Event("Industry Night 2019", "SUTD", "We are having industry night whoop!", "8 Somapah Road", "08/10/19", "9:00pm","FREE", "SOME_EVENT_ID"));
-        upcomingEvents.add(new Event("Hackathon 2019", "SUTD", "We are having industry night whoop!", "8 Somapah Road", "08/10/19", "9:00pm","FREE", "SOME_EVENT_ID"));
-        exploreEvents.add(new Event("Recruitment Talk", "MasterCard", "A talk!", "8 Somapah Road", "12/12/19", "6:00pm", "FREE", "event2" ));
-        exploreEvents.add(new Event("Information Session", "Google", "A talk!", "8 Somapah Road", "18/12/19", "3:00pm", "FREE", "event2" ));
-        exploreEvents.add(new Event("Interview Workshop", "Facebook", "A talk!", "8 Somapah Road", "25/12/19", "1:00pm", "FREE", "event2" ));
+//        upcomingEvents.add(new Event("Industry Night 2019", "SUTD", "We are having industry night whoop!", "8 Somapah Road", "08/10/19", "9:00pm","FREE", "SOME_EVENT_ID"));
+//        upcomingEvents.add(new Event("Hackathon 2019", "SUTD", "We are having industry night whoop!", "8 Somapah Road", "08/10/19", "9:00pm","FREE", "SOME_EVENT_ID"));
+//        exploreEvents.add(new Event("Recruitment Talk", "MasterCard", "A talk!", "8 Somapah Road", "12/12/19", "6:00pm", "FREE", "event2" ));
+//        exploreEvents.add(new Event("Information Session", "Google", "A talk!", "8 Somapah Road", "18/12/19", "3:00pm", "FREE", "event2" ));
+//        exploreEvents.add(new Event("Interview Workshop", "Facebook", "A talk!", "8 Somapah Road", "25/12/19", "1:00pm", "FREE", "event2" ));
     }
 
     /**
@@ -65,7 +65,7 @@ public class EventManager extends Manager {
 
     @Override //UserManager on async task complete, call super to notify observers
     public void onAsyncTaskComplete(JSONObject response, String taskId) {
-        super.onAsyncTaskComplete(response, taskId); //notify observers
+
 
         switch (taskId)
         {
@@ -98,6 +98,8 @@ public class EventManager extends Manager {
             default:
                 Log.d("UserManager", "Unhandled Async Task Completion");
         }
+
+        super.onAsyncTaskComplete(response, taskId); //notify observers
     }
 
     public ArrayList<User> UserListFromData(JSONObject data){

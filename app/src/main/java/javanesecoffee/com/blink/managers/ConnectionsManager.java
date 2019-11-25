@@ -63,21 +63,44 @@ public class ConnectionsManager extends Manager {
 
     @Override
     public void onAsyncTaskComplete(JSONObject response, String taskId) {
-        super.onAsyncTaskComplete(response,taskId);
         try {
             if(taskId == ApiCodes.TASK_LOAD_CONNECTIONS) {
                 boolean success = ResponseParser.ResponseIsSuccess(response);
 
                 if(success) {
                     JSONObject data = ResponseParser.DataFromResponse(response);
-                    recentConnections = UserListFromData(data, "recent");
-                    recommendedConnections = UserListFromData(data, "recommended");
-                    allConnections = UserListFromData(data, "all");
+
+                    //this needs to be done manually so the original reference isnt over written and then the adapter loses reference
+                    recentConnections.clear();
+                    recommendedConnections.clear();
+                    allConnections.clear();
+
+                    try {
+                        JSONArray recent_list = data.getJSONArray("recent");
+                        JSONArray recommended_list = data.getJSONArray("recommended");
+                        JSONArray all_list = data.getJSONArray("all");
+
+                        for(int i=0; i < recent_list.length(); i++){
+                            recentConnections.add(new User(recent_list.getJSONObject(i)));
+                        }
+
+                        for(int i=0; i < recommended_list.length(); i++){
+                            recommendedConnections.add(new User(recommended_list.getJSONObject(i)));
+                        }
+
+                        for(int i=0; i < all_list.length(); i++){
+                            allConnections.add(new User(all_list.getJSONObject(i)));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         } catch (BLinkApiException e) {
             e.printStackTrace();
         }
+
+        super.onAsyncTaskComplete(response,taskId);
     }
 
 
@@ -85,23 +108,6 @@ public class ConnectionsManager extends Manager {
     public void onAsyncTaskFailedWithException(BLinkApiException exception, String taskId) {
         super.onAsyncTaskFailedWithException(exception, taskId);
     }
-
-
-    public ArrayList<User> UserListFromData(JSONObject data, String key) throws BLinkApiException{
-        ArrayList<User> output = new ArrayList<>();
-        try {
-            JSONArray user_list = data.getJSONArray(key);
-
-            for(int i=0; i < user_list.length(); i++){
-                output.add(new User(user_list.getJSONObject(i)));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return output;
-    }
-
 
     public ArrayList<User> getAllConnections() {
         return allConnections;
