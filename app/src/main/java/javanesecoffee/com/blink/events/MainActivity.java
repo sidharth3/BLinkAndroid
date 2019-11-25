@@ -10,6 +10,10 @@ import android.view.MenuItem;
 import javanesecoffee.com.blink.CameraFrag;
 import javanesecoffee.com.blink.HomeFrag;
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.entities.User;
+import javanesecoffee.com.blink.managers.ConnectionsManager;
+import javanesecoffee.com.blink.managers.EventManager;
+import javanesecoffee.com.blink.managers.UserManager;
 import javanesecoffee.com.blink.social.SocialFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         navListener.onNavigationItemSelected(bottomNav.getMenu().findItem(R.id.navhome));
 
-
+        LoadAllData();
     }
 
     private void LoadAllData() {
-        
+        User user = UserManager.getLoggedInUser();
+        if(user != null) {
+            EventManager.getInstance().LoadEventsList();
+            ConnectionsManager.getInstance().LoadAllConnections();
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

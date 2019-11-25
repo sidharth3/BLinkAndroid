@@ -35,11 +35,6 @@ public class SocialSummaryFrag extends Fragment {
     RecyclerView recyclerView_NameCard;
     RecyclerView recyclerView_SmallCard;
 
-    ConnectionsManager connectionsManager;
-    ArrayList<User> recentConnectionUsers = new ArrayList<>();
-    ArrayList<User> recommendedConnectionUsers = new ArrayList<>();
-    User currentUser;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,19 +48,8 @@ public class SocialSummaryFrag extends Fragment {
         editProfilePic = view.findViewById(R.id.social_profile_pic);
         viewProfile = view.findViewById(R.id.fieldSocialViewProfile);
 
-        currentUser = UserManager.getLoggedInUser();
-        connectionsManager = ConnectionsManager.getInstance();
-        recentConnectionUsers = connectionsManager.LoadAllConnections();
-        recommendedConnectionUsers = connectionsManager.LoadSuggestedConnections();
-
-        Log.d("SUMMARY", recentConnectionUsers.size() + "");
         recyclerView_NameCard = view.findViewById(R.id.socialNameCardRecycler);
         recyclerView_SmallCard = view.findViewById(R.id.socialSmallCardRecycler);
-
-        Log.d("SUMMARY", recentConnectionUsers.size() + "");
-
-        //load up the correct usernames and profile pic on screen
-        initUserProfileLoading();
 
         //view profile button
         viewProfile.setOnClickListener(new View.OnClickListener() {
@@ -80,26 +64,11 @@ public class SocialSummaryFrag extends Fragment {
         initRecyclerView();
     }
 
-    public void initUserProfileLoading(){
-        Log.d(TAG, "initUserProfileLoading: Commenced");
-        if(currentUser != null) {
-            Log.d("USER_DETAILS_ACTIVITY", currentUser.getUsername());
-            editUsername.setText(currentUser.getUsername());
-            /*
-            -- TO UPDATE PROFILE PIC IMAGE --
-            Bitmap image = currentUser.getProfilepictureAndLoadIfNeeded(this.getActivity());
-            if(image != null) {
-                editProfilePic.setImageBitmap(image);
-            }*/
-        }
-    }
     private void initRecyclerView(){
-        Log.d("SUMMARY", recentConnectionUsers.size() + "");
-
-        Log.d(TAG, "initRecyclerView: Commenced");
-        SocialNameCard_RecyclerViewAdapter nameCard_adapter = new SocialNameCard_RecyclerViewAdapter(recentConnectionUsers, getActivity());
-        SocialTabCard_RecyclerViewAdapter smallCard_adapter = new SocialTabCard_RecyclerViewAdapter(recommendedConnectionUsers,getActivity());
-
+        ArrayList<User> recentConnections = ConnectionsManager.getInstance().getRecentConnections();
+        ArrayList<User> recommendedConnections = ConnectionsManager.getInstance().getRecommendedConnections();
+        SocialNameCard_RecyclerViewAdapter nameCard_adapter = new SocialNameCard_RecyclerViewAdapter(recentConnections, getActivity());
+        SocialTabCard_RecyclerViewAdapter smallCard_adapter = new SocialTabCard_RecyclerViewAdapter(recommendedConnections,getActivity());
 
         recyclerView_NameCard.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         recyclerView_SmallCard.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));

@@ -40,7 +40,7 @@ public class LoginActivity extends BlinkActivity implements BLinkEventObserver {
         register_button = findViewById(R.id.goRegisterButton);
 
         EditText usernameField = findViewById(R.id.loginUsername);
-        EditText passwordField = findViewById(R.id.fieldPassword);
+        EditText passwordField = findViewById(R.id.loginPassword);
 
         if(Config.buildMode == BuildModes.TEST_REGISTRATION)
         {

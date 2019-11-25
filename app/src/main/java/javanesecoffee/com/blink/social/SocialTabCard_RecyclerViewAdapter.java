@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,7 +87,7 @@ public class SocialTabCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soci
         TextView cardDesignation;
         TextView cardCompany;
         Button cardViewProfile;
-        RelativeLayout parentLayout;
+        ConstraintLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,6 +96,7 @@ public class SocialTabCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soci
             cardCompany = itemView.findViewById(R.id.small_card_company);
             cardDesignation = itemView.findViewById(R.id.small_card_designation);
             cardUsername = itemView.findViewById(R.id.small_card_username);
+            cardViewProfile = itemView.findViewById(R.id.card_view_profile);
         }
 
         public void UpdateData() {

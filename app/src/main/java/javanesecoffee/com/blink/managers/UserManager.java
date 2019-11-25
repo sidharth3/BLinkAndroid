@@ -44,7 +44,6 @@ public class UserManager extends Manager{
     }
 
     public static User getLoggedInUser() {
-        //TODO: TESTING ONLY
         return loggedInUser;
     }
 

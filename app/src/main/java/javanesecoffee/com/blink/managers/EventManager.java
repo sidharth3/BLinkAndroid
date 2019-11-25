@@ -54,11 +54,13 @@ public class EventManager extends Manager {
 
     /**
      * Method to be called from activity
-     * @param username
      */
-    public void LoadEventsList(String username){
-        LoadEventListTask loadEventTask = new LoadEventListTask(getInstance());
-        loadEventTask.execute(username);
+    public void LoadEventsList(){
+        if(UserManager.getLoggedInUser() != null) {
+            String username = UserManager.getLoggedInUser().getUsername();
+            LoadEventListTask loadEventTask = new LoadEventListTask(getInstance());
+            loadEventTask.execute(username);
+        }
     }
 
     @Override //UserManager on async task complete, call super to notify observers

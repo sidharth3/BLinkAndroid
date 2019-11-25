@@ -31,9 +31,6 @@ public class SocialAllContactsFrag extends Fragment {
 
     RecyclerView recyclerView_NameCard;
 
-    ConnectionsManager connectionsManager;
-    ArrayList<User> contactUsers = new ArrayList<>();
-    User currentUser;
 
     @Nullable
     @Override
@@ -44,17 +41,16 @@ public class SocialAllContactsFrag extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        currentUser = UserManager.getLoggedInUser();
-        connectionsManager = ConnectionsManager.getInstance();
-        contactUsers = connectionsManager.LoadAllConnections();
-
         recyclerView_NameCard = view.findViewById(R.id.socialNameCardRecycler_all);
+
+        initRecyclerView();
     }
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: Commenced");
-        SocialNameCard_RecyclerViewAdapter nameCard_adapter = new SocialNameCard_RecyclerViewAdapter(contactUsers, getActivity());
+
+        ArrayList<User> allConnections= ConnectionsManager.getInstance().getAllConnections();
+        SocialNameCard_RecyclerViewAdapter nameCard_adapter = new SocialNameCard_RecyclerViewAdapter(allConnections, getActivity());
         recyclerView_NameCard.setAdapter(nameCard_adapter);
 
         recyclerView_NameCard.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
