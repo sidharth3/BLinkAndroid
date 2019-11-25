@@ -193,24 +193,24 @@
                     android:id="@+id/card_view_connection"
                     android:layout_width="80dp"
                     android:layout_height="20dp"
-                    android:text="View Connection"
-                    android:textSize="8sp"
-                    android:fontFamily="@font/montserrat"
-                    android:textAllCaps="false"
                     android:background="@drawable/button_outline_grad"
-                    />
+                    android:elevation="0dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="View Connection"
+                    android:textAllCaps="false"
+                    android:textSize="8sp" />
 
                 <Button
                     android:id="@+id/card_view_profile"
                     android:layout_width="80dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="8dp"
-                    android:text="@string/viewProfile"
-                    android:textSize="10sp"
-                    android:fontFamily="@font/montserrat"
-                    android:textAllCaps="false"
                     android:background="@drawable/button_outline_grad"
-                    />
+                    android:elevation="0dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/viewProfile"
+                    android:textAllCaps="false"
+                    android:textSize="10sp" />
 
 
 
