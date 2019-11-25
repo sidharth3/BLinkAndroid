@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".social.SocialFragment"
-    android:background="@color/colorGrey">
+    android:background="@color/colorGrey"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/socialRect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
         <TextView
-
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="14dp"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
             android:fontFamily="@font/montserrat"
@@ -34,7 +36,8 @@
         android:layout_below="@+id/socialRect"
         android:background="@color/colorWhite"
         app:tabIndicatorColor="#474BAC"
-        app:tabTextColor="#474BAC">
+        app:tabTextColor="#474BAC"
+        app:layout_constraintTop_toBottomOf="@+id/socialRect">
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
@@ -52,11 +55,12 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/socialViewPager"
-        android:layout_below="@id/socialTab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/socialTab"
+        />
 
 
     <!-- TODO: Update blank fragment layout -->
 
-</RelativeLayout>
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -98,7 +99,7 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
         TextView cardFacebook;
         TextView cardInstagram;
         TextView cardCompany;
-        RelativeLayout parentLayout;
+        ConstraintLayout parentLayout;
         Button cardViewProfile;
         Button cardViewConnections;
 
