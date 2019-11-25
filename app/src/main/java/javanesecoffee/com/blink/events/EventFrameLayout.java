@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import javanesecoffee.com.blink.R;
@@ -38,11 +39,16 @@ public class EventFrameLayout extends FrameLayout implements ImageLoadObserver {
         if(this.event != null) {
             TextView eventName = this.findViewById(R.id.eventNameTextView);
             eventName.setText(this.event.getName());
-
+            TextView eventDateTextView = this.findViewById(R.id.eventDateTextView);
+            TextView eventOrganiserTextView = this.findViewById(R.id.eventOrganiserTextView);
+            TextView eventTimeTextView = this.findViewById(R.id.eventTimeTextView);
+            eventDateTextView.setText(event.getDate());
+            eventTimeTextView.setText(event.getTime());
+            eventOrganiserTextView.setText(event.getOrganiser());
             Bitmap image = this.event.getEventImageAndLoadIfNeeded(this);
-
             if(image != null) {
-
+                ImageView imageView = this.findViewById(R.id.EventImage);
+                imageView.setImageBitmap(image);
             }
         }
     }

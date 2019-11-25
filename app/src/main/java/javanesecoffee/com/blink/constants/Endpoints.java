@@ -10,5 +10,6 @@ public class Endpoints {
     //TODO: update the correct endpoint for LOAD_PARTICIPANT_LIST
     public static final String LOAD_PARTICIPANT_LIST = "loadParticipantList/";
     public static final String LOAD_EVENT_LIST = "loadEventList/";
+    public static final String CONNECT_USERS = "connectUser/";
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@+id/socialTab"
@@ -8,16 +9,15 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/social_profile_pic"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="20dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:src="@drawable/selfie"
         app:civ_border_color="#FFFFFF"
-        app:civ_border_width="3dp"
-        app:layout_constraintEnd_toStartOf="@+id/fieldUsername"
+        app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,19 +26,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:layout_marginTop="-30dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
         android:gravity="center"
         android:text="@string/username"
         android:textColor="#474BAC"
-        android:textSize="5pt"
+        android:textSize="8pt"
+        app:layout_constraintStart_toEndOf="@id/social_profile_pic"
+        app:layout_constraintTop_toTopOf="@id/social_profile_pic"
         />
 
     <Button
         android:id="@+id/fieldSocialViewProfile"
-        android:layout_width="66dp"
-        android:layout_height="14dp"
-        android:layout_marginStart="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
         android:background="@color/colorGrey"
         android:fontFamily="sans-serif"
@@ -46,52 +48,63 @@
         android:text="@string/viewProfile"
         android:textAllCaps="false"
         android:textColor="#47AAAA"
-        android:textSize="5pt"
+        android:textSize="8pt"
+        app:layout_constraintStart_toEndOf="@id/social_profile_pic"
+        app:layout_constraintTop_toBottomOf="@+id/fieldSocialUsername"
         android:textStyle="bold">
     </Button>
 
     <TextView
+        android:id="@+id/social_recent_connections"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
         android:gravity="center"
         android:text="Recent Connections"
         android:textColor="#474BAC"
-        android:textSize="8pt"
-        ></TextView>
+        android:textSize="12pt"
+        app:layout_constraintStart_toStartOf="@+id/social_profile_pic"
+        app:layout_constraintTop_toBottomOf="@+id/fieldSocialViewProfile"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@drawable/button_gradient_blue">
+        android:background="@drawable/button_gradient_blue"
+        app:layout_constraintTop_toBottomOf="@+id/social_recent_connections">
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/socialNameCardRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/social_recent_connections">
 
     </android.support.v7.widget.RecyclerView>
 
     <TextView
+        android:id="@+id/social_recommended_connections"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
         android:gravity="center"
         android:text="Recommended Connections"
         android:textColor="#474BAC"
-        android:textSize="8pt"
+        android:textSize="12pt"
+        app:layout_constraintStart_toStartOf="@+id/social_profile_pic"
+        app:layout_constraintTop_toBottomOf="@id/socialNameCardRecycler"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@drawable/button_gradient_blue">
+        android:background="@drawable/button_gradient_blue"
+        app:layout_constraintTop_toBottomOf="@+id/social_recommended_connections">
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -99,15 +112,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:textAlignment="center">
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/social_recommended_connections">
 
     </android.support.v7.widget.RecyclerView>
-        <!--
-                <include
-                    layout="@layout/fragment_social_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+    <!--
+            <include
+                layout="@layout/fragment_social_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-                    -->
+                -->
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
