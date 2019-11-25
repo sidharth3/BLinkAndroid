@@ -11,6 +11,6 @@ public class Endpoints {
     public static final String LOAD_PARTICIPANT_LIST = "loadParticipantList/";
     public static final String LOAD_EVENT_LIST = "loadEventList/";
     public static final String LOAD_CONNECTIONS_LIST = "getConnectionsSummary";
-    public static final String CONNECT_USERS = "connectUser/";
+    public static final String CONNECT_USERS = "connect";
 
 }

@@ -98,7 +98,7 @@ public class UserManager extends Manager{
         }
     }
 
-    public static void ConnectUsers(String username, File image_file){
+    public static void ConnectUsers(File image_file, String username){
         ConnectUserTask task = new ConnectUserTask(getInstance());
         task.execute(username, image_file.getPath());
     }
