@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,20 +27,12 @@ import javanesecoffee.com.blink.managers.UserManager;
 import static android.support.constraint.Constraints.TAG;
 
 public class SocialAllContactsFrag extends Fragment {
-    private ArrayList<Bitmap> bCardImage = new ArrayList<>();
-    private ArrayList<String> bCardUsername = new ArrayList<>();
-    private ArrayList<String> bCardDesignation = new ArrayList<>();
-    private ArrayList<String> bCardEmail = new ArrayList<>();
-    private ArrayList<String> bCardLinkedin = new ArrayList<>();
-    private ArrayList<String> bCardFacebook = new ArrayList<>();
-    private ArrayList<String> bCardInstagram = new ArrayList<>();
-    private ArrayList<String> bCardCompany = new ArrayList<>();
+
 
     RecyclerView recyclerView_NameCard;
 
     ConnectionsManager connectionsManager;
-    ArrayList<User> UserConnections = new ArrayList<>();
-    ArrayList<User> UserRecommended = new ArrayList<>();
+    ArrayList<User> contactUsers = new ArrayList<>();
     User currentUser;
 
     @Nullable
@@ -54,37 +47,16 @@ public class SocialAllContactsFrag extends Fragment {
 
         currentUser = UserManager.getLoggedInUser();
         connectionsManager = ConnectionsManager.getInstance();
-        UserConnections = connectionsManager.LoadAllConnections();
-        UserRecommended = connectionsManager.LoadSuggestedConnections();
+        contactUsers = connectionsManager.LoadAllConnections();
 
         recyclerView_NameCard = view.findViewById(R.id.socialNameCardRecycler_all);
-
-        initConnectionsLoading();
-    }
-
-
-    public void initConnectionsLoading(){
-        Log.d(TAG, "initConnectionsLoading: Commenced");
-
-        for(User user:UserConnections){
-            bCardUsername.add(user.getUsername());
-            //bCardImage.add(user.getProfilepictureAndLoadIfNeeded());
-            bCardDesignation.add(user.getPosition());
-            bCardEmail.add(user.getEmail());
-            bCardFacebook.add(user.getFacebook());
-            bCardInstagram.add(user.getInstagram());
-            bCardLinkedin.add(user.getLinkedin());
-            bCardCompany.add(user.getCompany());
-        }
-
-        initRecyclerView();
     }
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: Commenced");
-        SocialNameCard_RecyclerViewAdapter nameCard_adapter = new SocialNameCard_RecyclerViewAdapter(bCardImage,bCardUsername,bCardDesignation,bCardEmail,bCardLinkedin, bCardFacebook, bCardInstagram, bCardCompany, getActivity());
+        SocialNameCard_RecyclerViewAdapter nameCard_adapter = new SocialNameCard_RecyclerViewAdapter(contactUsers, getActivity());
         recyclerView_NameCard.setAdapter(nameCard_adapter);
 
-
+        recyclerView_NameCard.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
     }
 }

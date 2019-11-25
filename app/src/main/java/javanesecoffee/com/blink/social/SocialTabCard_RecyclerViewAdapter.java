@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.ImageLoadObserver;
 import javanesecoffee.com.blink.constants.IntentExtras;
 import javanesecoffee.com.blink.entities.User;
 import javanesecoffee.com.blink.managers.ConnectionsManager;
@@ -29,18 +31,14 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 public class SocialTabCard_RecyclerViewAdapter extends RecyclerView.Adapter<SocialTabCard_RecyclerViewAdapter.ViewHolder>  {
     private static final String TAG = "SocialNameCard_Recycler";
-    private ArrayList<Bitmap> sCardImage = new ArrayList<>();
-    private ArrayList<String> sCardUsername = new ArrayList<>();
-    private ArrayList<String> sCardDesignation = new ArrayList<>();
-    private ArrayList<String> sCardCompany = new ArrayList<>();
+
+    private ArrayList<User> users;
     private Context sCardContext;
     User currentUser = UserManager.getLoggedInUser();
 
-    public SocialTabCard_RecyclerViewAdapter(ArrayList<Bitmap> sCardImage, ArrayList<String> sCardUsername, ArrayList<String> sCardDesignation, ArrayList<String> sCardCompany, Context sCardContext) {
-        this.sCardImage = sCardImage;
-        this.sCardUsername = sCardUsername;
-        this.sCardDesignation = sCardDesignation;
-        this.sCardCompany = sCardCompany;
+    public SocialTabCard_RecyclerViewAdapter(ArrayList<User> items, Context sCardContext) {
+
+        this.users = items;
         this.sCardContext = sCardContext;
     }
 
@@ -54,10 +52,10 @@ public class SocialTabCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soci
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.cardImage.setImageBitmap(sCardImage.get(i));
-        holder.cardUsername.setText(sCardUsername.get(i));
-        holder.cardDesignation.setText(sCardDesignation.get(i));
-        holder.cardCompany.setText(sCardCompany.get(i));
+
+        holder.user = users.get(i);
+        holder.UpdateData();
+
 
         holder.cardViewProfile.setOnClickListener(new View.OnClickListener() {
 
@@ -76,11 +74,13 @@ public class SocialTabCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soci
 
     @Override
     public int getItemCount() {
-        return 0;
+        return users.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements ImageLoadObserver {
+
+        User user;
         CircleImageView cardImage;
         TextView cardUsername;
         TextView cardDesignation;
@@ -95,6 +95,29 @@ public class SocialTabCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soci
             cardCompany = itemView.findViewById(R.id.small_card_company);
             cardDesignation = itemView.findViewById(R.id.small_card_designation);
             cardUsername = itemView.findViewById(R.id.small_card_username);
+        }
+
+        public void UpdateData() {
+            if(user == null) {
+                return;
+            }
+
+            Bitmap image = user.getProfilepictureAndLoadIfNeeded(this);
+            if(image != null) {
+                cardImage.setImageBitmap(image);
+            }
+            cardUsername.setText(user.getUsername());
+            cardDesignation.setText(user.getPosition());
+            cardCompany.setText(user.getCompany());
+        }
+
+        @Override
+        public void onImageLoad(Bitmap bitmap) {
+            UpdateData();
+        }
+
+        @Override
+        public void onImageLoadFailed(BLinkApiException exception) {
 
         }
     }

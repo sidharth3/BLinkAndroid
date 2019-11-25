@@ -22,34 +22,25 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.ImageLoadObserver;
 import javanesecoffee.com.blink.constants.IntentExtras;
 import javanesecoffee.com.blink.entities.User;
 import javanesecoffee.com.blink.managers.ConnectionsManager;
 import javanesecoffee.com.blink.managers.UserManager;
 
-public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<SocialNameCard_RecyclerViewAdapter.ViewHolder> {
+public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<SocialNameCard_RecyclerViewAdapter.ViewHolder>{
     private static final String TAG = "SocialNameCard_Recycler";
-    private ArrayList<Bitmap> bCardImage = new ArrayList<>();
-    private ArrayList<String> bCardUsername = new ArrayList<>();
-    private ArrayList<String> bCardDesignation = new ArrayList<>();
-    private ArrayList<String> bCardEmail = new ArrayList<>();
-    private ArrayList<String> bCardLinkedin = new ArrayList<>();
-    private ArrayList<String> bCardFacebook = new ArrayList<>();
-    private ArrayList<String> bCardInstagram = new ArrayList<>();
-    private ArrayList<String> bCardCompany = new ArrayList<>();
+
+    Context mContext;
+    ArrayList<User> users = new ArrayList<>();
     private Context bCardContext;
     User currentUser = UserManager.getLoggedInUser();
 
-    public SocialNameCard_RecyclerViewAdapter(ArrayList<Bitmap> bCardImage, ArrayList<String> bCardUsername, ArrayList<String> bCardDesignation, ArrayList<String> bCardEmail, ArrayList<String> bCardLinkedin, ArrayList<String> bCardFacebook, ArrayList<String> bCardInstagram, ArrayList<String> bCardCompany, Context bCardContext) {
-        this.bCardImage = bCardImage;
-        this.bCardUsername = bCardUsername;
-        this.bCardDesignation = bCardDesignation;
-        this.bCardEmail = bCardEmail;
-        this.bCardLinkedin = bCardLinkedin;
-        this.bCardFacebook = bCardFacebook;
-        this.bCardInstagram = bCardInstagram;
-        this.bCardContext = bCardContext;
-        this.bCardCompany = bCardCompany;
+    public SocialNameCard_RecyclerViewAdapter(ArrayList<User> items,Context context) {
+        super();
+        this.users = items;
+        this.mContext = context;
     }
 
     @NonNull
@@ -63,15 +54,9 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int i) {
         Log.d(TAG, "onBindViewHolder:called ");
-        holder.cardImage.setImageBitmap(bCardImage.get(i));
-        holder.cardUsername.setText(bCardUsername.get(i));
-        holder.cardDesignation.setText(bCardDesignation.get(i));
-        //holder.cardContactDetails.setText(bCardContactDetails.get(i));
-        holder.cardEmail.setText(bCardEmail.get(i));
-        holder.cardLinkedin.setText(bCardLinkedin.get(i));
-        holder.cardFacebook.setText(bCardFacebook.get(i));
-        holder.cardInstagram.setText(bCardInstagram.get(i));
-        holder.cardCompany.setText(bCardCompany.get(i));
+
+        holder.user = users.get(i);
+        holder.UpdateData();
 
         holder.cardViewProfile.setOnClickListener(new View.OnClickListener() {
 
@@ -98,10 +83,13 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.users.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements ImageLoadObserver {
+
+        User user;
+
         CircleImageView cardImage;
         TextView cardUsername;
         TextView cardDesignation;
@@ -130,11 +118,37 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
             cardInstagram = itemView.findViewById(R.id.card_instagram);
             cardViewProfile = itemView.findViewById(R.id.card_view_profile);
             cardViewConnections = itemView.findViewById(R.id.card_view_connection);
+        }
 
+        public void UpdateData() {
+            if(user == null) {
+                return;
+            }
+
+            Bitmap image = user.getProfilepictureAndLoadIfNeeded(this);
+
+            if(image != null) {
+                cardImage.setImageBitmap(image);
+            }
+
+            cardUsername.setText(user.getUsername());
+            cardDesignation.setText(user.getPosition());
+            //holder.cardContactDetails.setText(bCardContactDetails.get(i));
+            cardEmail.setText(user.getEmail());
+            cardLinkedin.setText(user.getLinkedin());
+            cardFacebook.setText(user.getFacebook());
+            cardInstagram.setText(user.getInstagram());
+            cardCompany.setText(user.getCompany());
+        }
+
+        @Override
+        public void onImageLoadFailed(BLinkApiException exception) {
 
         }
 
-
+        @Override
+        public void onImageLoad(Bitmap bitmap) {
+            UpdateData();
+        }
     }
-
- }
+}

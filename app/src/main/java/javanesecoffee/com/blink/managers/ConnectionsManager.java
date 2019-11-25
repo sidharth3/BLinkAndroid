@@ -29,9 +29,13 @@ public class ConnectionsManager {
         ConnectionsManager.getInstance().connectionUsers = LoadAllConnections();
     }
 
+    //TODO: add recent connections loading
     public ArrayList<User> LoadAllConnections()
     {
         ArrayList<User> output = new ArrayList<>();
+
+        output.add(new User("mooselliot"));
+        output.add(new User("sean"));
 
         return output;
     }
