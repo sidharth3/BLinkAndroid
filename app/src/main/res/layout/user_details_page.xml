@@ -25,7 +25,7 @@
         android:layout_marginEnd="28dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
-        android:src="@drawable/selfie"
+        android:src="@drawable/dp"
         app:civ_border_color="#FFFFFF"
         app:civ_border_width="3dp"
         app:layout_constraintEnd_toStartOf="@+id/loginUsername"

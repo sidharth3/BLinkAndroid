@@ -11,12 +11,12 @@
         android:id="@+id/social_profile_pic"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
-        android:src="@drawable/selfie"
-        app:civ_border_color="#FFFFFF"
+        android:src="@drawable/dp"
+        app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,34 +39,32 @@
     <Button
         android:id="@+id/fieldSocialViewProfile"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="25dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="0dp"
-        android:background="@color/colorGrey"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="@string/viewProfile"
         android:textAllCaps="false"
         android:textColor="#47AAAA"
         android:textSize="8pt"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/social_profile_pic"
-        app:layout_constraintTop_toBottomOf="@+id/fieldSocialUsername"
-        android:textStyle="bold">
-    </Button>
+        app:layout_constraintTop_toBottomOf="@+id/fieldSocialUsername"></Button>
 
     <TextView
         android:id="@+id/social_recent_connections"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
+        android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Recent Connections"
         android:textColor="#474BAC"
-        android:textSize="12pt"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/social_profile_pic"
-        app:layout_constraintTop_toBottomOf="@+id/fieldSocialViewProfile"/>
+        app:layout_constraintTop_toBottomOf="@+id/fieldSocialViewProfile" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,16 +87,14 @@
         android:id="@+id/social_recommended_connections"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="10dp"
+        android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Recommended Connections"
         android:textColor="#474BAC"
-        android:textSize="12pt"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/social_profile_pic"
-        app:layout_constraintTop_toBottomOf="@id/socialNameCardRecycler"
-        />
+        app:layout_constraintTop_toBottomOf="@id/socialNameCardRecycler" />
 
     <LinearLayout
         android:layout_width="match_parent"

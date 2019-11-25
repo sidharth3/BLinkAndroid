@@ -34,7 +34,7 @@
                 android:layout_marginTop="10dp"
                 android:adjustViewBounds="false"
                 android:cropToPadding="false"
-                android:src="@drawable/selfie"
+                android:src="@drawable/dp"
                 app:civ_border_color="#474BAC"
                 app:civ_border_width="2dp"
                 app:layout_constraintLeft_toLeftOf="parent"

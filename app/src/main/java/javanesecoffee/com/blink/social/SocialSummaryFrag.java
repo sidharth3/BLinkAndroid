@@ -1,6 +1,7 @@
 package javanesecoffee.com.blink.social;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import javanesecoffee.com.blink.R;
+import javanesecoffee.com.blink.api.BLinkApiException;
+import javanesecoffee.com.blink.api.ImageLoadObserver;
 import javanesecoffee.com.blink.constants.IntentExtras;
 import javanesecoffee.com.blink.entities.User;
 import javanesecoffee.com.blink.managers.ConnectionsManager;
@@ -27,7 +30,7 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class SocialSummaryFrag extends Fragment {
+public class SocialSummaryFrag extends Fragment implements ImageLoadObserver {
 
     CircleImageView editProfilePic;
     TextView editUsername;
@@ -48,6 +51,7 @@ public class SocialSummaryFrag extends Fragment {
         editProfilePic = view.findViewById(R.id.social_profile_pic);
         viewProfile = view.findViewById(R.id.fieldSocialViewProfile);
 
+
         recyclerView_NameCard = view.findViewById(R.id.socialNameCardRecycler);
         recyclerView_SmallCard = view.findViewById(R.id.socialSmallCardRecycler);
 
@@ -62,6 +66,7 @@ public class SocialSummaryFrag extends Fragment {
         });
 
         initRecyclerView();
+        UpdateUserData();
     }
 
     private void initRecyclerView(){
@@ -95,5 +100,27 @@ public class SocialSummaryFrag extends Fragment {
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             outRect.left = space;
         }
+    }
+
+    private void UpdateUserData() {
+        User user = UserManager.getLoggedInUser();
+
+        if(user != null) {
+            editUsername.setText(user.getUsername());
+            Bitmap image = user.getProfilepictureAndLoadIfNeeded(this);
+            if(image != null){
+                editProfilePic.setImageBitmap(image);
+            }
+        }
+    }
+
+    @Override
+    public void onImageLoad(Bitmap bitmap) {
+        UpdateUserData();
+    }
+
+    @Override
+    public void onImageLoadFailed(BLinkApiException exception) {
+        UpdateUserData();
     }
 }
