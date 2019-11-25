@@ -2,6 +2,7 @@ package javanesecoffee.com.blink.events;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -35,6 +36,12 @@ public class EventFrameLayout extends FrameLayout {
         if(this.event != null) {
             TextView eventName = this.findViewById(R.id.eventNameTextView);
             eventName.setText(this.event.getName());
+
+            Bitmap image = this.event.getEventImage();
+
+            if(image != null) {
+
+            }
         }
     }
 }

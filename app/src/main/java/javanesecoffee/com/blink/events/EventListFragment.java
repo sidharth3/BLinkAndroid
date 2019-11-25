@@ -70,6 +70,6 @@ public class EventListFragment extends Fragment {
     }
     public void UpdateEventList()
     {
-        //SetEvents(EventManager.getInstance().getEvents(this.type));
+        SetEvents(EventManager.getInstance().eventsForType(this.type));
     }
 }

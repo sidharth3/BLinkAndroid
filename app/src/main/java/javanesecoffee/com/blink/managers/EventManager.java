@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -146,5 +147,18 @@ public class EventManager extends Manager {
 
 
         return new ArrayList<>();
+    }
+
+    public ArrayList<Event> eventsForType(EventListTypes type) {
+        switch(type) {
+            case EXPLORE:
+                return exploreEvents;
+            case UPCOMING:
+                return upcomingEvents;
+            case PAST_EVENTS:
+                return pastEvents;
+            default:
+                return new ArrayList<>();
+        }
     }
 }
