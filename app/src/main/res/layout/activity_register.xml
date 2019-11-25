@@ -66,6 +66,7 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/fieldPassword"
         app:layout_constraintEnd_toEndOf="@+id/fieldPassword"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/fieldPassword"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 

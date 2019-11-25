@@ -32,9 +32,8 @@ import javanesecoffee.com.blink.managers.UserManager;
 public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<SocialNameCard_RecyclerViewAdapter.ViewHolder>{
     private static final String TAG = "SocialNameCard_Recycler";
 
-    Context mContext;
+    private Context mContext;
     ArrayList<User> users = new ArrayList<>();
-    private Context bCardContext;
     User currentUser = UserManager.getLoggedInUser();
 
     public SocialNameCard_RecyclerViewAdapter(ArrayList<User> items,Context context) {
@@ -63,11 +62,11 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on view profile");
-                Toast.makeText(bCardContext, "loading user profile",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(bCardContext, UserDetailsActivity.class);
+                Toast.makeText(mContext, "loading user profile",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, UserDetailsActivity.class);
                 intent.putExtra(IntentExtras.USER.USER_TYPE_KEY,IntentExtras.USER.USER_TYPE_CONNECTION);
                 //intent.putExtra(IntentExtras.USER.USER_NAME_KEY,holder.cardUsername);
-                bCardContext.startActivity(intent);
+                mContext.startActivity(intent);
         }
         });
 
@@ -76,7 +75,7 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on view connections");
-                Toast.makeText(bCardContext, "loading user connections",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "loading user connections",Toast.LENGTH_SHORT).show();
             }
         });
     }
