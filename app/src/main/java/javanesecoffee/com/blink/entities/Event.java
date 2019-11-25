@@ -73,12 +73,14 @@ public class Event implements ImageLoadObserver {
 
     public String getTime() { return time; }
 
-    public void LoadImage() {
-
-    }
-
-    public Bitmap getEventImage() {
-        return eventpicture;
+    public Bitmap getEventImageAndLoadIfNeeded(ImageLoadObserver onFinishedObserver) {
+        if (this.eventpicture== null) {
+            LoadImage(onFinishedObserver);
+            return null;
+        }
+        else {
+            return eventpicture;
+        }
     }
 
 

@@ -52,8 +52,8 @@ public class EventListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView textView = getView().findViewById(R.id.typeTextView);
-        textView.setText(this.type.toString());
+        //TextView textView = getView().findViewById(R.id.typeTextView);
+        //textView.setText(this.type.toString());
 
         UpdateEventList();
         eventListView = getView().findViewById(R.id.eventListView);
@@ -70,6 +70,6 @@ public class EventListFragment extends Fragment {
     }
     public void UpdateEventList()
     {
-        //SetEvents(EventManager.getInstance().getEvents(this.type));
+        SetEvents(EventManager.getInstance().eventsForType(this.type));
     }
 }

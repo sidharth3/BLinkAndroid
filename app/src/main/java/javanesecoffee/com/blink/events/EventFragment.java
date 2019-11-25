@@ -35,7 +35,6 @@ public class EventFragment extends Fragment {
         TextView eventDateTextView = getView().findViewById(R.id.eventDateTextView);
         TextView eventOrganiserTextView = getView().findViewById(R.id.eventOrganiserTextView);
         TextView eventTimeTextView = getView().findViewById(R.id.eventTimeTextView);
-
         eventNameTextView.setText(event.getName());
         eventDateTextView.setText(event.getDate());
         eventTimeTextView.setText(event.getTime());
