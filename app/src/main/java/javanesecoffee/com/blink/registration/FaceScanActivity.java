@@ -1,16 +1,11 @@
 package javanesecoffee.com.blink.registration;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,16 +16,13 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Calendar;
 
 import javanesecoffee.com.blink.BlinkActivity;
 import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.api.BLinkApiException;
 import javanesecoffee.com.blink.api.BLinkEventObserver;
-import javanesecoffee.com.blink.api.RegisterFaceTask;
 import javanesecoffee.com.blink.constants.ApiCodes;
 import javanesecoffee.com.blink.constants.BuildModes;
 import javanesecoffee.com.blink.constants.Config;
@@ -41,7 +33,7 @@ import javanesecoffee.com.blink.managers.UserManager;
 
 public class FaceScanActivity extends BlinkActivity implements BLinkEventObserver {
     private static final int pic_id = 123;
-    static final int REQUEST_PIC_CAPTURE = 1;
+    static final int REQUEST_FACE_SCAN_CAPTURE = 1;
 
     Button cameraButton;
     ImageView click_image_id;
@@ -83,7 +75,7 @@ public class FaceScanActivity extends BlinkActivity implements BLinkEventObserve
                         //put uri as target file for picture
                         camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
                         //push camera
-                        startActivityForResult(camera_intent, REQUEST_PIC_CAPTURE);
+                        startActivityForResult(camera_intent, REQUEST_FACE_SCAN_CAPTURE);
                     }
                 } catch (IOException e) {
                     imageFile.delete();
@@ -113,7 +105,7 @@ public class FaceScanActivity extends BlinkActivity implements BLinkEventObserve
                                     int resultCode,
                                     Intent data) {
 
-        if (requestCode == REQUEST_PIC_CAPTURE) {
+        if (requestCode == REQUEST_FACE_SCAN_CAPTURE) {
             //check has image
             if (imageFile == null) {
                 Toast.makeText(getApplicationContext(), "The file has not been stored, hence the face could not be registered", Toast.LENGTH_LONG).show();

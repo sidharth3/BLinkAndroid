@@ -39,6 +39,7 @@ public class EventsListAdapter extends ArrayAdapter<Event> {
         eventFrameLayout.setEvent(event);
         eventFrameLayout.UpdateData();
 
+
         return v;
     }
 

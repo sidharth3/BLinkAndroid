@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/swipeRefresh"
-    android:background="#E2E2E2"
+    android:layout_below="@+id/socialTab"
+    android:id="@+id/swipeRefreshSocial"
     android:orientation="vertical"
-    tools:context=".events.EventListFragment">
+    android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ListView
-        android:id="@+id/eventListView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/socialNameCardRecycler_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        />
+        android:layout_marginTop="30dp"
+        android:orientation="vertical" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

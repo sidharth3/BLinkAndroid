@@ -5,9 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import javanesecoffee.com.blink.CameraFrag;
-import javanesecoffee.com.blink.social.SocialFragment;
-
 public class EventsPagerAdapter extends FragmentPagerAdapter {
 
     private String[] titles;
