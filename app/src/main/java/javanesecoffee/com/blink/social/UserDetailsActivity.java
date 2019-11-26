@@ -45,16 +45,18 @@ public class UserDetailsActivity extends AppCompatActivity implements ImageLoadO
         String type = intent.getStringExtra(IntentExtras.USER.USER_TYPE_KEY);
         String username = intent.getStringExtra(IntentExtras.USER.USER_NAME_KEY);
 
-        switch (type) {
-            case IntentExtras.USER.USER_TYPE_CONNECTION:
-                currentUser = ConnectionsManager.getInstance().getUserFromConnections(username);
-                break;
-            case IntentExtras.USER.USER_TYPE_EXPLORE:
-                currentUser = ConnectionsManager.getInstance().getUserFromExploreConnections(username);
-                break;
-            case IntentExtras.USER.USER_TYPE_SELF:
-                currentUser = UserManager.getLoggedInUser();
-                break;
+        if(username != null) {
+            switch (type) {
+                case IntentExtras.USER.USER_TYPE_CONNECTION:
+                    currentUser = ConnectionsManager.getInstance().getUserFromConnections(username);
+                    break;
+                case IntentExtras.USER.USER_TYPE_EXPLORE:
+                    currentUser = ConnectionsManager.getInstance().getUserFromExploreConnections(username);
+                    break;
+                case IntentExtras.USER.USER_TYPE_SELF:
+                    currentUser = UserManager.getLoggedInUser();
+                    break;
+            }
         }
 
         UpdateData();
