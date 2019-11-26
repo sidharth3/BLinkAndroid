@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -68,8 +70,17 @@ public class EventListFragment extends Fragment implements BLinkEventObserver {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         eventListView = getView().findViewById(R.id.eventListView);
+        AdapterView.OnItemClickListener temp = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO complete this function to call eventDescriptionActivity wrt events.get(position)
+                System.out.println(events.get(position));
+                Toast.makeText(getContext(), String.valueOf(events.get(position)), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        eventListView.setOnItemClickListener(temp);
         eventListAdapter = new EventsListAdapter(getContext(), R.layout.fragment_event, events);
         eventListView.setAdapter(eventListAdapter);
         UpdateEventList();
