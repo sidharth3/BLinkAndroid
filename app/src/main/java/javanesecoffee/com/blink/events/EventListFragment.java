@@ -1,6 +1,7 @@
 package javanesecoffee.com.blink.events;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,8 +25,10 @@ import javanesecoffee.com.blink.R;
 import javanesecoffee.com.blink.api.BLinkApiException;
 import javanesecoffee.com.blink.api.BLinkEventObserver;
 import javanesecoffee.com.blink.constants.ApiCodes;
+import javanesecoffee.com.blink.constants.IntentExtras;
 import javanesecoffee.com.blink.entities.Event;
 import javanesecoffee.com.blink.managers.EventManager;
+import javanesecoffee.com.blink.social.UserDetailsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +49,8 @@ public class EventListFragment extends Fragment implements BLinkEventObserver {
     public void setType(EventListTypes type) {
         this.type = type;
     }
+
+    Event EVENT_KEY;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,6 +82,9 @@ public class EventListFragment extends Fragment implements BLinkEventObserver {
                 //TODO complete this function to call eventDescriptionActivity wrt events.get(position)
                 System.out.println(events.get(position));
                 Toast.makeText(getContext(), String.valueOf(events.get(position)), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent (getActivity(), EventDetailActivity.class);
+                intent.putExtra(String.valueOf(EVENT_KEY),String.valueOf(events.get(position)));
+                startActivity(intent);
             }
         };
 

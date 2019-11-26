@@ -57,16 +57,17 @@ public class SocialNameCard_RecyclerViewAdapter extends RecyclerView.Adapter<Soc
 
         holder.user = users.get(i);
         holder.UpdateData();
-
+        final ViewHolder holderRef = holder;
         holder.cardViewProfile.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                String username = holderRef.user.getUsername();
                 Log.d(TAG, "onClick: clicked on view profile");
                 Toast.makeText(mContext, "loading user profile",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, UserDetailsActivity.class);
                 intent.putExtra(IntentExtras.USER.USER_TYPE_KEY,IntentExtras.USER.USER_TYPE_CONNECTION);
-                //intent.putExtra(IntentExtras.USER.USER_NAME_KEY,holder.cardUsername);
+                intent.putExtra(IntentExtras.USER.USER_NAME_KEY,username);
                 mContext.startActivity(intent);
         }
         });
