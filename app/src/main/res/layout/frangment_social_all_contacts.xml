@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@+id/socialTab"
+    android:id="@+id/swipeRefreshSocial"
     android:orientation="vertical"
     android:layout_gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -14,4 +15,4 @@
         android:layout_marginTop="30dp"
         android:orientation="vertical" />
 
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
